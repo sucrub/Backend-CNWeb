@@ -1,0 +1,25 @@
+{
+  "name": "backend-nhom6",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon ./src/server.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "mysql2": "^3.2.4",
+    "nodemon": "^2.0.22",
+    "path": "^0.12.7",
+    "sequelize": "^6.31.1",
+    "sequelize-auto": "^0.8.8"
+  },
+  "devDependencies": {
+    "sequelize-cli": "^6.6.0"
+  }
+}
