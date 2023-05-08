@@ -1,27 +1,27 @@
 const Sequelize = require('sequelize');
 module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('tag-item', {
-    tag_id: {
+  return sequelize.define('itempicture', {
+    id: {
+      autoIncrement: true,
       type: DataTypes.INTEGER,
       allowNull: false,
-      primaryKey: true,
+      primaryKey: true
+    },
+    item_specific_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
       references: {
-        model: 'tags',
+        model: 'itemspecific',
         key: 'id'
       }
     },
-    item_id: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      primaryKey: true,
-      references: {
-        model: 'items',
-        key: 'id'
-      }
+    url: {
+      type: DataTypes.STRING(255),
+      allowNull: false
     }
   }, {
     sequelize,
-    tableName: 'tag-item',
+    tableName: 'itempicture',
     timestamps: false,
     indexes: [
       {
@@ -29,15 +29,14 @@ module.exports = function(sequelize, DataTypes) {
         unique: true,
         using: "BTREE",
         fields: [
-          { name: "tag_id" },
-          { name: "item_id" },
+          { name: "id" },
         ]
       },
       {
-        name: "item_id",
+        name: "item_specific_id",
         using: "BTREE",
         fields: [
-          { name: "item_id" },
+          { name: "item_specific_id" },
         ]
       },
     ]

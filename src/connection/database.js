@@ -15,4 +15,4 @@ const connectionDatabase = async () => {
   }
 };
 
-connectionDatabase();
+module.exports = connectionDatabase;
