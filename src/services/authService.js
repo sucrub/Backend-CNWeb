@@ -22,6 +22,15 @@ const generateRefreshToken = (username) => {
   );
 };
 
+const verifyToken = (refreshToken) => {
+  try {
+    const data = jwt.verify(refreshToken, process.env.JWT_ACCESS_KEY);
+    return data;
+  } catch (err) {
+    throw new Error("Token verification failed");
+  }
+};
+
 const login = (username, password) => {
   return new Promise(async (resolve, reject) => {
     try {
@@ -49,4 +58,5 @@ module.exports = {
   login,
   generateAccessToken,
   generateRefreshToken,
+  verifyToken,
 };

@@ -12,7 +12,10 @@ const {
   handleGetSellerById,
   handleGetSellerByNamePrefix,
 } = require("../controllers/sellerController");
-const { handleLogin } = require("../controllers/authController");
+const {
+  handleLogin,
+  handleRequestRefreshToken,
+} = require("../controllers/authController");
 
 const initRouters = (app) => {
   router.get("/user/get-all-user", handleGetAllUser); // ok
