@@ -6,6 +6,12 @@ const {
   handleGetUserByUsername,
   handleCreateUser,
 } = require("../controllers/userController");
+const {
+  handleCreateSeller,
+  handleGetAllSeller,
+  handleGetSellerById,
+  handleGetSellerByNamePrefix,
+} = require("../controllers/sellerController");
 
 const initRouters = (app) => {
   router.get("/user/get-all-user", handleGetAllUser); // ok
@@ -13,8 +19,10 @@ const initRouters = (app) => {
   router.get("/user/get-user-by-username", handleGetUserByUsername); // ok
   router.post("/user/create-user", handleCreateUser); // ok
 
-  router.get("/seller/get-all/seller");
-  router.get("/seller/get-seller-by-id");
+  router.get("/seller/get-all-seller", handleGetAllSeller); // ok
+  router.get("/seller/get-seller-by-id", handleGetSellerById); // ok
+  router.get("/seller/get-seller-by-name-prefix", handleGetSellerByNamePrefix); // ok
+  router.post("/seller/create-seller", handleCreateSeller); // ok
 
   router.get("item/get-all-item");
 
