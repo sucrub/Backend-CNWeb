@@ -16,6 +16,7 @@ const {
   handleLogin,
   handleRequestRefreshToken,
 } = require("../controllers/authController");
+const { handleGetAllItem } = require("../controllers/itemController");
 
 const initRouters = (app) => {
   router.get("/user/get-all-user", handleGetAllUser); // ok
@@ -28,7 +29,7 @@ const initRouters = (app) => {
   router.get("/seller/get-seller-by-name-prefix", handleGetSellerByNamePrefix); // ok
   router.post("/seller/create-seller", handleCreateSeller); // ok
 
-  router.get("/item/get-all-item");
+  router.get("/item/get-all-item", handleGetAllItem);
 
   router.post("/auth/login", handleLogin); // ok
 
