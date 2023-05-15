@@ -5,6 +5,7 @@ const {
   handleGetUserById,
   handleGetUserByUsername,
   handleCreateUser,
+  handleUpdateUser,
 } = require("../controllers/userController");
 const {
   handleCreateSeller,
@@ -13,8 +14,8 @@ const {
   handleGetSellerByNamePrefix,
 } = require("../controllers/sellerController");
 const {
-  handleLogin,
   handleRequestRefreshToken,
+  handleLoginUser,
 } = require("../controllers/authController");
 const {
   handleGetAllItem,
@@ -29,7 +30,8 @@ const initRouters = (app) => {
   router.get("/user/get-user-by-id", handleGetUserById); // ok
   router.get("/user/get-user-by-username", handleGetUserByUsername); // ok
   router.post("/user/create-user", handleCreateUser); // ok
-  router.post("/user/update-user");
+  router.post("/user/update-user", handleUpdateUser); // ok
+  router.post("/user/update-password");
 
   router.get("/seller/get-all-seller", handleGetAllSeller); // ok
   router.get("/seller/get-seller-by-id", handleGetSellerById); // ok
@@ -41,10 +43,10 @@ const initRouters = (app) => {
   router.get("/item/get-item-by-seller-id", handleGetItemBySellerId); // ok
   router.post("/item/create-item", handleCreateItem); // ok
   router.post("/item/update-item", handleUpdateItem); // ok
-  router.delete("/item/delete-item", handleDeleteItem);
+  router.delete("/item/delete-item", handleDeleteItem); // ok
   router.get("/item/get-item-by-tag");
 
-  router.post("/auth/login", handleLogin); // ok
+  router.post("/auth/login-user", handleLoginUser);
 
   return app.use("/", router);
 };

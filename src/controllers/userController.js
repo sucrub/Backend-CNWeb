@@ -3,21 +3,43 @@ const {
   getUserById,
   getUserByUsername,
   createUser,
+  updateUser,
 } = require("../services/userService");
 
 const handleCreateUser = async (req, res) => {
   try {
-    const { username, password, firstName, lastName, phoneNumber } = req.body;
+    const { username, password, first_name, last_name, phone_number } =
+      req.body;
     const newUser = await createUser(
       username,
       password,
-      firstName,
-      lastName,
-      phoneNumber
+      first_name,
+      last_name,
+      phone_number
     );
     res.status(200).json({
       message: "OK",
       data: newUser,
+    });
+  } catch (error) {
+    res.status(400).json({
+      message: error.message,
+    });
+  }
+};
+
+const handleUpdateUser = async (req, res) => {
+  try {
+    const { username, first_name, last_name, phone_number } = req.body;
+    const updatedUser = await updateUser(
+      username,
+      first_name,
+      last_name,
+      phone_number
+    );
+    res.status(200).json({
+      message: "OK",
+      data: updatedUser,
     });
   } catch (error) {
     res.status(400).json({
@@ -87,4 +109,5 @@ module.exports = {
   handleGetUserById,
   handleGetUserByUsername,
   handleCreateUser,
+  handleUpdateUser,
 };
