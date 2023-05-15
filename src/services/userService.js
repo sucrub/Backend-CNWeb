@@ -29,6 +29,35 @@ const createUser = (
   });
 };
 
+const updateUser = (username, first_name, last_name, phone_number) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const user = await db.users.findOne({
+        where: { username: username },
+      });
+      if (user) {
+        if (first_name) user.first_name = first_name;
+        if (last_name) user.last_name = last_name;
+        if (phone_number) user.phone_number = phone_number;
+        await user.save();
+        let updatedUser = await db.users.findOne({
+          where: { username: username },
+          attributes: {
+            exclude: ["password"],
+          },
+          raw: true,
+        });
+        resolve(updatedUser);
+      } else throw new Error("User did not existed");
+    } catch (error) {
+      reject(error);
+    }
+    const user = await db.users.findOne({
+      where: { username: username },
+    });
+  });
+};
+
 const getAllUser = () => {
   return new Promise(async (resolve, reject) => {
     try {
@@ -91,4 +120,5 @@ module.exports = {
   getUserById,
   getUserByUsername,
   createUser,
+  updateUser,
 };

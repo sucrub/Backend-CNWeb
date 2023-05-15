@@ -31,7 +31,7 @@ const verifyToken = (refreshToken) => {
   }
 };
 
-const login = (username, password) => {
+const loginUser = (username, password) => {
   return new Promise(async (resolve, reject) => {
     try {
       const user = await db.users.findOne({
@@ -55,7 +55,7 @@ const login = (username, password) => {
 };
 
 module.exports = {
-  login,
+  loginUser,
   generateAccessToken,
   generateRefreshToken,
   verifyToken,

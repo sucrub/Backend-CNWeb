@@ -1,5 +1,5 @@
 const {
-  login,
+  loginUser,
   generateAccessToken,
   generateRefreshToken,
   verifyToken,
@@ -7,10 +7,10 @@ const {
 
 let listRefreshTokens = [];
 
-const handleLogin = async (req, res) => {
+const handleLoginUser = async (req, res) => {
   try {
     const { username, password } = req.body;
-    const loginData = await login(username, password);
+    const loginData = await loginUser(username, password);
     const accessToken = generateAccessToken(username);
     const refreshToken = generateRefreshToken(username);
     listRefreshTokens.push(refreshToken);
@@ -85,7 +85,7 @@ const handleLogout = async (req, res) => {
 };
 
 module.exports = {
-  handleLogin,
+  handleLoginUser,
   handleLogout,
   handleRequestRefreshToken,
 };
