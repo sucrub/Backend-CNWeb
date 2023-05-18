@@ -3,6 +3,8 @@ const {
   getAllSeller,
   getSellerById,
   getSellerByNamePrefix,
+  updateSeller,
+  updatePasswordSeller,
 } = require("../services/sellerService");
 
 const handleCreateSeller = async (req, res) => {
@@ -18,6 +20,47 @@ const handleCreateSeller = async (req, res) => {
     res.status(200).json({
       message: "OK",
       data: newSeller,
+    });
+  } catch (error) {
+    res.status(400).json({
+      message: error.message,
+    });
+  }
+};
+
+const handleUpdateSeller = async (req, res) => {
+  try {
+    const { username, name, address, phone_number, description } = req.body;
+    const updatedSeller = await updateSeller(
+      username,
+      name,
+      address,
+      phone_number,
+      description
+    );
+    res.status(200).json({
+      message: "OK",
+      data: updatedSeller,
+    });
+  } catch (error) {
+    res.status(400).json({
+      message: error.message,
+    });
+  }
+};
+
+const handleUpdatePasswordSeller = async (req, res) => {
+  try {
+    const { username, old_password, new_password, confirm_password } = req.body;
+    const message = await updatePasswordSeller(
+      username,
+      old_password,
+      new_password,
+      confirm_password
+    );
+    res.status(200).json({
+      message: "OK",
+      data: message,
     });
   } catch (error) {
     res.status(400).json({
@@ -87,4 +130,6 @@ module.exports = {
   handleGetAllSeller,
   handleGetSellerById,
   handleGetSellerByNamePrefix,
+  handleUpdateSeller,
+  handleUpdatePasswordSeller,
 };
