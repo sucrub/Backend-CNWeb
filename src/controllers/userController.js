@@ -4,6 +4,7 @@ const {
   getUserByUsername,
   createUser,
   updateUser,
+  updatePasswordUser,
 } = require("../services/userService");
 
 const handleCreateUser = async (req, res) => {
@@ -40,6 +41,26 @@ const handleUpdateUser = async (req, res) => {
     res.status(200).json({
       message: "OK",
       data: updatedUser,
+    });
+  } catch (error) {
+    res.status(400).json({
+      message: error.message,
+    });
+  }
+};
+
+const handleUpdateUserPassword = async (req, res) => {
+  try {
+    const { username, old_password, new_password, confirm_password } = req.body;
+    const reply = await updatePasswordUser(
+      username,
+      old_password,
+      new_password,
+      confirm_password
+    );
+    res.status(200).json({
+      message: "OK",
+      data: reply,
     });
   } catch (error) {
     res.status(400).json({
@@ -110,4 +131,5 @@ module.exports = {
   handleGetUserByUsername,
   handleCreateUser,
   handleUpdateUser,
+  handleUpdateUserPassword,
 };

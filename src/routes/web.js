@@ -6,6 +6,7 @@ const {
   handleGetUserByUsername,
   handleCreateUser,
   handleUpdateUser,
+  handleUpdateUserPassword,
 } = require("../controllers/userController");
 const {
   handleCreateSeller,
@@ -33,7 +34,7 @@ const initRouters = (app) => {
   router.get("/user/get-user-by-username", handleGetUserByUsername); // ok
   router.post("/user/create-user", handleCreateUser); // ok
   router.post("/user/update-user", handleUpdateUser); // ok
-  router.post("/user/update-password");
+  router.post("/user/update-password", handleUpdateUserPassword); // ok
 
   router.get("/seller/get-all-seller", handleGetAllSeller); // ok
   router.get("/seller/get-seller-by-id", handleGetSellerById); // ok
@@ -48,6 +49,10 @@ const initRouters = (app) => {
   router.post("/item/update-item", handleUpdateItem); // ok
   router.delete("/item/delete-item", handleDeleteItem); // ok
   router.get("/item/get-item-by-tag");
+
+  //create items specific
+
+  //create order
 
   router.post("/auth/login-user", handleLoginUser);
 
