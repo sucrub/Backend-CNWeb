@@ -4,6 +4,9 @@ const {
   createItem,
   updateItem,
   deleteItem,
+  getItemById,
+  createItemSpecific,
+  getItemSpecificByOriginId,
 } = require("../services/itemService");
 
 const handleGetAllItem = async (req, res) => {
@@ -27,6 +30,21 @@ const handleGetItemBySellerId = async (req, res) => {
     res.status(200).json({
       message: "OK",
       data: items,
+    });
+  } catch (error) {
+    res.status(400).json({
+      message: error.message,
+    });
+  }
+};
+
+const handleGetItemById = async (req, res) => {
+  try {
+    const id = req.query.id;
+    const item = await getItemById(id);
+    res.status(200).json({
+      message: "OK",
+      data: item,
     });
   } catch (error) {
     res.status(400).json({
@@ -80,10 +98,43 @@ const handleDeleteItem = async (req, res) => {
   }
 };
 
+const handleCreateItemSpecific = async (req, res) => {
+  try {
+    const { origin_id, name, price } = req.body;
+    const newItemSpecific = await createItemSpecific(origin_id, name, price);
+    res.status(200).json({
+      message: "OK",
+      data: newItemSpecific,
+    });
+  } catch (error) {
+    res.status(400).json({
+      message: error.message,
+    });
+  }
+};
+
+const handleGetItemSpecificByOriginId = async (req, res) => {
+  try {
+    const id = req.query.origin_id;
+    const items = await getItemSpecificByOriginId(id);
+    res.status(200).json({
+      message: "OK",
+      data: items,
+    });
+  } catch (error) {
+    res.status(400).json({
+      message: error.message,
+    });
+  }
+};
+
 module.exports = {
   handleGetAllItem,
   handleGetItemBySellerId,
   handleCreateItem,
   handleUpdateItem,
   handleDeleteItem,
+  handleGetItemById,
+  handleCreateItemSpecific,
+  handleGetItemSpecificByOriginId,
 };

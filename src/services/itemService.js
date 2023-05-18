@@ -87,10 +87,62 @@ const getItemBySellerId = (id) => {
   });
 };
 
+const getItemById = (id) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      let item = await db.items.findOne({
+        where: { id: id },
+        raw: true,
+      });
+      resolve(item);
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
+
+const createItemSpecific = (origin_id, name, price) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      let originItem = await db.items.findOne({
+        where: { id: origin_id },
+      });
+      if (originItem) {
+        const newItemSpecific = db.itemspecific.create({
+          origin_id,
+          name,
+          price,
+          number_sold: 0,
+        });
+        resolve(newItemSpecific);
+      } else throw new Error("Origin item did not existed");
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
+
+const getItemSpecificByOriginId = (origin_id) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      let items = "";
+      items = await db.itemspecific.findAll({
+        where: { origin_id: origin_id },
+      });
+      resolve(items);
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
+
 module.exports = {
   getAllItem,
   getItemBySellerId,
   createItem,
   updateItem,
   deleteItem,
+  getItemById,
+  createItemSpecific,
+  getItemSpecificByOriginId,
 };

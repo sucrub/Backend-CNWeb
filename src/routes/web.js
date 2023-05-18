@@ -26,6 +26,9 @@ const {
   handleCreateItem,
   handleUpdateItem,
   handleDeleteItem,
+  handleGetItemById,
+  handleCreateItemSpecific,
+  handleGetItemSpecificByOriginId,
 } = require("../controllers/itemController");
 
 const initRouters = (app) => {
@@ -45,13 +48,18 @@ const initRouters = (app) => {
 
   router.get("/item/get-all-item", handleGetAllItem); // ok
   router.get("/item/get-item-by-seller-id", handleGetItemBySellerId); // ok
+  router.get("/item/get-item-by-id", handleGetItemById); // ok
   router.post("/item/create-item", handleCreateItem); // ok
   router.post("/item/update-item", handleUpdateItem); // ok
   router.delete("/item/delete-item", handleDeleteItem); // ok
   router.get("/item/get-item-by-tag");
 
   //create items specific
-
+  router.post("/item/create-item-specific", handleCreateItemSpecific); // ok
+  router.get(
+    "/item/get-item-specific-by-origin-id",
+    handleGetItemSpecificByOriginId
+  ); // ok
   //create order
 
   router.post("/auth/login-user", handleLoginUser);
