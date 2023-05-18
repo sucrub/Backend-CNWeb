@@ -58,6 +58,32 @@ const updateUser = (username, first_name, last_name, phone_number) => {
   });
 };
 
+const updatePasswordUser = (
+  username,
+  oldPassword,
+  newPassword,
+  confirmPassword
+) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      let user = await db.users.findOne({
+        where: { username: username },
+      });
+      if (user) {
+        if (user.password === oldPassword) {
+          if (newPassword === confirmPassword) {
+            user.password = newPassword;
+            user.save();
+            resolve("Change password successfully");
+          } else throw new Error("Password did not match");
+        } else throw new Error("Old password did not correct");
+      } else throw new Error("User did not exist");
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
+
 const getAllUser = () => {
   return new Promise(async (resolve, reject) => {
     try {
@@ -121,4 +147,5 @@ module.exports = {
   getUserByUsername,
   createUser,
   updateUser,
+  updatePasswordUser,
 };
