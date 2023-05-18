@@ -12,6 +12,8 @@ const {
   handleGetAllSeller,
   handleGetSellerById,
   handleGetSellerByNamePrefix,
+  handleUpdateSeller,
+  handleUpdatePasswordSeller,
 } = require("../controllers/sellerController");
 const {
   handleRequestRefreshToken,
@@ -37,7 +39,8 @@ const initRouters = (app) => {
   router.get("/seller/get-seller-by-id", handleGetSellerById); // ok
   router.get("/seller/get-seller-by-name-prefix", handleGetSellerByNamePrefix); // ok
   router.post("/seller/create-seller", handleCreateSeller); // ok
-  router.post("/seller/update-seller");
+  router.post("/seller/update-seller", handleUpdateSeller); // ok
+  router.post("/seller/update-password", handleUpdatePasswordSeller); // ok
 
   router.get("/item/get-all-item", handleGetAllItem); // ok
   router.get("/item/get-item-by-seller-id", handleGetItemBySellerId); // ok

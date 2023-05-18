@@ -28,6 +28,59 @@ const createSeller = (username, password, name, address, phone_number) => {
   });
 };
 
+const updateSeller = (username, name, address, phone_number, description) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      let seller = await db.sellers.findOne({
+        where: { username: username },
+      });
+      if (seller) {
+        if (name) seller.name = name;
+        if (address) seller.address = address;
+        if (phone_number) seller.phone_number = phone_number;
+        if (description) seller.description = description;
+        await seller.save();
+        let updatedSeller = await db.sellers.findOne({
+          where: { username: username },
+          attributes: {
+            exclude: ["password"],
+          },
+          raw: true,
+        });
+        resolve(updatedSeller);
+      } else throw new Error("Seller did not existed");
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
+
+const updatePasswordSeller = (
+  username,
+  oldPassword,
+  newPassword,
+  confirmPassword
+) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      let seller = await db.sellers.findOne({
+        where: { username: username },
+      });
+      if (seller) {
+        if (seller.password === oldPassword) {
+          if (newPassword === confirmPassword) {
+            seller.password = newPassword;
+            seller.save();
+            resolve("Change successfully");
+          } else throw new Error("Password did not match");
+        } else throw new Error("Old password wrong");
+      } else throw new Error("Seller did not exist");
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
+
 const getAllSeller = () => {
   return new Promise(async (resolve, reject) => {
     try {
@@ -92,4 +145,6 @@ module.exports = {
   getAllSeller,
   getSellerById,
   getSellerByNamePrefix,
+  updateSeller,
+  updatePasswordSeller,
 };
