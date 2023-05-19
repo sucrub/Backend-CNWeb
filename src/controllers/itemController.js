@@ -7,6 +7,8 @@ const {
   getItemById,
   createItemSpecific,
   getItemSpecificByOriginId,
+  updateItemSpecific,
+  deleteItemSpecific,
 } = require("../services/itemService");
 
 const handleGetAllItem = async (req, res) => {
@@ -128,6 +130,36 @@ const handleGetItemSpecificByOriginId = async (req, res) => {
   }
 };
 
+const handleUpdateItemSpecific = async (req, res) => {
+  try {
+    const { id, name, price } = req.body;
+    const updatedItem = await updateItemSpecific(id, name, price);
+    res.status(200).json({
+      message: "OK",
+      data: updatedItem,
+    });
+  } catch (error) {
+    res.status(400).json({
+      message: error.message,
+    });
+  }
+};
+
+const handleDeleteItemSpecific = async (req, res) => {
+  try {
+    const id = req.query.id;
+    const reply = await deleteItemSpecific(id);
+    res.status(200).json({
+      message: "OK",
+      data: reply,
+    });
+  } catch (error) {
+    res.status(400).json({
+      message: error.message,
+    });
+  }
+};
+
 module.exports = {
   handleGetAllItem,
   handleGetItemBySellerId,
@@ -137,4 +169,6 @@ module.exports = {
   handleGetItemById,
   handleCreateItemSpecific,
   handleGetItemSpecificByOriginId,
+  handleUpdateItemSpecific,
+  handleDeleteItemSpecific,
 };

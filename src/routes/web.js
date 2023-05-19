@@ -29,6 +29,8 @@ const {
   handleGetItemById,
   handleCreateItemSpecific,
   handleGetItemSpecificByOriginId,
+  handleUpdateItemSpecific,
+  handleDeleteItemSpecific,
 } = require("../controllers/itemController");
 
 const initRouters = (app) => {
@@ -60,6 +62,9 @@ const initRouters = (app) => {
     "/item/get-item-specific-by-origin-id",
     handleGetItemSpecificByOriginId
   ); // ok
+  router.post("/item/update-specific-item", handleUpdateItemSpecific); // ok
+  router.delete("/item/delete-specific-item", handleDeleteItemSpecific); // ok
+
   //create order
 
   router.post("/auth/login-user", handleLoginUser);
