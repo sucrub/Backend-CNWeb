@@ -1,22 +1,22 @@
 const db = require("../models/index");
 const { Op } = require("sequelize");
 
-const createSeller = (username, password, name, address, phone_number) => {
+const createSeller = (data) => {
   return new Promise(async (resolve, reject) => {
     try {
       const existingSeller = await db.sellers.findOne({
-        where: { username: username },
+        where: { username: data.username },
       });
       if (existingSeller) {
         throw new Error("Seller existed");
       }
       const newSeller = await db.sellers.create({
-        username,
-        password,
-        name,
-        address,
-        phone_number,
-        img_url: "",
+        username: data.username,
+        password: data.password,
+        name: data.name,
+        address: data.address,
+        phone_number: data.phone_number,
+        img_url: data.img_url || "",
         followers: 0,
         number_of_products: 0,
         description: "",
@@ -28,20 +28,20 @@ const createSeller = (username, password, name, address, phone_number) => {
   });
 };
 
-const updateSeller = (username, name, address, phone_number, description) => {
+const updateSeller = (data) => {
   return new Promise(async (resolve, reject) => {
     try {
       let seller = await db.sellers.findOne({
-        where: { username: username },
+        where: { username: data.username },
       });
       if (seller) {
-        if (name) seller.name = name;
-        if (address) seller.address = address;
-        if (phone_number) seller.phone_number = phone_number;
-        if (description) seller.description = description;
+        if (data.name) seller.name = data.name;
+        if (data.address) seller.address = data.address;
+        if (data.phone_number) seller.phone_number = data.phone_number;
+        if (data.description) seller.description = data.description;
         await seller.save();
         let updatedSeller = await db.sellers.findOne({
-          where: { username: username },
+          where: { username: data.username },
           attributes: {
             exclude: ["password"],
           },
@@ -55,22 +55,17 @@ const updateSeller = (username, name, address, phone_number, description) => {
   });
 };
 
-const updatePasswordSeller = (
-  username,
-  oldPassword,
-  newPassword,
-  confirmPassword
-) => {
+const updatePasswordSeller = (data) => {
   return new Promise(async (resolve, reject) => {
     try {
       let seller = await db.sellers.findOne({
-        where: { username: username },
+        where: { username: data.username },
       });
       if (seller) {
-        if (seller.password === oldPassword) {
-          if (newPassword === confirmPassword) {
-            seller.password = newPassword;
-            seller.save();
+        if (seller.password === data.old_password) {
+          if (data.new_password === data.confirm_password) {
+            seller.password = data.new_password;
+            await seller.save();
             resolve("Change successfully");
           } else throw new Error("Password did not match");
         } else throw new Error("Old password wrong");

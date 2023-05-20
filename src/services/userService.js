@@ -1,26 +1,20 @@
 const db = require("../models/index");
 
-const createUser = (
-  username,
-  password,
-  first_name,
-  last_name,
-  phone_number
-) => {
+const createUser = (data) => {
   return new Promise(async (resolve, reject) => {
     try {
       const existingUser = await db.users.findOne({
-        where: { username: username },
+        where: { username: data.username },
       });
       if (existingUser) {
         throw new Error("User existed");
       }
       const newUser = await db.users.create({
-        username,
-        password,
-        first_name,
-        last_name,
-        phone_number,
+        username: data.username,
+        password: data.password,
+        first_name: data.first_name,
+        last_name: data.last_name,
+        phone_number: data.phone_number,
       });
       resolve(newUser);
     } catch (error) {
@@ -29,19 +23,19 @@ const createUser = (
   });
 };
 
-const updateUser = (username, first_name, last_name, phone_number) => {
+const updateUser = (data) => {
   return new Promise(async (resolve, reject) => {
     try {
       const user = await db.users.findOne({
-        where: { username: username },
+        where: { username: data.username },
       });
       if (user) {
-        if (first_name) user.first_name = first_name;
-        if (last_name) user.last_name = last_name;
-        if (phone_number) user.phone_number = phone_number;
+        if (data.first_name) user.first_name = data.first_name;
+        if (data.last_name) user.last_name = data.last_name;
+        if (data.phone_number) user.phone_number = data.phone_number;
         await user.save();
         let updatedUser = await db.users.findOne({
-          where: { username: username },
+          where: { username: data.username },
           attributes: {
             exclude: ["password"],
           },
@@ -52,28 +46,20 @@ const updateUser = (username, first_name, last_name, phone_number) => {
     } catch (error) {
       reject(error);
     }
-    const user = await db.users.findOne({
-      where: { username: username },
-    });
   });
 };
 
-const updatePasswordUser = (
-  username,
-  oldPassword,
-  newPassword,
-  confirmPassword
-) => {
+const updatePasswordUser = (data) => {
   return new Promise(async (resolve, reject) => {
     try {
       let user = await db.users.findOne({
-        where: { username: username },
+        where: { username: data.username },
       });
       if (user) {
-        if (user.password === oldPassword) {
-          if (newPassword === confirmPassword) {
-            user.password = newPassword;
-            user.save();
+        if (user.password === data.old_password) {
+          if (data.new_password === data.confirm_password) {
+            user.password = data.new_password;
+            await user.save();
             resolve("Change password successfully");
           } else throw new Error("Password did not match");
         } else throw new Error("Old password did not correct");

@@ -34,36 +34,39 @@ const {
 } = require("../controllers/itemController");
 
 const initRouters = (app) => {
-  router.get("/user/get-all-user", handleGetAllUser); // ok
-  router.get("/user/get-user-by-id", handleGetUserById); // ok
-  router.get("/user/get-user-by-username", handleGetUserByUsername); // ok
-  router.post("/user/create-user", handleCreateUser); // ok
-  router.post("/user/update-user", handleUpdateUser); // ok
-  router.post("/user/update-password", handleUpdateUserPassword); // ok
+  router.get("/user/get-all-user", handleGetAllUser); // okok
+  router.get("/user/get-user-by-id/:id", handleGetUserById); // okok
+  router.get("/user/get-user-by-username/:username", handleGetUserByUsername); // okok
+  router.post("/user/create-user", handleCreateUser); // okok
+  router.post("/user/update-user", handleUpdateUser); // okok
+  router.post("/user/update-password", handleUpdateUserPassword); // okok
 
-  router.get("/seller/get-all-seller", handleGetAllSeller); // ok
-  router.get("/seller/get-seller-by-id", handleGetSellerById); // ok
-  router.get("/seller/get-seller-by-name-prefix", handleGetSellerByNamePrefix); // ok
-  router.post("/seller/create-seller", handleCreateSeller); // ok
-  router.post("/seller/update-seller", handleUpdateSeller); // ok
-  router.post("/seller/update-password", handleUpdatePasswordSeller); // ok
+  router.get("/seller/get-all-seller", handleGetAllSeller); // okok
+  router.get("/seller/get-seller-by-id/:id", handleGetSellerById); // okok
+  router.get(
+    "/seller/get-seller-by-name-prefix/:prefix",
+    handleGetSellerByNamePrefix
+  ); // okok
+  router.post("/seller/create-seller", handleCreateSeller); // okok
+  router.post("/seller/update-seller", handleUpdateSeller); // okok
+  router.post("/seller/update-password", handleUpdatePasswordSeller); // okok
 
-  router.get("/item/get-all-item", handleGetAllItem); // ok
-  router.get("/item/get-item-by-seller-id", handleGetItemBySellerId); // ok
-  router.get("/item/get-item-by-id", handleGetItemById); // ok
-  router.post("/item/create-item", handleCreateItem); // ok
-  router.post("/item/update-item", handleUpdateItem); // ok
-  router.delete("/item/delete-item", handleDeleteItem); // ok
+  router.get("/item/get-all-item", handleGetAllItem); // okok
+  router.get("/item/get-item-by-seller-id/:seller_id", handleGetItemBySellerId); // okok
+  router.get("/item/get-item-by-id/:id", handleGetItemById); // okok
+  router.post("/item/create-item", handleCreateItem); // okok
+  router.post("/item/update-item", handleUpdateItem); // okok
+  router.delete("/item/delete-item/:id", handleDeleteItem); // okok
   router.get("/item/get-item-by-tag");
 
   //create items specific
-  router.post("/item/create-item-specific", handleCreateItemSpecific); // ok
+  router.post("/item/create-item-specific", handleCreateItemSpecific); // okok
   router.get(
-    "/item/get-item-specific-by-origin-id",
+    "/item/get-item-specific-by-origin-id/:origin_id",
     handleGetItemSpecificByOriginId
-  ); // ok
-  router.post("/item/update-specific-item", handleUpdateItemSpecific); // ok
-  router.delete("/item/delete-specific-item", handleDeleteItemSpecific); // ok
+  ); // okok
+  router.post("/item/update-specific-item", handleUpdateItemSpecific); // okok
+  router.delete("/item/delete-specific-item/:id", handleDeleteItemSpecific); // okok
 
   //create order
 
