@@ -69,6 +69,10 @@ const initRouters = (app) => {
   router.delete("/item/delete-specific-item/:id", handleDeleteItemSpecific); // okok
 
   //create order
+  router.get("/order/get-order-by-id")
+  router.get("/order/get-order-by-user")
+  router.post("/order/create-order")
+  router.post("/order/create-order-detail")
 
   router.post("/auth/login-user", handleLoginUser);
 
