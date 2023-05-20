@@ -1,89 +1,40 @@
 # Backend-CNWeb
 
-- Chỉ pull từ branch main
+__Chỉ pull từ branch main__
 
+## Hướng dẫn setup
 * Lên xampp tạo database tên là cnweb, để nó rỗng đừng thêm bảng gì
 * npm install
 * npx sequelize-cli db:migrate
 * Lệnh trên sẽ tự tạo bảng trong xampp luôn
 
-# req.body tổng hợp hết vào một object
+## List API
+__req.body tổng hợp hết vào một object__
 
-# req.body có () tức là có hoặc không đều được, còn lại là bắt buộc
+__req.body có () tức là có hoặc không đều được, còn lại là bắt buộc__
 
-# List API
-
-- USER
-
-* Get all user: http://localhost:8080/user/get-all-user
-  METHOD GET
-* Get user by id: http://localhost:8080/user/get-user-by-id/{id}
-  VD: http://localhost:8080/user/get-user-by-id/1 thì trả về user có id là 1
-  METHOD GET
-* Get user by username: http://localhost:8080/user/get-user-by-id/{username}
-  METHOD GET
-* Create user: http://localhost:8080/user/create-user
-  METHOD POST
-  req.body: username, password, first_name, last_name, phone_number
-* Update user: http://localhost:8080/user/update-user
-  METHOD POST
-  req.body cần username, (first_name, last_name, phone_number)
-* Update user password: http://localhost:8080/user/update-password
-  METHOD POST
-  req.body: username, old_password, new_password, confirm_password
-
-- SELLER
-
-* Get all seller: http://localhost:8080/seller/get-all-seller
-  METHOD GET
-* Get seller by id: http://localhost:8080/seller/get-seller-by-id/{id}
-  METHOD GET
-* Get seller by name prefix: http://localhost:8080/seller/get-seller-by-name-prefix/{prefix}
-  METHOD GET
-  Cái này dùng để search: VD prefix = te thì sẽ tìm các shop có chữ te ở đầu
-* Create seller: http://localhost:8080/seller/create-seller
-  METHOD POST
-  req.body: username, password, name, address, phone_number, (img_url)
-* Update seller: http://localhost:8080/seller/update-seller
-  METHOD POST
-  req.body: username, (name, address, phone_number, description)
-* Update seller password: http://localhost:8080/seller/update-password
-  METHOD POST
-  req.body: username, old_password, new_password, confirm_password
-
-- ITEM
-
-* Get all item: http://localhost:8080/item/get-all-item
-  METHOD GET
-* Get item by seller id: http://localhost:8080/item/get-item-by-seller-id/{seller_id}
-  METHOD GET
-* Get item by id: http://localhost:8080/item/get-item-by-id/{id}
-  METHOD GET
-* Create item: http://localhost:8080/item/create-item
-  METHOD POST
-  req.body: name, description, seller_id
-* Update item: http://localhost:8080/item/update-item
-  METHOD POST
-  req.body: id, (name, description)
-* Delete item: http://localhost:8080/item/delete-item/{id}
-  METHOD DELETE
-
-- ITEM SPECIFIC
-
-* Create item specific: http://localhost:8080/item/create-item-specific
-  METHOD POST
-  req.body: origin_id, name, price
-  ! Có thể cải tiến API này sau
-* Get specific item by origin id: http://localhost:8080/item/get-item-specific-by-origin-id/{origin_id}
-  METHOD GET
-* Update specific item: http://localhost:8080/item/update-specific-item
-  METHOD POST
-  req.body: id, (name, price)
-* Delete specific item: http://localhost:8080/item/delete-specific-item/{id}
-  METHOD DELETE
-
-- AUTH
-
-* Login user: http://localhost:8080/auth/login-user
-  METHOD POST
-  Mới cấp accessToken, chưa thao tác
+Endpoint       |	Method |	Description |	Request Body | Note
+---------------|---------|--------------|--------------|------
+http://localhost:8080/user/get-all-user |	GET |	Get all users |	N/A
+http://localhost:8080/user/get-user-by-id/{id} |	GET |	Get user by ID |	N/A
+http://localhost:8080/user/get-user-by-id/{username} |	GET |	Get user by username |	N/A
+http://localhost:8080/user/create-user |	POST |	Create user |	username, password, first_name, last_name, phone_number
+http://localhost:8080/user/update-user |	POST |	Update user |	username, (first_name, last_name, phone_number)
+http://localhost:8080/user/update-password |	POST |	Update user password |	username, old_password, new_password, confirm_password
+http://localhost:8080/seller/get-all-seller |	GET |	Get all sellers |	N/A
+http://localhost:8080/seller/get-seller-by-id/{id} |	GET |	Get seller by ID |	N/A
+http://localhost:8080/seller/get-seller-by-name-prefix/{prefix} |	GET |	Get seller by name prefix |	N/A
+http://localhost:8080/seller/create-seller |	POST |	Create seller |	username, password, name, address, phone_number, (img_url)
+http://localhost:8080/seller/update-seller |	POST |	Update seller |	username, (name, address, phone_number, description)
+http://localhost:8080/seller/update-password |	POST |	Update seller password |	username, old_password, new_password, confirm_password
+http://localhost:8080/item/get-all-item |	GET |	Get all items |	N/A
+http://localhost:8080/item/get-item-by-seller-id/{seller_id} |	GET |	Get items by seller ID |	N/A
+http://localhost:8080/item/get-item-by-id/{id} |	GET |	Get item by ID |	N/A
+http://localhost:8080/item/create-item |	POST |	Create item |	name, description, seller_id
+http://localhost:8080/item/update-item |	POST |	Update item |	id, (name, description)
+http://localhost:8080/item/delete-item/{id} |	DELETE |	Delete item |	N/A
+http://localhost:8080/item/create-item-specific |	POST |	Create specific item |	origin_id, name, price | Có thể cải tiến sau này
+http://localhost:8080/item/get-item-specific-by-origin-id/{origin_id} |	GET |	Get specific item by origin ID |	N/A
+http://localhost:8080/item/update-specific-item |	POST |	Update specific item |	id, (name, price)
+http://localhost:8080/item/delete-specific-item/{id} |	DELETE |	Delete specific item |	N/A
+http://localhost:8080/auth/login-user |	POST |	Login user |	N/A | Mới cấp jwt access token, chưa thao tác gì thêm
