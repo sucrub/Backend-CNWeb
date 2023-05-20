@@ -9,10 +9,10 @@ let listRefreshTokens = [];
 
 const handleLoginUser = async (req, res) => {
   try {
-    const { username, password } = req.body;
-    const loginData = await loginUser(username, password);
-    const accessToken = generateAccessToken(username);
-    const refreshToken = generateRefreshToken(username);
+    const data = req.body;
+    const loginData = await loginUser(data);
+    const accessToken = generateAccessToken(data.username);
+    const refreshToken = generateRefreshToken(data.username);
     listRefreshTokens.push(refreshToken);
     console.log(listRefreshTokens);
     res.cookie("refreshToken", refreshToken, {

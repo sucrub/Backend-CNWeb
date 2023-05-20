@@ -9,15 +9,8 @@ const {
 
 const handleCreateUser = async (req, res) => {
   try {
-    const { username, password, first_name, last_name, phone_number } =
-      req.body;
-    const newUser = await createUser(
-      username,
-      password,
-      first_name,
-      last_name,
-      phone_number
-    );
+    const data = req.body;
+    const newUser = await createUser(data);
     res.status(200).json({
       message: "OK",
       data: newUser,
@@ -31,13 +24,8 @@ const handleCreateUser = async (req, res) => {
 
 const handleUpdateUser = async (req, res) => {
   try {
-    const { username, first_name, last_name, phone_number } = req.body;
-    const updatedUser = await updateUser(
-      username,
-      first_name,
-      last_name,
-      phone_number
-    );
+    const data = req.body;
+    const updatedUser = await updateUser(data);
     res.status(200).json({
       message: "OK",
       data: updatedUser,
@@ -51,13 +39,8 @@ const handleUpdateUser = async (req, res) => {
 
 const handleUpdateUserPassword = async (req, res) => {
   try {
-    const { username, old_password, new_password, confirm_password } = req.body;
-    const reply = await updatePasswordUser(
-      username,
-      old_password,
-      new_password,
-      confirm_password
-    );
+    const data = req.body;
+    const reply = await updatePasswordUser(data);
     res.status(200).json({
       message: "OK",
       data: reply,
@@ -85,7 +68,7 @@ const handleGetAllUser = async (req, res) => {
 
 const handleGetUserById = async (req, res) => {
   try {
-    const id = req.query.id;
+    const id = req.params.id;
     if (id) {
       const user = await getUserById(id);
       res.status(200).json({
@@ -106,7 +89,7 @@ const handleGetUserById = async (req, res) => {
 
 const handleGetUserByUsername = async (req, res) => {
   try {
-    const username = req.query.username;
+    const username = req.params.username;
     if (username) {
       const user = await getUserByUsername(username);
       res.status(200).json({

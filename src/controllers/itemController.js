@@ -27,7 +27,7 @@ const handleGetAllItem = async (req, res) => {
 
 const handleGetItemBySellerId = async (req, res) => {
   try {
-    const id = req.query.seller_id;
+    const id = req.params.seller_id;
     const items = await getItemBySellerId(id);
     res.status(200).json({
       message: "OK",
@@ -42,7 +42,7 @@ const handleGetItemBySellerId = async (req, res) => {
 
 const handleGetItemById = async (req, res) => {
   try {
-    const id = req.query.id;
+    const id = req.params.id;
     const item = await getItemById(id);
     res.status(200).json({
       message: "OK",
@@ -57,8 +57,8 @@ const handleGetItemById = async (req, res) => {
 
 const handleCreateItem = async (req, res) => {
   try {
-    const { name, description, seller_id } = req.body;
-    const newItem = await createItem(name, description, seller_id);
+    const data = req.body;
+    const newItem = await createItem(data);
     res.status(200).json({
       message: "OK",
       data: newItem,
@@ -72,8 +72,8 @@ const handleCreateItem = async (req, res) => {
 
 const handleUpdateItem = async (req, res) => {
   try {
-    const { id, name, description } = req.body;
-    const updatedItem = await updateItem(id, name, description);
+    const data = req.body;
+    const updatedItem = await updateItem(data);
     res.status(200).json({
       message: "OK",
       data: updatedItem,
@@ -87,7 +87,7 @@ const handleUpdateItem = async (req, res) => {
 
 const handleDeleteItem = async (req, res) => {
   try {
-    const id = req.query.id;
+    const id = req.params.id;
     const reply = await deleteItem(id);
     res.status(200).json({
       message: "OK",
@@ -102,8 +102,8 @@ const handleDeleteItem = async (req, res) => {
 
 const handleCreateItemSpecific = async (req, res) => {
   try {
-    const { origin_id, name, price } = req.body;
-    const newItemSpecific = await createItemSpecific(origin_id, name, price);
+    const data = req.body;
+    const newItemSpecific = await createItemSpecific(data);
     res.status(200).json({
       message: "OK",
       data: newItemSpecific,
@@ -117,7 +117,7 @@ const handleCreateItemSpecific = async (req, res) => {
 
 const handleGetItemSpecificByOriginId = async (req, res) => {
   try {
-    const id = req.query.origin_id;
+    const id = req.params.origin_id;
     const items = await getItemSpecificByOriginId(id);
     res.status(200).json({
       message: "OK",
@@ -132,8 +132,8 @@ const handleGetItemSpecificByOriginId = async (req, res) => {
 
 const handleUpdateItemSpecific = async (req, res) => {
   try {
-    const { id, name, price } = req.body;
-    const updatedItem = await updateItemSpecific(id, name, price);
+    const data = req.body;
+    const updatedItem = await updateItemSpecific(data);
     res.status(200).json({
       message: "OK",
       data: updatedItem,
@@ -147,7 +147,7 @@ const handleUpdateItemSpecific = async (req, res) => {
 
 const handleDeleteItemSpecific = async (req, res) => {
   try {
-    const id = req.query.id;
+    const id = req.params.id;
     const reply = await deleteItemSpecific(id);
     res.status(200).json({
       message: "OK",

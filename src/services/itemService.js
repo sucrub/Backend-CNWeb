@@ -1,12 +1,12 @@
 const db = require("../models/index");
 
-const createItem = (name, description, seller_id) => {
+const createItem = (data) => {
   return new Promise(async (resolve, reject) => {
     try {
       const newItem = await db.items.create({
-        name,
-        description,
-        seller_id,
+        name: data.name,
+        description: data.description,
+        seller_id: data.seller_id,
         rate: 0,
         number_of_rating: 0,
       });
@@ -17,18 +17,18 @@ const createItem = (name, description, seller_id) => {
   });
 };
 
-const updateItem = (id, name, description) => {
+const updateItem = (data) => {
   return new Promise(async (resolve, reject) => {
     try {
       const item = await db.items.findOne({
-        where: { id: id },
+        where: { id: data.id },
       });
       if (item) {
-        if (name) item.name = name;
-        if (description) item.description = description;
+        if (data.name) item.name = data.name;
+        if (data.description) item.description = data.description;
         await item.save();
         let updatedItem = await db.items.findOne({
-          where: { id: id },
+          where: { id: data.id },
         });
         resolve(updatedItem);
       } else throw new Error("Item did not existed");
@@ -101,17 +101,17 @@ const getItemById = (id) => {
   });
 };
 
-const createItemSpecific = (origin_id, name, price) => {
+const createItemSpecific = (data) => {
   return new Promise(async (resolve, reject) => {
     try {
       let originItem = await db.items.findOne({
-        where: { id: origin_id },
+        where: { id: data.origin_id },
       });
       if (originItem) {
         const newItemSpecific = db.itemspecific.create({
-          origin_id,
-          name,
-          price,
+          origin_id: data.origin_id,
+          name: data.name,
+          price: data.price,
           number_sold: 0,
         });
         resolve(newItemSpecific);
@@ -136,19 +136,19 @@ const getItemSpecificByOriginId = (origin_id) => {
   });
 };
 
-const updateItemSpecific = (id, name, price) => {
+const updateItemSpecific = (data) => {
   return new Promise(async (resolve, reject) => {
     try {
       let item = "";
       item = await db.itemspecific.findOne({
-        where: { id: id },
+        where: { id: data.id },
       });
       if (item) {
-        if (name) item.name = name;
-        if (price) item.price = price;
+        if (data.name) item.name = data.name;
+        if (data.price) item.price = data.price;
         await item.save();
         let updatedItem = await db.itemspecific.findOne({
-          where: { id: id },
+          where: { id: data.id },
         });
         resolve(updatedItem);
       } else throw new Error("Item did not existed");

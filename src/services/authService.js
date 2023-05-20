@@ -31,23 +31,23 @@ const verifyToken = (refreshToken) => {
   }
 };
 
-const loginUser = (username, password) => {
+const loginUser = (data) => {
   return new Promise(async (resolve, reject) => {
     try {
       const user = await db.users.findOne({
-        where: { username: username },
+        where: { username: data.username },
       });
       if (!user) throw new Error("User not existed");
-      const isCorrectPassword = user.password === password;
+      const isCorrectPassword = user.password === data.password;
       if (!isCorrectPassword) throw new Error("Wrong password");
-      const data = await db.users.findOne({
-        where: { username: username },
+      const dataUser = await db.users.findOne({
+        where: { username: data.username },
         attributes: {
           exclude: ["password"],
         },
         raw: true,
       });
-      resolve(data);
+      resolve(dataUser);
     } catch (error) {
       reject(error);
     }

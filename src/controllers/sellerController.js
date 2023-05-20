@@ -9,14 +9,8 @@ const {
 
 const handleCreateSeller = async (req, res) => {
   try {
-    const { username, password, name, address, phone_number } = req.body;
-    const newSeller = await createSeller(
-      username,
-      password,
-      name,
-      address,
-      phone_number
-    );
+    const data = req.body;
+    const newSeller = await createSeller(data);
     res.status(200).json({
       message: "OK",
       data: newSeller,
@@ -30,14 +24,8 @@ const handleCreateSeller = async (req, res) => {
 
 const handleUpdateSeller = async (req, res) => {
   try {
-    const { username, name, address, phone_number, description } = req.body;
-    const updatedSeller = await updateSeller(
-      username,
-      name,
-      address,
-      phone_number,
-      description
-    );
+    const data = req.body;
+    const updatedSeller = await updateSeller(data);
     res.status(200).json({
       message: "OK",
       data: updatedSeller,
@@ -51,13 +39,8 @@ const handleUpdateSeller = async (req, res) => {
 
 const handleUpdatePasswordSeller = async (req, res) => {
   try {
-    const { username, old_password, new_password, confirm_password } = req.body;
-    const message = await updatePasswordSeller(
-      username,
-      old_password,
-      new_password,
-      confirm_password
-    );
+    const data = req.body;
+    const message = await updatePasswordSeller(data);
     res.status(200).json({
       message: "OK",
       data: message,
@@ -85,7 +68,7 @@ const handleGetAllSeller = async (req, res) => {
 
 const handleGetSellerById = async (req, res) => {
   try {
-    const id = req.query.id;
+    const id = req.params.id;
     if (id) {
       const seller = await getSellerById(id);
       res.status(200).json({
@@ -106,7 +89,7 @@ const handleGetSellerById = async (req, res) => {
 
 const handleGetSellerByNamePrefix = async (req, res) => {
   try {
-    const prefix = req.query.prefix;
+    const prefix = req.params.prefix;
     if (prefix) {
       const sellers = await getSellerByNamePrefix(prefix);
       res.status(200).json({
