@@ -32,6 +32,10 @@ const {
   handleUpdateItemSpecific,
   handleDeleteItemSpecific,
 } = require("../controllers/itemController");
+const {
+  handleCreateOrder,
+  handleGetOrderById,
+} = require("../controllers/orderController");
 
 const initRouters = (app) => {
   router.get("/user/get-all-user", handleGetAllUser); // okok
@@ -69,10 +73,9 @@ const initRouters = (app) => {
   router.delete("/item/delete-specific-item/:id", handleDeleteItemSpecific); // okok
 
   //create order
-  router.get("/order/get-order-by-id")
-  router.get("/order/get-order-by-user")
-  router.post("/order/create-order")
-  router.post("/order/create-order-detail")
+  router.get("/order/get-order-by-id/:id", handleGetOrderById);
+  router.get("/order/get-order-by-user/:user");
+  router.post("/order/create-order", handleCreateOrder); // ok
 
   router.post("/auth/login-user", handleLoginUser);
 
