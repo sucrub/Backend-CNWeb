@@ -1,18 +1,5 @@
 const db = require("../models/index");
 
-/*
-{
-    user_id
-    ship_adress
-    order_detail: [
-        {
-            item_id
-            quantity
-        }
-    ]
-}
-*/
-
 const createOrder = (data) => {
   return new Promise(async (resolve, reject) => {
     try {
