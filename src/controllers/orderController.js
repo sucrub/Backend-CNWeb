@@ -1,4 +1,8 @@
-const { createOrder, getOrderById } = require("../services/orderService");
+const {
+  createOrder,
+  getOrderById,
+  getOrderByUserId,
+} = require("../services/orderService");
 
 const handleCreateOrder = async (req, res) => {
   try {
@@ -30,7 +34,23 @@ const handleGetOrderById = async (req, res) => {
   }
 };
 
+const handleGetOrderByUserId = async (req, res) => {
+  try {
+    const user_id = req.params.user_id;
+    const result = await getOrderByUserId(user_id);
+    res.status(200).json({
+      message: "OK",
+      data: result,
+    });
+  } catch (error) {
+    res.status(400).json({
+      message: error.message,
+    });
+  }
+};
+
 module.exports = {
   handleCreateOrder,
   handleGetOrderById,
+  handleGetOrderByUserId,
 };

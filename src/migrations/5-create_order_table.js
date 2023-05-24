@@ -27,6 +27,10 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DATE,
       },
+      status: {
+        allowNull: false,
+        type: Sequelize.STRING,
+      },
       ship_address: {
         allowNull: false,
         type: Sequelize.STRING,

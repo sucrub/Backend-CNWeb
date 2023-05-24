@@ -35,6 +35,7 @@ const {
 const {
   handleCreateOrder,
   handleGetOrderById,
+  handleGetOrderByUserId,
 } = require("../controllers/orderController");
 
 const initRouters = (app) => {
@@ -74,8 +75,9 @@ const initRouters = (app) => {
 
   //create order
   router.get("/order/get-order-by-id/:id", handleGetOrderById);
-  router.get("/order/get-order-by-user/:user");
-  router.post("/order/create-order", handleCreateOrder); // ok
+  router.get("/order/get-order-by-user-id/:user_id", handleGetOrderByUserId);
+  router.post("/order/create-order", handleCreateOrder); // ok || test lai date moi
+  router.post("/order/get-order-by-seller-id"); //ôi dồi ôi cái này ngồi truy vấn đến chết
 
   router.post("/auth/login-user", handleLoginUser);
 

@@ -20,8 +20,11 @@ const createOrder = (data) => {
       let order = await db.orders.create({
         user_id: data.user_id,
         ship_address: data.ship_address,
-        order_date: new Date(),
+        order_date: new Date(
+          currentTime.toLocaleString("en-US", { timeZone: "Asia/Ho_Chi_Minh" })
+        ),
         price: 0,
+        status: "pending",
       });
       const orderId = order.id;
       let orderDetails = [];
@@ -80,7 +83,61 @@ const getOrderById = (id) => {
   });
 };
 
+const getOrderByUserId = (id) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      let orders = "";
+      orders = await db.orders.findAll({
+        where: { user_id: id },
+      });
+      let output = [];
+      for (let order of orders) {
+        let orderDetails = await db.orderdetail.findAll({
+          where: { order_id: order.id },
+        });
+        let result = {
+          order,
+          orderDetails,
+        };
+        output.push(result);
+      }
+      resolve(output);
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
+
+const getOrderyBySellerId = (id) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      // tim items
+      let items = await db.items.findAll({
+        where: { seller_id: id },
+      });
+      // tim itemspecific
+      let itemspecific = "";
+      for (let item of items) {
+        itemspecific = await db.itemspecific.findAll({
+          where: { origin_id: item.id },
+        });
+      }
+      // order itemspecific la 1 don hang rieng de duyet luon :v
+      let orderdetail = "";
+      for (let itemspec of itemspecific) {
+        orderdetail = await db.orderdetail.findAll({
+          where: { item_id: itemspec.id },
+        });
+      }
+      resolve(orderdetail);
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
+
 module.exports = {
   createOrder,
   getOrderById,
+  getOrderByUserId,
 };
