@@ -20,6 +20,8 @@ const createSeller = (data) => {
         followers: 0,
         number_of_products: 0,
         description: "",
+        money: 0,
+        sell_amount: 0,
       });
       resolve(newSeller);
     } catch (error) {
