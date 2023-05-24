@@ -44,6 +44,14 @@ module.exports = {
         allowNull: false,
         type: Sequelize.STRING,
       },
+      money: {
+        allowNull: false,
+        type: Sequelize.INTEGER,
+      },
+      sell_amount: {
+        allowNull: false,
+        type: Sequelize.INTEGER,
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
