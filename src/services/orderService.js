@@ -11,7 +11,6 @@ const createOrder = (data) => {
           timeZone: "Asia/Ho_Chi_Minh",
         }),
         price: 0,
-        status: "pending",
       });
       const orderId = order.id;
       let orderDetails = [];
@@ -22,6 +21,7 @@ const createOrder = (data) => {
           order_id: orderId,
           item_id: detail.item_id,
           quantity: detail.quantity,
+          status: "pending",
         });
         let item = await db.itemspecific.findOne({
           where: { id: detail.item_id },
@@ -103,20 +103,24 @@ const getOrderyBySellerId = (id) => {
         where: { seller_id: id },
       });
       // tim itemspecific
+      let listItemspecific = [];
       let itemspecific = "";
       for (let item of items) {
         itemspecific = await db.itemspecific.findAll({
           where: { origin_id: item.id },
         });
+        listItemspecific.push(...itemspecific.map((spec) => spec.dataValues));
       }
       // order itemspecific la 1 don hang rieng de duyet luon :v
+      let listOrderDetail = [];
       let orderdetail = "";
-      for (let itemspec of itemspecific) {
+      for (let itemspec of listItemspecific) {
         orderdetail = await db.orderdetail.findAll({
           where: { item_id: itemspec.id },
         });
+        listOrderDetail.push(...orderdetail.map((spec) => spec.dataValues));
       }
-      resolve(orderdetail);
+      resolve(listOrderDetail);
     } catch (error) {
       reject(error);
     }
@@ -127,4 +131,5 @@ module.exports = {
   createOrder,
   getOrderById,
   getOrderByUserId,
+  getOrderyBySellerId,
 };

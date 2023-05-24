@@ -36,6 +36,7 @@ const {
   handleCreateOrder,
   handleGetOrderById,
   handleGetOrderByUserId,
+  handleGetOrderBySellerId,
 } = require("../controllers/orderController");
 
 const initRouters = (app) => {
@@ -74,10 +75,13 @@ const initRouters = (app) => {
   router.delete("/item/delete-specific-item/:id", handleDeleteItemSpecific); // okok
 
   //create order
-  router.get("/order/get-order-by-id/:id", handleGetOrderById);
-  router.get("/order/get-order-by-user-id/:user_id", handleGetOrderByUserId);
-  router.post("/order/create-order", handleCreateOrder); // ok || test lai date moi
-  router.post("/order/get-order-by-seller-id"); //ôi dồi ôi cái này ngồi truy vấn đến chết
+  router.get("/order/get-order-by-id/:id", handleGetOrderById); // ok
+  router.get("/order/get-order-by-user-id/:user_id", handleGetOrderByUserId); // ok
+  router.post("/order/create-order", handleCreateOrder); // ok
+  router.get(
+    "/order/get-order-by-seller-id/:seller_id",
+    handleGetOrderBySellerId
+  ); //ôi dồi ôi cái này ngồi truy vấn đến chết
 
   router.post("/auth/login-user", handleLoginUser);
 

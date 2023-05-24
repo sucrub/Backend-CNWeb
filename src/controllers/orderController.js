@@ -2,6 +2,7 @@ const {
   createOrder,
   getOrderById,
   getOrderByUserId,
+  getOrderyBySellerId,
 } = require("../services/orderService");
 
 const handleCreateOrder = async (req, res) => {
@@ -49,8 +50,24 @@ const handleGetOrderByUserId = async (req, res) => {
   }
 };
 
+const handleGetOrderBySellerId = async (req, res) => {
+  try {
+    const seller_id = req.params.seller_id;
+    const result = await getOrderyBySellerId(seller_id);
+    res.status(200).json({
+      message: "OK",
+      data: result,
+    });
+  } catch (error) {
+    res.status(400).json({
+      message: error.message,
+    });
+  }
+};
+
 module.exports = {
   handleCreateOrder,
   handleGetOrderById,
   handleGetOrderByUserId,
+  handleGetOrderBySellerId,
 };
