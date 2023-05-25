@@ -54,9 +54,61 @@ const loginUser = (data) => {
   });
 };
 
+const login = (data) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      let outputData = "";
+      const user = await db.users.findOne({
+        where: { username: data.username },
+      });
+      const seller = await db.sellers.findOne({
+        where: { username: data.username },
+      });
+      if (user) {
+        if (user.password === data.password) {
+          const dataUser = await db.users.findOne({
+            where: { username: data.username },
+            attributes: {
+              exclude: ["password"],
+            },
+            raw: true,
+          });
+          outputData = {
+            dataUser,
+            role: "user",
+          };
+          resolve(outputData);
+        } else {
+          throw new Error("Wrong username or password");
+        }
+      } else if (seller) {
+        if (seller.password === data.password) {
+          const dataSeller = await db.sellers.findOne({
+            where: { username: data.username },
+            attributes: {
+              exclude: ["password"],
+            },
+            raw: true,
+          });
+          outputData = {
+            dataSeller,
+            role: "seller",
+          };
+          resolve(outputData);
+        } else {
+          throw new Error("Wrong username or password");
+        }
+      } else throw new Error("Wrong username or password");
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
+
 module.exports = {
   loginUser,
   generateAccessToken,
   generateRefreshToken,
   verifyToken,
+  login,
 };

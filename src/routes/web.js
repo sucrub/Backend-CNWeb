@@ -83,7 +83,7 @@ const initRouters = (app) => {
     handleGetOrderBySellerId
   ); //ôi dồi ôi cái này ngồi truy vấn đến chết
 
-  router.post("/auth/login-user", handleLoginUser);
+  router.post("/auth/login", handleLoginUser);
 
   return app.use("/", router);
 };
