@@ -3,11 +3,14 @@ const db = require("../models/index");
 const createUser = (data) => {
   return new Promise(async (resolve, reject) => {
     try {
+      const existingSeller = await db.sellers.findOne({
+        where: { username: data.username },
+      });
       const existingUser = await db.users.findOne({
         where: { username: data.username },
       });
-      if (existingUser) {
-        throw new Error("User existed");
+      if (existingSeller || existingUser) {
+        throw new Error("Username existed");
       }
       const newUser = await db.users.create({
         username: data.username,

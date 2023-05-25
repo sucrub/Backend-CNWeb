@@ -7,8 +7,11 @@ const createSeller = (data) => {
       const existingSeller = await db.sellers.findOne({
         where: { username: data.username },
       });
-      if (existingSeller) {
-        throw new Error("Seller existed");
+      const existingUser = await db.users.findOne({
+        where: { username: data.username },
+      });
+      if (existingSeller || existingUser) {
+        throw new Error("Username existed");
       }
       const newSeller = await db.sellers.create({
         username: data.username,
@@ -20,6 +23,8 @@ const createSeller = (data) => {
         followers: 0,
         number_of_products: 0,
         description: "",
+        money: 0,
+        sell_amount: 0,
       });
       resolve(newSeller);
     } catch (error) {

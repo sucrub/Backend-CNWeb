@@ -3,6 +3,7 @@ const {
   generateAccessToken,
   generateRefreshToken,
   verifyToken,
+  login,
 } = require("../services/authService");
 
 let listRefreshTokens = [];
@@ -10,7 +11,7 @@ let listRefreshTokens = [];
 const handleLoginUser = async (req, res) => {
   try {
     const data = req.body;
-    const loginData = await loginUser(data);
+    const loginData = await login(data);
     const accessToken = generateAccessToken(data.username);
     const refreshToken = generateRefreshToken(data.username);
     listRefreshTokens.push(refreshToken);
