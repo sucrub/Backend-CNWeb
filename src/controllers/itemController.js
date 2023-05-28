@@ -9,7 +9,23 @@ const {
   getItemSpecificByOriginId,
   updateItemSpecific,
   deleteItemSpecific,
+  createItemV2,
 } = require("../services/itemService");
+
+const handleCreateItemV2 = async (req, res) => {
+  try {
+    const data = req.body;
+    const item = await createItemV2(data);
+    res.status(200).json({
+      message: "OK",
+      data: item,
+    });
+  } catch (error) {
+    res.status(400).json({
+      message: "Error",
+    });
+  }
+};
 
 const handleGetAllItem = async (req, res) => {
   try {
@@ -171,4 +187,5 @@ module.exports = {
   handleGetItemSpecificByOriginId,
   handleUpdateItemSpecific,
   handleDeleteItemSpecific,
+  handleCreateItemV2,
 };

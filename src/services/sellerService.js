@@ -1,5 +1,6 @@
 const db = require("../models/index");
 const { Op } = require("sequelize");
+const bcrypt = require("bcrypt");
 
 const createSeller = (data) => {
   return new Promise(async (resolve, reject) => {
@@ -11,11 +12,14 @@ const createSeller = (data) => {
         where: { username: data.username },
       });
       if (existingSeller || existingUser) {
-        throw new Error("Username existed");
+        throw new Error("Username already exists");
       }
+
+      const hashedPassword = await bcrypt.hash(data.password, 10);
+
       const newSeller = await db.sellers.create({
         username: data.username,
-        password: data.password,
+        password: hashedPassword,
         name: data.name,
         address: data.address,
         phone_number: data.phone_number,
@@ -26,6 +30,7 @@ const createSeller = (data) => {
         money: 0,
         sell_amount: 0,
       });
+
       resolve(newSeller);
     } catch (error) {
       reject(error);
