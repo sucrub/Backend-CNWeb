@@ -1,5 +1,59 @@
 const db = require("../models/index");
 
+/*
+{
+  name,
+  description,
+  seller_id,
+  rate,
+  number_of_rating
+  item_specific: [
+    {
+      origin_id,
+      name,
+      price,
+      number_sold
+    }
+  ]
+}
+*/
+
+const createItemV2 = (data) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const newItem = await db.items.create({
+        name: data.name,
+        description: data.description,
+        seller_id: data.seller_id,
+        rate: 0,
+        number_of_rating: 0,
+      });
+      const seller = await db.sellers.findOne({
+        where: { id: data.seller_id },
+      });
+      seller.number_of_products += 1;
+      await seller.save();
+      let listItemSpec = [];
+      for (let itemspec of data.item_specific) {
+        let itemSpecific = await db.itemspecific.create({
+          origin_id: newItem.id,
+          name: itemspec.name,
+          price: itemspec.price,
+          number_sold: 0,
+        });
+        listItemSpec.push(itemSpecific);
+      }
+      let result = {
+        newItem,
+        listItemSpec,
+      };
+      resolve(result);
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
+
 const createItem = (data) => {
   return new Promise(async (resolve, reject) => {
     try {
@@ -10,6 +64,11 @@ const createItem = (data) => {
         rate: 0,
         number_of_rating: 0,
       });
+      const seller = await db.sellers.findOne({
+        where: { id: data.seller_id },
+      });
+      seller.number_of_products = seller.number_of_products++;
+      await seller.save();
       resolve(newItem);
     } catch (error) {
       reject(error);
@@ -187,4 +246,5 @@ module.exports = {
   getItemSpecificByOriginId,
   updateItemSpecific,
   deleteItemSpecific,
+  createItemV2,
 };

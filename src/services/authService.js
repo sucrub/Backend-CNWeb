@@ -1,5 +1,6 @@
 const db = require("../models/index");
 const jwt = require("jsonwebtoken");
+const bcrypt = require("bcrypt");
 require("dotenv").config();
 
 const generateAccessToken = (username) => {
@@ -61,11 +62,13 @@ const login = (data) => {
       const user = await db.users.findOne({
         where: { username: data.username },
       });
-      const seller = await db.sellers.findOne({
-        where: { username: data.username },
-      });
+
       if (user) {
-        if (user.password === data.password) {
+        const passwordMatch = await bcrypt.compare(
+          data.password,
+          user.password
+        );
+        if (passwordMatch) {
           const dataUser = await db.users.findOne({
             where: { username: data.username },
             attributes: {
@@ -81,24 +84,35 @@ const login = (data) => {
         } else {
           throw new Error("Wrong username or password");
         }
-      } else if (seller) {
-        if (seller.password === data.password) {
-          const dataSeller = await db.sellers.findOne({
-            where: { username: data.username },
-            attributes: {
-              exclude: ["password"],
-            },
-            raw: true,
-          });
-          outputData = {
-            dataSeller,
-            role: "seller",
-          };
-          resolve(outputData);
+      } else {
+        const seller = await db.sellers.findOne({
+          where: { username: data.username },
+        });
+        if (seller) {
+          const passwordMatch = await bcrypt.compare(
+            data.password,
+            seller.password
+          );
+          if (passwordMatch) {
+            const dataSeller = await db.sellers.findOne({
+              where: { username: data.username },
+              attributes: {
+                exclude: ["password"],
+              },
+              raw: true,
+            });
+            outputData = {
+              dataSeller,
+              role: "seller",
+            };
+            resolve(outputData);
+          } else {
+            throw new Error("Wrong username or password");
+          }
         } else {
           throw new Error("Wrong username or password");
         }
-      } else throw new Error("Wrong username or password");
+      }
     } catch (error) {
       reject(error);
     }

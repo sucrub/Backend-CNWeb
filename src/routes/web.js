@@ -19,6 +19,7 @@ const {
 const {
   handleRequestRefreshToken,
   handleLoginUser,
+  handleRefreshToken,
 } = require("../controllers/authController");
 const {
   handleGetAllItem,
@@ -31,6 +32,7 @@ const {
   handleGetItemSpecificByOriginId,
   handleUpdateItemSpecific,
   handleDeleteItemSpecific,
+  handleCreateItemV2,
 } = require("../controllers/itemController");
 const {
   handleCreateOrder,
@@ -59,6 +61,7 @@ const initRouters = (app) => {
 
   router.get("/item/get-all-item", handleGetAllItem); // okok
   router.get("/item/get-item-by-seller-id/:seller_id", handleGetItemBySellerId); // okok
+  router.get("item/get-item-by-prefix/:prefix");
   router.get("/item/get-item-by-id/:id", handleGetItemById); // okok
   router.post("/item/create-item", handleCreateItem); // okok
   router.post("/item/update-item", handleUpdateItem); // okok
@@ -74,6 +77,9 @@ const initRouters = (app) => {
   router.post("/item/update-specific-item", handleUpdateItemSpecific); // okok
   router.delete("/item/delete-specific-item/:id", handleDeleteItemSpecific); // okok
 
+  //update create item
+  router.post("/item/create-item-v2", handleCreateItemV2); // ok
+
   //create order
   router.get("/order/get-order-by-id/:id", handleGetOrderById); // ok
   router.get("/order/get-order-by-user-id/:user_id", handleGetOrderByUserId); // ok
@@ -81,9 +87,12 @@ const initRouters = (app) => {
   router.get(
     "/order/get-order-by-seller-id/:seller_id",
     handleGetOrderBySellerId
-  ); //ôi dồi ôi cái này ngồi truy vấn đến chết
+  ); // ok
 
-  router.post("/auth/login", handleLoginUser);
+  router.get("");
+  router.post("/auth/login", handleLoginUser); // ok
+  router.post("/auth/refresh-token", handleRefreshToken); // ok
+  // quen mat khau
 
   return app.use("/", router);
 };

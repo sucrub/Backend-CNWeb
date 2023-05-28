@@ -1,4 +1,5 @@
 const db = require("../models/index");
+const bcrypt = require("bcrypt");
 
 const createUser = (data) => {
   return new Promise(async (resolve, reject) => {
@@ -10,15 +11,19 @@ const createUser = (data) => {
         where: { username: data.username },
       });
       if (existingSeller || existingUser) {
-        throw new Error("Username existed");
+        throw new Error("Username already exists");
       }
+
+      const hashedPassword = await bcrypt.hash(data.password, 10);
+
       const newUser = await db.users.create({
         username: data.username,
-        password: data.password,
+        password: hashedPassword,
         first_name: data.first_name,
         last_name: data.last_name,
         phone_number: data.phone_number,
       });
+
       resolve(newUser);
     } catch (error) {
       reject(error);
