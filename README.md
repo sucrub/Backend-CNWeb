@@ -64,7 +64,7 @@ http://localhost:8080/order/get-order-by-seller-id/{seller_id} | GET | Get order
 
 ### Note cho một số API
 Req.body của create item v2:
-```
+```ruby
 {
     "name": "Test item 5",
     "description": "test desc",
@@ -83,7 +83,7 @@ Req.body của create item v2:
 ```
 
 Req.body của create order: 
-```
+```ruby
 {
     "user_id": 2,
     "ship_address": "HaNoi",
