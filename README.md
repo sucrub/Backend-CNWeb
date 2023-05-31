@@ -7,6 +7,8 @@ __Chỉ pull từ branch main__
 * npm install
 * npx sequelize-cli db:migrate
 * Lệnh trên sẽ tự tạo bảng trong xampp luôn
+* node src/populateData.js
+* Lệnh trên sẽ tạo data cho database, muốn thêm gì thì sửa file này nhé, Work in progress still
 
 ## List API
 __req.body tổng hợp hết vào một object__
