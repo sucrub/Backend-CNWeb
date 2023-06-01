@@ -1,6 +1,21 @@
 const db = require("../models/index");
 const bcrypt = require("bcrypt");
 
+const changeAvatarUser = (id, filePath) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const user = await db.users.findOne({
+        where: { id: id },
+      });
+      user.avatar = filePath;
+      await user.save();
+      resolve("OK");
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
+
 const createUser = (data) => {
   return new Promise(async (resolve, reject) => {
     try {
@@ -15,13 +30,13 @@ const createUser = (data) => {
       }
 
       const hashedPassword = await bcrypt.hash(data.password, 10);
-
       const newUser = await db.users.create({
         username: data.username,
         password: hashedPassword,
         first_name: data.first_name,
         last_name: data.last_name,
         phone_number: data.phone_number,
+        avatar: "uploads/baseavatar.png",
       });
 
       resolve(newUser);
@@ -142,4 +157,5 @@ module.exports = {
   createUser,
   updateUser,
   updatePasswordUser,
+  changeAvatarUser,
 };

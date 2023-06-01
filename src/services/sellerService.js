@@ -2,6 +2,21 @@ const db = require("../models/index");
 const { Op } = require("sequelize");
 const bcrypt = require("bcrypt");
 
+const changeAvatarSeller = (id, filePath) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const seller = await db.sellers.findOne({
+        where: { id: id },
+      });
+      seller.img_url = filePath;
+      await seller.save();
+      resolve("OK");
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
+
 const createSeller = (data) => {
   return new Promise(async (resolve, reject) => {
     try {
@@ -23,7 +38,7 @@ const createSeller = (data) => {
         name: data.name,
         address: data.address,
         phone_number: data.phone_number,
-        img_url: data.img_url || "",
+        img_url: "uploads/baseavatar.png",
         followers: 0,
         number_of_products: 0,
         description: "",
@@ -152,4 +167,5 @@ module.exports = {
   getSellerByNamePrefix,
   updateSeller,
   updatePasswordSeller,
+  changeAvatarSeller,
 };
