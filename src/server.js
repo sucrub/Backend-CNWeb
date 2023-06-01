@@ -11,6 +11,7 @@ const HOSTNAME = process.env.HOST_NAME;
 app.use(cookieParser());
 app.use(cors());
 app.use(express.json());
+app.use("/uploads", express.static("uploads"));
 
 app.use(express.urlencoded({ extended: true }));
 

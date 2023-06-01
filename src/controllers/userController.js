@@ -5,7 +5,42 @@ const {
   createUser,
   updateUser,
   updatePasswordUser,
+  changeAvatarUser,
 } = require("../services/userService");
+
+const handlePicture = async (req, res) => {
+  try {
+    console.log(req.file, req.file.path);
+    if (!req.file) throw new Error("No file");
+    else {
+      const filePath = req.file.path;
+      res.status(200).json({ path: filePath });
+    }
+  } catch (error) {
+    res.status(400).json({
+      message: error.message,
+    });
+  }
+};
+
+const handleChangeAvatarUser = async (req, res) => {
+  try {
+    const id = req.params.id;
+    if (!req.file) throw new Error("No file");
+    else {
+      const filePath = req.file.path;
+      await changeAvatarUser(id, filePath);
+      res.status(200).json({
+        message: "OK",
+        data: filePath,
+      });
+    }
+  } catch (error) {
+    res.status(400).json({
+      message: error.message,
+    });
+  }
+};
 
 const handleCreateUser = async (req, res) => {
   try {
@@ -115,4 +150,6 @@ module.exports = {
   handleCreateUser,
   handleUpdateUser,
   handleUpdateUserPassword,
+  handlePicture,
+  handleChangeAvatarUser,
 };
