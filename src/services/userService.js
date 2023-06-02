@@ -33,8 +33,7 @@ const createUser = (data) => {
       const newUser = await db.users.create({
         username: data.username,
         password: hashedPassword,
-        first_name: data.first_name,
-        last_name: data.last_name,
+        name: data.name,
         phone_number: data.phone_number,
         avatar: "uploads/baseavatar.png",
       });
@@ -53,8 +52,7 @@ const updateUser = (data) => {
         where: { username: data.username },
       });
       if (user) {
-        if (data.first_name) user.first_name = data.first_name;
-        if (data.last_name) user.last_name = data.last_name;
+        if (data.name) user.name = data.name;
         if (data.phone_number) user.phone_number = data.phone_number;
         await user.save();
         let updatedUser = await db.users.findOne({
