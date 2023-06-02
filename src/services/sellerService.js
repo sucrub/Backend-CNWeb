@@ -36,7 +36,6 @@ const createSeller = (data) => {
         username: data.username,
         password: hashedPassword,
         name: data.name,
-        address: data.address,
         phone_number: data.phone_number,
         img_url: "uploads/baseavatar.png",
         followers: 0,
