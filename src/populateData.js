@@ -6,22 +6,19 @@ const user = [
   {
     username: "user1",
     password: "123456",
-    first_name: "User",
-    last_name: "One",
+    name: "User",
     phone_number: "123456789",
   },
   {
     username: "user2",
     password: "123456",
-    first_name: "User",
-    last_name: "Two",
+    name: "User",
     phone_number: "123456789",
   },
   {
     username: "user3",
     password: "123456",
-    first_name: "User",
-    last_name: "Three",
+    name: "User",
     phone_number: "123456789",
   },
 ];
