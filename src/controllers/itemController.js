@@ -10,7 +10,32 @@ const {
   updateItemSpecific,
   deleteItemSpecific,
   createItemV2,
+  itemImage,
 } = require("../services/itemService");
+
+const handleItemImage = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const images = req.files; // Array of uploaded image files
+    const imagePath = [];
+    for (let image of images) {
+      imagePath.push(image.path);
+    }
+    const result = await itemImage(id, imagePath);
+
+    // Process the images as needed
+    // For example, you can save the file paths in a database or perform other operations
+
+    res.status(200).json({
+      message: "OK",
+      data: result,
+    });
+  } catch (error) {
+    res.status(400).json({
+      message: "Error",
+    });
+  }
+};
 
 const handleCreateItemV2 = async (req, res) => {
   try {
@@ -188,4 +213,5 @@ module.exports = {
   handleUpdateItemSpecific,
   handleDeleteItemSpecific,
   handleCreateItemV2,
+  handleItemImage,
 };

@@ -30,6 +30,10 @@ module.exports = {
         allowNull: false,
         type: Sequelize.INTEGER,
       },
+      img: {
+        allowNull: true,
+        type: Sequelize.STRING,
+      },
     });
   },
   down: (queryInterface, Sequelize) => {

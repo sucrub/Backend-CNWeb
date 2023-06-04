@@ -38,6 +38,7 @@ const {
   handleUpdateItemSpecific,
   handleDeleteItemSpecific,
   handleCreateItemV2,
+  handleItemImage,
 } = require("../controllers/itemController");
 const {
   handleCreateOrder,
@@ -131,6 +132,11 @@ const initRouters = (app) => {
     "/seller/change-avatar/:id",
     upload.single("image"),
     handleChangeAvatarSeller
+  ); // ok
+  router.post(
+    "/item/item-picture/:id",
+    upload.array("image", 100),
+    handleItemImage
   ); // ok
 
   return app.use("/", router);
