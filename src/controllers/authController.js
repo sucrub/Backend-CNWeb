@@ -28,6 +28,7 @@ const handleLoginUser = async (req, res) => {
       message: "OK",
       data: loginData,
       accessToken,
+      refreshToken,
     });
   } catch (error) {
     res.status(400).json({
