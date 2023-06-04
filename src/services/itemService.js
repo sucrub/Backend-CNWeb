@@ -18,6 +18,27 @@ const db = require("../models/index");
 }
 */
 
+const itemImage = (id, imagePath) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const itemspec = await db.itemspecific.findAll({
+        where: { origin_id: id },
+      });
+
+      itemspec.forEach((item, index) => {
+        item.img = imagePath[index];
+        item.save();
+      });
+      const result = await db.itemspecific.findAll({
+        where: { origin_id: id },
+      });
+      resolve(result);
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
+
 const createItemV2 = (data) => {
   return new Promise(async (resolve, reject) => {
     try {
@@ -27,6 +48,7 @@ const createItemV2 = (data) => {
         seller_id: data.seller_id,
         rate: 0,
         number_of_rating: 0,
+        brand: data.brand ? data.brand : "",
       });
       const seller = await db.sellers.findOne({
         where: { id: data.seller_id },
@@ -247,4 +269,5 @@ module.exports = {
   updateItemSpecific,
   deleteItemSpecific,
   createItemV2,
+  itemImage,
 };
