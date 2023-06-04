@@ -16,16 +16,15 @@ module.exports = {
         allowNull: false,
         type: Sequelize.STRING,
       },
-      first_name: {
-        allowNull: false,
-        type: Sequelize.STRING,
-      },
-      last_name: {
+      name: {
         allowNull: false,
         type: Sequelize.STRING,
       },
       phone_number: {
         allowNull: false,
+        type: Sequelize.STRING,
+      },
+      avatar: {
         type: Sequelize.STRING,
       },
       createdAt: {

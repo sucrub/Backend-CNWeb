@@ -1,5 +1,7 @@
 const express = require("express");
+const multer = require("multer");
 const router = express.Router();
+const path = require("path");
 const {
   handleGetAllUser,
   handleGetUserById,
@@ -7,6 +9,8 @@ const {
   handleCreateUser,
   handleUpdateUser,
   handleUpdateUserPassword,
+  handlePicture,
+  handleChangeAvatarUser,
 } = require("../controllers/userController");
 const {
   handleCreateSeller,
@@ -15,6 +19,7 @@ const {
   handleGetSellerByNamePrefix,
   handleUpdateSeller,
   handleUpdatePasswordSeller,
+  handleChangeAvatarSeller,
 } = require("../controllers/sellerController");
 const {
   handleRequestRefreshToken,
@@ -43,6 +48,18 @@ const {
 const {
   handleGetChildrenTags,
 } = require("controllers/tagController")
+
+// Set up the storage engine
+const storage = multer.diskStorage({
+  destination: "uploads/",
+  filename: function (req, file, cb) {
+    // Preserve the original file name
+    cb(null, file.originalname);
+  },
+});
+
+// Set up the multer middleware
+const upload = multer({ storage });
 
 const initRouters = (app) => {
   router.get("/user/get-all-user", handleGetAllUser); // okok
@@ -97,6 +114,18 @@ const initRouters = (app) => {
   router.post("/auth/login", handleLoginUser); // ok
   router.post("/auth/refresh-token", handleRefreshToken); // ok
   // quen mat khau
+
+  router.post("/upload", upload.single("image"), handlePicture);
+  router.post(
+    "/user/change-avatar/:id",
+    upload.single("image"),
+    handleChangeAvatarUser
+  ); // ok
+  router.post(
+    "/seller/change-avatar/:id",
+    upload.single("image"),
+    handleChangeAvatarSeller
+  ); // ok
 
   return app.use("/", router);
 };

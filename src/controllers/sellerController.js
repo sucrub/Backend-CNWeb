@@ -5,7 +5,27 @@ const {
   getSellerByNamePrefix,
   updateSeller,
   updatePasswordSeller,
+  changeAvatarSeller,
 } = require("../services/sellerService");
+
+const handleChangeAvatarSeller = async (req, res) => {
+  try {
+    const id = req.params.id;
+    if (!req.file) throw new Error("No file");
+    else {
+      const filePath = req.file.path;
+      await changeAvatarSeller(id, filePath);
+      res.status(200).json({
+        message: "OK",
+        data: filePath,
+      });
+    }
+  } catch (error) {
+    res.status(400).json({
+      message: error.message,
+    });
+  }
+};
 
 const handleCreateSeller = async (req, res) => {
   try {
@@ -115,4 +135,5 @@ module.exports = {
   handleGetSellerByNamePrefix,
   handleUpdateSeller,
   handleUpdatePasswordSeller,
+  handleChangeAvatarSeller,
 };

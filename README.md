@@ -22,8 +22,8 @@ Endpoint       |	Method |	Description |	Request Body | Note
 ---------------|---------|--------------|--------------|------
 http://localhost:8080/auth/login |	POST |	Login |	username, password | Cấp accessToken
 http://localhost:8080/auth/refresh-token | POST | N/A | Refresh token | 
-http://localhost:8080/user/create-user |	POST |	Create user |	username, password, first_name, last_name, phone_number
-http://localhost:8080/seller/create-seller |	POST |	Create seller |	username, password, name, address, phone_number, (img_url)
+http://localhost:8080/user/create-user |	POST |	Create user |	username, password, name, phone_number
+http://localhost:8080/seller/create-seller |	POST |	Create seller |	username, password, name, phone_number
 
 ### User
 Endpoint       |	Method |	Description |	Request Body | Note
