@@ -40,6 +40,9 @@ const {
   handleGetOrderByUserId,
   handleGetOrderBySellerId,
 } = require("../controllers/orderController");
+const {
+  handleGetChildrenTags,
+} = require("controllers/tagController")
 
 const initRouters = (app) => {
   router.get("/user/get-all-user", handleGetAllUser); // okok
@@ -67,7 +70,8 @@ const initRouters = (app) => {
   router.post("/item/update-item", handleUpdateItem); // okok
   router.delete("/item/delete-item/:id", handleDeleteItem); // okok
   router.get("/item/get-item-by-tag");
-
+  // item tag
+  router.get("/item-tag/get-children-tag/:tag", handleGetChildrenTags); // okok
   //create items specific
   router.post("/item/create-item-specific", handleCreateItemSpecific); // okok
   router.get(

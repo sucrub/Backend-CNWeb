@@ -1,0 +1,382 @@
+[
+    {
+        "id": "Điện Thoại - Máy Tính Bảng",
+        "url": "https://tiki.vn/dien-thoai-may-tinh-bang/c1789",
+        "parent_id": ""
+    },
+    {
+        "url": "https://tiki.vn/dien-thoai-smartphone/c1795",
+        "id": "Điện thoại Smartphone",
+        "parent_id": "Điện Thoại - Máy Tính Bảng"
+    },
+    {
+        "url": "https://tiki.vn/may-tinh-bang/c1794",
+        "id": "Máy tính bảng",
+        "parent_id": "Điện Thoại - Máy Tính Bảng"
+    },
+    {
+        "url": "https://tiki.vn/may-doc-sach/c28856",
+        "id": "Máy đọc sách",
+        "parent_id": "Điện Thoại - Máy Tính Bảng"
+    },
+    {
+        "id": "Điện Gia Dụng",
+        "url": "https://tiki.vn/dien-gia-dung/c1882",
+        "parent_id": ""
+    },
+    {
+        "url": "https://tiki.vn/do-dung-nha-bep/c1884",
+        "id": "Đồ dùng nhà bếp",
+        "parent_id": "Điện Gia Dụng"
+    },
+    {
+        "url": "https://tiki.vn/noi-dien-cac-loai/c1892",
+        "id": "Nồi điện các loại",
+        "parent_id": "Đồ dùng nhà bếp"
+    },
+    {
+        "url": "https://tiki.vn/bep-cac-loai/c1885",
+        "id": "Bếp các loại",
+        "parent_id": "Đồ dùng nhà bếp"
+    },
+    {
+        "url": "https://tiki.vn/may-hut-khoi-khu-mui/c4875",
+        "id": "Máy hút khói, khử mùi",
+        "parent_id": "Đồ dùng nhà bếp"
+    },
+    {
+        "url": "https://tiki.vn/thiet-bi-gia-dinh/c1946",
+        "id": "Thiết bị gia đình",
+        "parent_id": "Điện Gia Dụng"
+    },
+    {
+        "url": "https://tiki.vn/ban-ui-ban-la/c1993",
+        "id": "Bàn ủi, bàn là",
+        "parent_id": "Thiết bị gia đình"
+    },
+    {
+        "url": "https://tiki.vn/may-may-theu-vat-so/c1997",
+        "id": "Máy may, thêu, vắt sổ",
+        "parent_id": "Thiết bị gia đình"
+    },
+    {
+        "url": "https://tiki.vn/quat-dien/c2001",
+        "id": "Quạt điện",
+        "parent_id": "Thiết bị gia đình"
+    },
+    {
+        "id": "Giày - Dép nam",
+        "url": "https://tiki.vn/giay-dep-nam/c1686",
+        "parent_id": ""
+    },
+    {
+        "url": "https://tiki.vn/giay-the-thao-nam/c27572",
+        "id": "Giày thể thao nam",
+        "parent_id": "Giày - Dép nam"
+    },
+    {
+        "url": "https://tiki.vn/giay-the-thao-nam-co-thap/c49620",
+        "id": "Giày thể thao nam cổ thấp",
+        "parent_id": "Giày thể thao nam"
+    },
+    {
+        "url": "https://tiki.vn/giay-the-thao-nam-co-cao/c49622",
+        "id": "Giày thể thao nam cổ cao",
+        "parent_id": "Giày thể thao nam"
+    },
+    {
+        "url": "https://tiki.vn/giay-luoi-nam/c5340",
+        "id": "Giày lười nam",
+        "parent_id": "Giày - Dép nam"
+    },
+    {
+        "url": "https://tiki.vn/giay-luoi-vai-nam/c49624",
+        "id": "Giày lười vải nam",
+        "parent_id": "Giày lười nam"
+    },
+    {
+        "url": "https://tiki.vn/giay-luoi-da-nam/c49626",
+        "id": "Giày lười da nam",
+        "parent_id": "Giày lười nam"
+    },
+    {
+        "url": "https://tiki.vn/giay-luoi-nhua-nam/c49628",
+        "id": "Giày lười nhựa nam",
+        "parent_id": "Giày lười nam"
+    },
+    {
+        "url": "https://tiki.vn/giay-tay-cong-so/c1581",
+        "id": "Giày tây nam",
+        "parent_id": "Giày - Dép nam"
+    },
+    {
+        "url": "https://tiki.vn/giay-tay-nam-co-day/c49630",
+        "id": "Giày tây nam có dây",
+        "parent_id": "Giày tây nam"
+    },
+    {
+        "url": "https://tiki.vn/giay-tay-nam-khong-day/c49632",
+        "id": "Giày tây nam không dây",
+        "parent_id": "Giày tây nam"
+    },
+    {
+        "id": "Giày - Dép nữ",
+        "url": "https://tiki.vn/giay-dep-nu/c1703",
+        "parent_id": ""
+    },
+    {
+        "url": "https://tiki.vn/giay-cao-got/c8355",
+        "id": "Giày cao gót",
+        "parent_id": "Giày - Dép nữ"
+    },
+    {
+        "url": "https://tiki.vn/giay-cao-got-nhon/c49542",
+        "id": "Giày cao gót nhọn",
+        "parent_id": "Giày cao gót"
+    },
+    {
+        "url": "https://tiki.vn/giay-cao-got-quai-sau/c49544",
+        "id": "Giày cao gót quai sau",
+        "parent_id": "Giày cao gót"
+    },
+    {
+        "url": "https://tiki.vn/giay-bit-mui-quai-ngang/c49546",
+        "id": "Giày bít mũi quai ngang",
+        "parent_id": "Giày cao gót"
+    },
+    {
+        "url": "https://tiki.vn/giay-the-thao-nu/c27604",
+        "id": "Giày thể thao nữ",
+        "parent_id": "Giày - Dép nữ"
+    },
+    {
+        "url": "https://tiki.vn/giay-the-thao-co-thap/c49552",
+        "id": "Giày thể thao cổ thấp",
+        "parent_id": "Giày thể thao nữ"
+    },
+    {
+        "url": "https://tiki.vn/giay-the-thao-co-cao/c49554",
+        "id": "Giày thể thao cổ cao",
+        "parent_id": "Giày thể thao nữ"
+    },
+    {
+        "url": "https://tiki.vn/giay-sandals-nu/c4550",
+        "id": "Giày sandals nữ",
+        "parent_id": "Giày - Dép nữ"
+    },
+    {
+        "url": "https://tiki.vn/giay-sandals-de-bang/c49556",
+        "id": "Giày sandals đế bằng",
+        "parent_id": "Giày sandals nữ"
+    },
+    {
+        "url": "https://tiki.vn/giay-sandals-chien-binh/c49558",
+        "id": "Giày sandals chiến binh",
+        "parent_id": "Giày sandals nữ"
+    },
+    {
+        "url": "https://tiki.vn/giay-sandals-buoc-day/c49560",
+        "id": "Giày sandals buộc dây",
+        "parent_id": "Giày sandals nữ"
+    },
+    {
+        "id": "Túi thời trang nữ",
+        "url": "https://tiki.vn/tui-vi-nu/c976",
+        "parent_id": ""
+    },
+    {
+        "url": "https://tiki.vn/tui-deo-vai-nu/c4559",
+        "id": "Túi tote nữ",
+        "parent_id": "Túi thời trang nữ"
+    },
+    {
+        "url": "https://tiki.vn/tui-tote-co-khoa/c49608",
+        "id": "Túi tote có khóa",
+        "parent_id": "Túi tote nữ"
+    },
+    {
+        "url": "https://tiki.vn/tui-tote-khong-khoa/c49610",
+        "id": "Túi tote không khóa",
+        "parent_id": "Túi tote nữ"
+    },
+    {
+        "url": "https://tiki.vn/tui-deo-cheo-tui-deo-vai-nu/c4558",
+        "id": "Túi đeo chéo, túi đeo vai nữ",
+        "parent_id": "Túi thời trang nữ"
+    },
+    {
+        "url": "https://tiki.vn/tui-deo-cheo-cong-so/c49596",
+        "id": "Túi đeo chéo công sở",
+        "parent_id": "Túi đeo chéo, túi đeo vai nữ"
+    },
+    {
+        "url": "https://tiki.vn/tui-deo-cheo-dao-pho/c49598",
+        "id": "Túi đeo chéo dạo phố",
+        "parent_id": "Túi đeo chéo, túi đeo vai nữ"
+    },
+    {
+        "url": "https://tiki.vn/tui-cam-tay-nu/c4560",
+        "id": "Túi xách tay nữ",
+        "parent_id": "Túi thời trang nữ"
+    },
+    {
+        "url": "https://tiki.vn/tui-xach-to-ban/c49600",
+        "id": "Túi xách to bản",
+        "parent_id": "Túi xách tay nữ"
+    },
+    {
+        "url": "https://tiki.vn/tui-xach-vua-va-nho/c49602",
+        "id": "Túi xách vừa và nhỏ",
+        "parent_id": "Túi xách tay nữ"
+    },
+    {
+        "id": "Túi thời trang nam",
+        "url": "https://tiki.vn/tui-thoi-trang-nam/c27616",
+        "parent_id": ""
+    },
+    {
+        "url": "https://tiki.vn/tui-xach-cong-so-nam/c5337",
+        "id": "Túi xách công sở nam",
+        "parent_id": "Túi thời trang nam"
+    },
+    {
+        "url": "https://tiki.vn/phu-kien-nam-tui-xach/c958",
+        "id": "Túi đeo chéo nam",
+        "parent_id": "Túi thời trang nam"
+    },
+    {
+        "url": "https://tiki.vn/tui-bao-tu-tui-deo-bung/c49650",
+        "id": "Túi bao tử, túi đeo bụng",
+        "parent_id": "Túi thời trang nam"
+    },
+    {
+        "id": "Thời trang nữ",
+        "url": "https://tiki.vn/thoi-trang-nu/c931",
+        "parent_id": ""
+    },
+    {
+        "url": "https://tiki.vn/ao-nu/c1698",
+        "id": "Áo nữ",
+        "parent_id": "Thời trang nữ"
+    },
+    {
+        "url": "https://tiki.vn/ao-thun-nu/c933",
+        "id": "Áo thun nữ",
+        "parent_id": "Áo nữ"
+    },
+    {
+        "url": "https://tiki.vn/ao-so-mi-nu/c934",
+        "id": "Áo sơ mi nữ",
+        "parent_id": "Áo nữ"
+    },
+    {
+        "url": "https://tiki.vn/ao-kieu/c935",
+        "id": "Áo kiểu",
+        "parent_id": "Áo nữ"
+    },
+    {
+        "url": "https://tiki.vn/dam-vay-lien/c941",
+        "id": "Đầm nữ",
+        "parent_id": "Thời trang nữ"
+    },
+    {
+        "url": "https://tiki.vn/dam-dang-xoe/c27582",
+        "id": "Đầm Dáng Xòe",
+        "parent_id": "Đầm nữ"
+    },
+    {
+        "url": "https://tiki.vn/dam-dang-om/c27580",
+        "id": "Đầm dáng ôm",
+        "parent_id": "Đầm nữ"
+    },
+    {
+        "url": "https://tiki.vn/dam-suong/c27584",
+        "id": "Đầm suông",
+        "parent_id": "Đầm nữ"
+    },
+    {
+        "url": "https://tiki.vn/chan-vay-nu/c5404",
+        "id": "Chân váy",
+        "parent_id": "Thời trang nữ"
+    },
+    {
+        "url": "https://tiki.vn/chan-vay-dai/c5407",
+        "id": "Chân váy dài",
+        "parent_id": "Chân váy"
+    },
+    {
+        "url": "https://tiki.vn/chan-vay-ngan-nu/c5406",
+        "id": "Chân váy ngắn",
+        "parent_id": "Chân váy"
+    },
+    {
+        "url": "https://tiki.vn/chan-vay-xep-li/c5408",
+        "id": "Chân váy xếp li",
+        "parent_id": "Chân váy"
+    },
+    {
+        "id": "Thời trang nam",
+        "url": "https://tiki.vn/thoi-trang-nam/c915",
+        "parent_id": ""
+    },
+    {
+        "url": "https://tiki.vn/ao-thun-nam/c917",
+        "id": "Áo thun nam",
+        "parent_id": "Thời trang nam"
+    },
+    {
+        "url": "https://tiki.vn/ao-thun-nam-ngan-tay-co-co/c5333",
+        "id": "Áo thun nam ngắn tay có cổ",
+        "parent_id": "Áo thun nam"
+    },
+    {
+        "url": "https://tiki.vn/ao-thun-nam-ngan-tay-khong-co/c1685",
+        "id": "Áo thun nam ngắn tay không cổ",
+        "parent_id": "Áo thun nam"
+    },
+    {
+        "url": "https://tiki.vn/ao-thun-nam-ba-lo/c10378",
+        "id": "Áo thun nam ba lỗ",
+        "parent_id": "Áo thun nam"
+    },
+    {
+        "url": "https://tiki.vn/ao-so-mi-nam/c918",
+        "id": "Áo sơ mi nam",
+        "parent_id": "Thời trang nam"
+    },
+    {
+        "url": "https://tiki.vn/ao-so-mi-nam-tay-dai/c10379",
+        "id": "Áo sơ mi nam tay dài",
+        "parent_id": "Áo sơ mi nam"
+    },
+    {
+        "url": "https://tiki.vn/ao-so-mi-nam-tay-ngan/c10380",
+        "id": "Áo sơ mi nam tay ngắn",
+        "parent_id": "Áo sơ mi nam"
+    },
+    {
+        "url": "https://tiki.vn/ao-so-mi-nam-co-tau/c49444",
+        "id": "Áo sơ mi nam cổ tàu",
+        "parent_id": "Áo sơ mi nam"
+    },
+    {
+        "url": "https://tiki.vn/ao-vest-ao-khoac-nam/c925",
+        "id": "Áo vest - Áo khoác nam",
+        "parent_id": "Thời trang nam"
+    },
+    {
+        "url": "https://tiki.vn/ao-khoac-phao-nam/c10381",
+        "id": "Áo khoác phao nam",
+        "parent_id": "Áo vest - Áo khoác nam"
+    },
+    {
+        "url": "https://tiki.vn/ao-khoac-da-nam/c49456",
+        "id": "Áo khoác da nam",
+        "parent_id": "Áo vest - Áo khoác nam"
+    },
+    {
+        "url": "https://tiki.vn/ao-khoac-gio/c49458",
+        "id": "Áo khoác gió",
+        "parent_id": "Áo vest - Áo khoác nam"
+    }
+]
