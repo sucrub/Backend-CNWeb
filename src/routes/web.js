@@ -50,8 +50,18 @@ const {
 const storage = multer.diskStorage({
   destination: "uploads/",
   filename: function (req, file, cb) {
-    // Preserve the original file name
-    cb(null, file.originalname);
+    const originalName = file.originalname;
+    const extension = originalName.substring(originalName.lastIndexOf("."));
+    const timestamp = Date.now();
+    const randomDigits = Math.floor(10000 + Math.random() * 90000);
+    const uniqueFilename =
+      originalName.replace(extension, "") +
+      "-" +
+      timestamp +
+      "-" +
+      randomDigits +
+      extension;
+    cb(null, uniqueFilename);
   },
 });
 
