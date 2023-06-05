@@ -11,6 +11,7 @@ const {
   handleUpdateUserPassword,
   handlePicture,
   handleChangeAvatarUser,
+  handleUserRating,
 } = require("../controllers/userController");
 const {
   handleCreateSeller,
@@ -94,7 +95,9 @@ const initRouters = (app) => {
   router.post("/item/create-item", handleCreateItem); // okok
   router.post("/item/update-item", handleUpdateItem); // okok
   router.delete("/item/delete-item/:id", handleDeleteItem); // okok
+  // tao bang brand
   router.get("/item/get-item-by-tag");
+  //get brand by tag @@
 
   //create items specific
   router.post("/item/create-item-specific", handleCreateItemSpecific); // okok
@@ -117,10 +120,12 @@ const initRouters = (app) => {
     handleGetOrderBySellerId
   ); // ok
 
-  router.get("");
   router.post("/auth/login", handleLoginUser); // ok
   router.post("/auth/refresh-token", handleRefreshToken); // ok
   // quen mat khau
+
+  //rate
+  router.post("/rate/create-rating", handleUserRating); // ok
 
   router.post("/upload", upload.single("image"), handlePicture);
   router.post(
