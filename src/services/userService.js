@@ -1,6 +1,22 @@
 const db = require("../models/index");
 const bcrypt = require("bcrypt");
 
+const userRating = (data) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const rating = await db.rates.create({
+        user_id: data.user_id,
+        item_id: data.item_id,
+        rate: data.rate,
+        comment: data.comment,
+      });
+      resolve(rating);
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
+
 const changeAvatarUser = (id, filePath) => {
   return new Promise(async (resolve, reject) => {
     try {
@@ -156,4 +172,5 @@ module.exports = {
   updateUser,
   updatePasswordUser,
   changeAvatarUser,
+  userRating,
 };

@@ -25,7 +25,7 @@ const itemImage = (id, imagePath) => {
         where: { origin_id: id },
       });
 
-      itemspec.forEach((item, index) => {
+      await itemspec.forEach((item, index) => {
         item.img = imagePath[index];
         item.save();
       });
