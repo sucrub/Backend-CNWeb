@@ -218,6 +218,18 @@ const tag = [
   },
 ];
 
+const brand = [
+  {
+    name: "Apple",
+  },
+  {
+    name: "Samsung",
+  },
+  {
+    name: "Nokia",
+  },
+];
+
 async function populate() {
   console.log(
     "Will rewrite the MySQL example database, adding some dummy data."
@@ -251,6 +263,7 @@ async function populate() {
   await sequelize.models.orders.bulkCreate(order);
   await sequelize.models.orderdetail.bulkCreate(order_detail);
   await sequelize.models.tags.bulkCreate(tag);
+  await sequelize.models.brands.bulkCreate(brand);
 
   console.log("Dummy data population completed.");
 }

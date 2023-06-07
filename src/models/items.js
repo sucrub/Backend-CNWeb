@@ -25,10 +25,6 @@ module.exports = function (sequelize, DataTypes) {
           key: "id",
         },
       },
-      brand: {
-        type: DataTypes.STRING(255),
-        allowNull: true,
-      },
       rate: {
         type: DataTypes.INTEGER,
         allowNull: false,

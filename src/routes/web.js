@@ -47,6 +47,10 @@ const {
   handleGetOrderByUserId,
   handleGetOrderBySellerId,
 } = require("../controllers/orderController");
+const {
+  handleGetAllBrand,
+  handleGetBrandByName,
+} = require("../controllers/brandController");
 
 // Set up the storage engine
 const storage = multer.diskStorage({
@@ -124,6 +128,9 @@ const initRouters = (app) => {
   router.post("/auth/refresh-token", handleRefreshToken); // ok
   // quen mat khau
 
+  //brand
+  router.get("/brand/get-all-brand", handleGetAllBrand);
+  router.get("/brand/get-brand-by-name", handleGetBrandByName);
   //rate
   router.post("/rate/create-rating", handleUserRating); // ok
 

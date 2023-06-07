@@ -1,4 +1,5 @@
 const db = require("../models/index");
+const { getAllBrand, createBrand } = require("./brandService");
 
 /*
 {
@@ -48,7 +49,6 @@ const createItemV2 = (data) => {
         seller_id: data.seller_id,
         rate: 0,
         number_of_rating: 0,
-        brand: data.brand ? data.brand : "",
       });
       const seller = await db.sellers.findOne({
         where: { id: data.seller_id },
@@ -64,6 +64,25 @@ const createItemV2 = (data) => {
           number_sold: 0,
         });
         listItemSpec.push(itemSpecific);
+      }
+      if (data.brand) {
+        const brand = await getAllBrand();
+        const brandName = brand.map((brandItem) => brandItem.name);
+        const lowerCaseBrands = brandName.map((b) => b.toLowerCase());
+        const lowerCaseDataBrand = data.brand.toLowerCase();
+        console.log(lowerCaseBrands);
+        if (lowerCaseBrands.includes(lowerCaseDataBrand)) {
+          await db.branditem.create({
+            item_id: newItem.id,
+            brand_id: lowerCaseBrands.indexOf(lowerCaseDataBrand) + 1,
+          });
+        } else {
+          const newBrand = await createBrand(lowerCaseDataBrand);
+          await db.branditem.create({
+            item_id: newItem.id,
+            brand_id: newBrand.id,
+          });
+        }
       }
       let result = {
         newItem,
