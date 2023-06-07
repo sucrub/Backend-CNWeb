@@ -17,10 +17,9 @@ const handleLoginUser = async (req, res) => {
     const accessToken = generateAccessToken(data.username);
     const refreshToken = generateRefreshToken(data.username);
     refreshTokens.push(refreshToken);
-    console.log(refreshTokens);
     res.cookie("refreshToken", refreshToken, {
       httpOnly: true,
-      secure: true, // Set it to true for secure HTTPS connection
+      secure: false, // Set it to true for secure HTTPS connection
       path: "/",
       sameSite: "strict",
     });

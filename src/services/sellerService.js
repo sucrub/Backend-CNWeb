@@ -37,7 +37,7 @@ const createSeller = (data) => {
         password: hashedPassword,
         name: data.name,
         phone_number: data.phone_number,
-        img_url: "uploads/baseavatar.png",
+        img_url: "http://localhost:8080/uploads/baseavatar.png",
         followers: 0,
         number_of_products: 0,
         description: "",
