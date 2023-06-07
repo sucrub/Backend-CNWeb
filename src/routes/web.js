@@ -40,6 +40,8 @@ const {
   handleDeleteItemSpecific,
   handleCreateItemV2,
   handleItemImage,
+  handleGetItemByTagId,
+  handleGetItemByBrandId,
 } = require("../controllers/itemController");
 const {
   handleCreateOrder,
@@ -99,8 +101,8 @@ const initRouters = (app) => {
   router.post("/item/create-item", handleCreateItem); // okok
   router.post("/item/update-item", handleUpdateItem); // okok
   router.delete("/item/delete-item/:id", handleDeleteItem); // okok
-  // tao bang brand
-  router.get("/item/get-item-by-tag");
+  router.get("/item/get-item-by-tag-id/:id", handleGetItemByTagId); // okok
+  router.get("/item/get-item-by-brand-id/:id", handleGetItemByBrandId); // ok
   //get brand by tag @@
 
   //create items specific
@@ -129,12 +131,12 @@ const initRouters = (app) => {
   // quen mat khau
 
   //brand
-  router.get("/brand/get-all-brand", handleGetAllBrand);
-  router.get("/brand/get-brand-by-name", handleGetBrandByName);
+  router.get("/brand/get-all-brand", handleGetAllBrand); //ok
+  router.get("/brand/get-brand-by-name", handleGetBrandByName); // dont need to use
   //rate
   router.post("/rate/create-rating", handleUserRating); // ok
 
-  router.post("/upload", upload.single("image"), handlePicture);
+  router.post("/upload", upload.single("image"), handlePicture); // test api
   router.post(
     "/user/change-avatar/:id",
     upload.single("image"),

@@ -84,6 +84,14 @@ const createItemV2 = (data) => {
           });
         }
       }
+      if (data.tag && Array.isArray(data.tag)) {
+        for (let tagId of data.tag) {
+          await db.tagitem.create({
+            item_id: newItem.id,
+            tag_id: tagId,
+          });
+        }
+      }
       let result = {
         newItem,
         listItemSpec,
@@ -276,6 +284,54 @@ const deleteItemSpecific = (id) => {
   });
 };
 
+const getItemByTagId = (id) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      let items = "";
+      items = await db.tagitem.findAll({
+        where: { tag_id: id },
+      });
+      const itemId = items.map((item) => item.item_id);
+      const itemList = [];
+
+      for (let oneItemId of itemId) {
+        const item = await db.items.findOne({
+          where: { id: oneItemId },
+        });
+        itemList.push(item);
+      }
+
+      resolve(itemList);
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
+
+const getItemByBrandId = (id) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      let items = "";
+      items = await db.branditem.findAll({
+        where: { brand_id: id },
+      });
+      const itemId = items.map((item) => item.item_id);
+      const itemList = [];
+
+      for (let oneItemId of itemId) {
+        const item = await db.items.findOne({
+          where: { id: oneItemId },
+        });
+        itemList.push(item);
+      }
+
+      resolve(itemList);
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
+
 module.exports = {
   getAllItem,
   getItemBySellerId,
@@ -289,4 +345,6 @@ module.exports = {
   deleteItemSpecific,
   createItemV2,
   itemImage,
+  getItemByTagId,
+  getItemByBrandId,
 };

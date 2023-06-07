@@ -11,6 +11,8 @@ const {
   deleteItemSpecific,
   createItemV2,
   itemImage,
+  getItemByTagId,
+  getItemByBrandId,
 } = require("../services/itemService");
 
 const handleItemImage = async (req, res) => {
@@ -202,6 +204,36 @@ const handleDeleteItemSpecific = async (req, res) => {
   }
 };
 
+const handleGetItemByTagId = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const items = await getItemByTagId(id);
+    res.status(200).json({
+      message: "OK",
+      data: items,
+    });
+  } catch (error) {
+    res.status(400).json({
+      message: error.message,
+    });
+  }
+};
+
+const handleGetItemByBrandId = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const items = await getItemByBrandId(id);
+    res.status(200).json({
+      message: "OK",
+      data: items,
+    });
+  } catch (error) {
+    res.status(400).json({
+      message: error.message,
+    });
+  }
+};
+
 module.exports = {
   handleGetAllItem,
   handleGetItemBySellerId,
@@ -215,4 +247,6 @@ module.exports = {
   handleDeleteItemSpecific,
   handleCreateItemV2,
   handleItemImage,
+  handleGetItemByTagId,
+  handleGetItemByBrandId,
 };
