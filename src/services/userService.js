@@ -51,7 +51,7 @@ const createUser = (data) => {
         password: hashedPassword,
         name: data.name,
         phone_number: data.phone_number,
-        avatar: "uploads/baseavatar.png",
+        avatar: "http://localhost:8080/uploads/baseavatar.png",
       });
 
       resolve(newUser);
