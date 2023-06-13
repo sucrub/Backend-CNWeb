@@ -25,10 +25,6 @@ module.exports = function (sequelize, DataTypes) {
         type: DataTypes.INTEGER,
         allowNull: false,
       },
-      number_sold: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-      },
       img: {
         type: DataTypes.STRING(255),
         allowNull: true,

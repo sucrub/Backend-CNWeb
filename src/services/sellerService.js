@@ -137,6 +137,26 @@ const getSellerById = (id) => {
   });
 };
 
+const getSellerByName = (name) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      let seller = "";
+      seller = await db.sellers.findOne({
+        where: {
+          name: name,
+        },
+        attributes: {
+          exclude: ["password"],
+        },
+        raw: true,
+      });
+      resolve(seller);
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
+
 const getSellerByNamePrefix = (prefix) => {
   return new Promise(async (resolve, reject) => {
     try {
@@ -167,4 +187,5 @@ module.exports = {
   updateSeller,
   updatePasswordSeller,
   changeAvatarSeller,
+  getSellerByName,
 };

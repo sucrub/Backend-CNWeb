@@ -13,6 +13,8 @@ const {
   itemImage,
   getItemByTagId,
   getItemByBrandId,
+  getItemInRange,
+  getItemFilter,
 } = require("../services/itemService");
 
 const handleItemImage = async (req, res) => {
@@ -234,6 +236,36 @@ const handleGetItemByBrandId = async (req, res) => {
   }
 };
 
+const handleGetItemInRange = async (req, res) => {
+  try {
+    const { minPrice, maxPrice } = req.body;
+    const items = await getItemInRange(minPrice, maxPrice);
+    res.status(200).json({
+      message: "OK",
+      data: items,
+    });
+  } catch (error) {
+    res.status(400).json({
+      message: error.message,
+    });
+  }
+};
+
+const handleGetItemFilter = async (req, res) => {
+  try {
+    const dataFilter = req.body;
+    const items = await getItemFilter(dataFilter);
+    res.status(200).json({
+      message: "OK",
+      data: items,
+    });
+  } catch (error) {
+    res.status(400).json({
+      message: error.message,
+    });
+  }
+};
+
 module.exports = {
   handleGetAllItem,
   handleGetItemBySellerId,
@@ -249,4 +281,6 @@ module.exports = {
   handleItemImage,
   handleGetItemByTagId,
   handleGetItemByBrandId,
+  handleGetItemInRange,
+  handleGetItemFilter,
 };

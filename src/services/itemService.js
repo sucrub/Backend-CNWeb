@@ -49,6 +49,7 @@ const createItemV2 = (data) => {
         seller_id: data.seller_id,
         rate: 0,
         number_of_rating: 0,
+        number_sold: 0,
       });
       const seller = await db.sellers.findOne({
         where: { id: data.seller_id },
@@ -61,7 +62,6 @@ const createItemV2 = (data) => {
           origin_id: newItem.id,
           name: itemspec.name,
           price: itemspec.price,
-          number_sold: 0,
         });
         listItemSpec.push(itemSpecific);
       }
@@ -167,11 +167,33 @@ const deleteItem = (id) => {
 const getAllItem = () => {
   return new Promise(async (resolve, reject) => {
     try {
-      let items = "";
-      items = await db.items.findAll({
+      const items = await db.items.findAll({
         raw: true,
       });
-      resolve(items);
+
+      // Fetch item-specific data for each item
+      const itemsWithSpecific = await Promise.all(
+        items.map(async (item) => {
+          // Get the item-specific data
+          const itemSpecific = await db.itemspecific.findOne({
+            where: {
+              origin_id: item.id,
+            },
+            raw: true,
+          });
+
+          // Merge the item-specific data (img and price) into the item object
+          const itemWithSpecific = {
+            ...item,
+            img: itemSpecific.img,
+            price: itemSpecific.price,
+          };
+
+          return itemWithSpecific;
+        })
+      );
+
+      resolve(itemsWithSpecific);
     } catch (error) {
       reject(error);
     }
@@ -181,14 +203,36 @@ const getAllItem = () => {
 const getItemBySellerId = (id) => {
   return new Promise(async (resolve, reject) => {
     try {
-      let items = "";
-      items = await db.items.findAll({
+      const items = await db.items.findAll({
         where: {
           seller_id: id,
         },
         raw: true,
       });
-      resolve(items);
+
+      // Fetch item-specific data for each item
+      const itemsWithSpecific = await Promise.all(
+        items.map(async (item) => {
+          // Get the item-specific data
+          const itemSpecific = await db.itemspecific.findOne({
+            where: {
+              origin_id: item.id,
+            },
+            raw: true,
+          });
+
+          // Merge the item-specific data into the item object
+          const itemWithSpecific = {
+            ...item,
+            img: itemSpecific.img,
+            price: itemSpecific.price,
+          };
+
+          return itemWithSpecific;
+        })
+      );
+
+      resolve(itemsWithSpecific);
     } catch (error) {
       reject(error);
     }
@@ -220,7 +264,6 @@ const createItemSpecific = (data) => {
           origin_id: data.origin_id,
           name: data.name,
           price: data.price,
-          number_sold: 0,
         });
         resolve(newItemSpecific);
       } else throw new Error("Origin item did not existed");
@@ -287,21 +330,36 @@ const deleteItemSpecific = (id) => {
 const getItemByTagId = (id) => {
   return new Promise(async (resolve, reject) => {
     try {
-      let items = "";
-      items = await db.tagitem.findAll({
-        where: { tag_id: id },
+      const items = await db.items.findAll({
+        where: {
+          tag_id: id,
+        },
+        raw: true,
       });
-      const itemId = items.map((item) => item.item_id);
-      const itemList = [];
 
-      for (let oneItemId of itemId) {
-        const item = await db.items.findOne({
-          where: { id: oneItemId },
-        });
-        itemList.push(item);
-      }
+      // Fetch item-specific data for each item
+      const itemsWithSpecific = await Promise.all(
+        items.map(async (item) => {
+          // Get the item-specific data
+          const itemSpecific = await db.itemspecific.findOne({
+            where: {
+              origin_id: item.id,
+            },
+            raw: true,
+          });
 
-      resolve(itemList);
+          // Merge the item-specific data into the item object
+          const itemWithSpecific = {
+            ...item,
+            img: itemSpecific.img,
+            price: itemSpecific.price,
+          };
+
+          return itemWithSpecific;
+        })
+      );
+
+      resolve(itemsWithSpecific);
     } catch (error) {
       reject(error);
     }
@@ -332,6 +390,130 @@ const getItemByBrandId = (id) => {
   });
 };
 
+const getItemInRange = (minPrice, maxPrice) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const items = await db.items.findAll({
+        raw: true,
+      });
+
+      // Fetch item-specific data for each item
+      const itemsWithSpecific = await Promise.all(
+        items.map(async (item) => {
+          // Get the item-specific data
+          const itemSpecific = await db.itemspecific.findOne({
+            where: {
+              origin_id: item.id,
+            },
+            raw: true,
+          });
+
+          // Merge the item-specific data (img and price) into the item object
+          const itemWithSpecific = {
+            ...item,
+            img: itemSpecific.img,
+            price: itemSpecific.price,
+          };
+
+          return itemWithSpecific;
+        })
+      );
+
+      // Filter items based on price range
+      const filteredItems = itemsWithSpecific.filter((item) => {
+        if (minPrice && item.price < minPrice) {
+          return false; // Item's price is below the minimum price
+        }
+        if (maxPrice && item.price > maxPrice) {
+          return false; // Item's price is above the maximum price
+        }
+        return true; // Item's price is within the specified range
+      });
+
+      resolve(filteredItems);
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
+
+const getItemFilter = (filterData) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const items = await db.items.findAll({
+        raw: true,
+      });
+
+      // Fetch item-specific data for each item
+      const itemsWithSpecific = await Promise.all(
+        items.map(async (item) => {
+          // Get the item-specific data
+          const itemSpecific = await db.itemspecific.findOne({
+            where: {
+              origin_id: item.id,
+            },
+            raw: true,
+          });
+
+          // Fetch the brand IDs for the item from the branditem table
+          const brandItems = await db.branditem.findAll({
+            where: {
+              item_id: item.id,
+            },
+            raw: true,
+          });
+
+          // Extract the brand IDs from brandItems
+          const brandIds = brandItems.map((brandItem) => brandItem.brand_id);
+
+          // Merge the item-specific data (img, price, and brand_id) into the item object
+          const itemWithSpecific = {
+            ...item,
+            img: itemSpecific.img,
+            price: itemSpecific.price,
+            brand_id: brandIds,
+          };
+
+          return itemWithSpecific;
+        })
+      );
+
+      // Filter items based on provided data
+      const filteredItems = itemsWithSpecific.filter((item) => {
+        if (
+          filterData.brand_id &&
+          !item.brand_id.includes(filterData.brand_id)
+        ) {
+          return false; // Item's brand does not match the provided brand
+        }
+        if (filterData.id && item.id !== filterData.id) {
+          return false; // Item's ID does not match the provided ID
+        }
+        if (filterData.seller_id && item.seller_id !== filterData.seller_id) {
+          return false; // Item's seller ID does not match the provided seller ID
+        }
+        if (filterData.minPrice && item.price < filterData.minPrice) {
+          return false; // Item's price is below the minimum price
+        }
+        if (filterData.maxPrice && item.price > filterData.maxPrice) {
+          return false; // Item's price is above the maximum price
+        }
+        if (
+          filterData.category_id &&
+          item.category_id !== filterData.category_id
+        ) {
+          return false; // Item's category does not match the provided category
+        }
+        return true; // Item matches all provided filters
+      });
+
+      resolve(filteredItems);
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
+
 module.exports = {
   getAllItem,
   getItemBySellerId,
@@ -347,4 +529,6 @@ module.exports = {
   itemImage,
   getItemByTagId,
   getItemByBrandId,
+  getItemInRange,
+  getItemFilter,
 };
