@@ -45,6 +45,7 @@ const {
   handleGetItemByBrandId,
   handleGetItemInRange,
   handleGetItemFilter,
+  handleSearchItems,
 } = require("../controllers/itemController");
 const {
   handleCreateOrder,
@@ -100,7 +101,7 @@ const initRouters = (app) => {
 
   router.get("/item/get-all-item", handleGetAllItem); // okok
   router.get("/item/get-item-by-seller-id/:seller_id", handleGetItemBySellerId); // okok
-  router.get("item/get-item-by-prefix/:prefix");
+  router.get("/item/search-item", handleSearchItems); // hmmmmmmmm
   router.get("/item/get-item-by-id/:id", handleGetItemById); // okok
   router.post("/item/create-item", handleCreateItem); // okok
   router.post("/item/update-item", handleUpdateItem); // okok

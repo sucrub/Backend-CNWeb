@@ -15,6 +15,7 @@ const {
   getItemByBrandId,
   getItemInRange,
   getItemFilter,
+  getItemsByName,
 } = require("../services/itemService");
 
 const handleItemImage = async (req, res) => {
@@ -266,6 +267,24 @@ const handleGetItemFilter = async (req, res) => {
   }
 };
 
+const handleSearchItems = async (req, res) => {
+  try {
+    const searchText = req.body.text; // Assuming the text is sent in the request body
+
+    // Call a function to retrieve items by name matching the search text
+    const items = await getItemsByName(searchText);
+
+    res.status(200).json({
+      message: "OK",
+      data: items,
+    });
+  } catch (error) {
+    res.status(400).json({
+      message: error.message,
+    });
+  }
+};
+
 module.exports = {
   handleGetAllItem,
   handleGetItemBySellerId,
@@ -283,4 +302,5 @@ module.exports = {
   handleGetItemByBrandId,
   handleGetItemInRange,
   handleGetItemFilter,
+  handleSearchItems,
 };

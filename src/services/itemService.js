@@ -1,5 +1,6 @@
 const db = require("../models/index");
 const { getAllBrand, createBrand } = require("./brandService");
+const { Op } = require("sequelize");
 
 /*
 {
@@ -514,6 +515,18 @@ const getItemFilter = (filterData) => {
   });
 };
 
+const getItemsByName = async (searchText) => {
+  const items = await db.items.findAll({
+    where: {
+      name: {
+        [Op.like]: `%${searchText}%`,
+      },
+    },
+  });
+
+  return items;
+};
+
 module.exports = {
   getAllItem,
   getItemBySellerId,
@@ -531,4 +544,5 @@ module.exports = {
   getItemByBrandId,
   getItemInRange,
   getItemFilter,
+  getItemsByName,
 };
