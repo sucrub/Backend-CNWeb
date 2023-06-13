@@ -6,6 +6,7 @@ const {
   updateSeller,
   updatePasswordSeller,
   changeAvatarSeller,
+  getSellerByName,
 } = require("../services/sellerService");
 
 const handleChangeAvatarSeller = async (req, res) => {
@@ -108,6 +109,27 @@ const handleGetSellerById = async (req, res) => {
   }
 };
 
+const handleGetSellerByName = async (req, res) => {
+  try {
+    const name = req.params.name;
+    if (name) {
+      const seller = await getSellerByName(name);
+      res.status(200).json({
+        message: "OK",
+        data: seller,
+      });
+    } else {
+      res.status(402).json({
+        message: "Missing name",
+      });
+    }
+  } catch (error) {
+    res.status(400).json({
+      message: "Error",
+    });
+  }
+};
+
 const handleGetSellerByNamePrefix = async (req, res) => {
   try {
     const prefix = req.params.prefix;
@@ -137,4 +159,5 @@ module.exports = {
   handleUpdateSeller,
   handleUpdatePasswordSeller,
   handleChangeAvatarSeller,
+  handleGetSellerByName,
 };

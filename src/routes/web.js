@@ -21,6 +21,7 @@ const {
   handleUpdateSeller,
   handleUpdatePasswordSeller,
   handleChangeAvatarSeller,
+  handleGetSellerByName,
 } = require("../controllers/sellerController");
 const {
   handleRequestRefreshToken,
@@ -42,6 +43,8 @@ const {
   handleItemImage,
   handleGetItemByTagId,
   handleGetItemByBrandId,
+  handleGetItemInRange,
+  handleGetItemFilter,
 } = require("../controllers/itemController");
 const {
   handleCreateOrder,
@@ -86,6 +89,7 @@ const initRouters = (app) => {
 
   router.get("/seller/get-all-seller", handleGetAllSeller); // okok
   router.get("/seller/get-seller-by-id/:id", handleGetSellerById); // okok
+  router.get("/seller/get-seller-by-name/:name", handleGetSellerByName); // okok
   router.get(
     "/seller/get-seller-by-name-prefix/:prefix",
     handleGetSellerByNamePrefix
@@ -103,6 +107,8 @@ const initRouters = (app) => {
   router.delete("/item/delete-item/:id", handleDeleteItem); // okok
   router.get("/item/get-item-by-tag-id/:id", handleGetItemByTagId); // okok
   router.get("/item/get-item-by-brand-id/:id", handleGetItemByBrandId); // ok
+  router.get("/item/get-item-in-range", handleGetItemInRange); // ok
+  router.get("/item/get-item-filter", handleGetItemFilter); // con thieu category
   //get brand by tag @@
 
   //create items specific

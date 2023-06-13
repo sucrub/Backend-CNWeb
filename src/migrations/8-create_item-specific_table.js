@@ -26,10 +26,6 @@ module.exports = {
         allowNull: false,
         type: Sequelize.INTEGER,
       },
-      number_sold: {
-        allowNull: false,
-        type: Sequelize.INTEGER,
-      },
       img: {
         allowNull: true,
         type: Sequelize.STRING,
