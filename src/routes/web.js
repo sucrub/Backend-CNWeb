@@ -45,6 +45,7 @@ const {
   handleGetItemByBrandId,
   handleGetItemInRange,
   handleGetItemFilter,
+  handleSearchItems,
 } = require("../controllers/itemController");
 const {
   handleCreateOrder,
@@ -56,6 +57,11 @@ const {
   handleGetAllBrand,
   handleGetBrandByName,
 } = require("../controllers/brandController");
+const {
+  handleGetCart,
+  handleAddCart,
+  handleDeleteCart,
+} = require("../controllers/cartController");
 
 // Set up the storage engine
 const storage = multer.diskStorage({
@@ -87,6 +93,10 @@ const initRouters = (app) => {
   router.post("/user/update-user", handleUpdateUser); // okok
   router.post("/user/update-password", handleUpdateUserPassword); // okok
 
+  router.get("/cart/get-cart/:id", handleGetCart);
+  router.post("/cart/add-cart", handleAddCart);
+  router.delete("/cart/delete-cart", handleDeleteCart);
+
   router.get("/seller/get-all-seller", handleGetAllSeller); // okok
   router.get("/seller/get-seller-by-id/:id", handleGetSellerById); // okok
   router.get("/seller/get-seller-by-name/:name", handleGetSellerByName); // okok
@@ -100,7 +110,7 @@ const initRouters = (app) => {
 
   router.get("/item/get-all-item", handleGetAllItem); // okok
   router.get("/item/get-item-by-seller-id/:seller_id", handleGetItemBySellerId); // okok
-  router.get("item/get-item-by-prefix/:prefix");
+  router.get("/item/search-item", handleSearchItems); // hmmmmmmmm
   router.get("/item/get-item-by-id/:id", handleGetItemById); // okok
   router.post("/item/create-item", handleCreateItem); // okok
   router.post("/item/update-item", handleUpdateItem); // okok
