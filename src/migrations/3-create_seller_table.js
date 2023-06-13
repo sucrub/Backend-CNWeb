@@ -36,6 +36,14 @@ module.exports = {
         allowNull: false,
         type: Sequelize.INTEGER,
       },
+      review_count: {
+        allowNull: true,
+        type: Sequelize.INTEGER,
+      },
+      rating: {
+        allowNull: true,
+        type: Sequelize.INTEGER,
+      },
       number_of_products: {
         allowNull: false,
         type: Sequelize.INTEGER,

@@ -1,0 +1,682 @@
+[
+    {
+        "id": 25643,
+        "name": "OPPO"
+    },
+    {
+        "id": 17827,
+        "name": "Apple"
+    },
+    {
+        "id": 25422,
+        "name": "Xiaomi"
+    },
+    {
+        "id": 147856,
+        "name": "Kindle"
+    },
+    {
+        "id": 18802,
+        "name": "Samsung"
+    },
+    {
+        "id": 247549,
+        "name": "Realme"
+    },
+    {
+        "id": 19673,
+        "name": "Nokia"
+    },
+    {
+        "id": 18804,
+        "name": "Panasonic"
+    },
+    {
+        "id": 162007,
+        "name": "Tecno"
+    },
+    {
+        "id": 183637,
+        "name": "Onyx Boox"
+    },
+    {
+        "id": 111684,
+        "name": "Itel"
+    },
+    {
+        "id": 573293,
+        "name": "Vtel"
+    },
+    {
+        "id": 5178283,
+        "name": "KTEL"
+    },
+    {
+        "id": 112638,
+        "name": "Masstel"
+    },
+    {
+        "id": 111461,
+        "name": "OEM"
+    },
+    {
+        "id": 725567,
+        "name": "DXD"
+    },
+    {
+        "id": 27468,
+        "name": "OnePlus "
+    },
+    {
+        "id": 41048,
+        "name": "Sunhouse"
+    },
+    {
+        "id": 3985581,
+        "name": "CTFAST"
+    },
+    {
+        "id": 245945,
+        "name": "miDoctor"
+    },
+    {
+        "id": 48077,
+        "name": "LocknLock"
+    },
+    {
+        "id": 18634,
+        "name": "Toshiba"
+    },
+    {
+        "id": 51325,
+        "name": "Mishio"
+    },
+    {
+        "id": 189947,
+        "name": "Deerma"
+    },
+    {
+        "id": 153168,
+        "name": "Matika"
+    },
+    {
+        "id": 151473,
+        "name": "Midimori"
+    },
+    {
+        "id": 19588,
+        "name": "Comet"
+    },
+    {
+        "id": 19018,
+        "name": "Philips"
+    },
+    {
+        "id": 6286031,
+        "name": "Gaabor"
+    },
+    {
+        "id": 4224691,
+        "name": "VinBuy"
+    },
+    {
+        "id": 4234729,
+        "name": "Damas"
+    },
+    {
+        "id": 295203,
+        "name": "FUJIKA"
+    },
+    {
+        "id": 836453,
+        "name": "Mifan"
+    },
+    {
+        "id": 31702,
+        "name": "Magic Korea"
+    },
+    {
+        "id": 5048343,
+        "name": "SeaSy"
+    },
+    {
+        "id": 114568,
+        "name": "SENKO"
+    },
+    {
+        "id": 74832,
+        "name": "Pureit"
+    },
+    {
+        "id": 4307205,
+        "name": "Besti"
+    },
+    {
+        "id": 482213,
+        "name": "Jisulife"
+    },
+    {
+        "id": 24876,
+        "name": "Yoobao"
+    },
+    {
+        "id": 19813,
+        "name": "Tefal"
+    },
+    {
+        "id": 886169,
+        "name": "Lebenlang"
+    },
+    {
+        "id": 7303721,
+        "name": "BUMAS"
+    },
+    {
+        "id": 110935,
+        "name": "Nagakawa"
+    },
+    {
+        "id": 839837,
+        "name": "FuNu"
+    },
+    {
+        "id": 213231,
+        "name": "Tam Anh"
+    },
+    {
+        "id": 4995383,
+        "name": "Ximo"
+    },
+    {
+        "id": 496813,
+        "name": "buybox"
+    },
+    {
+        "id": 4267275,
+        "name": "ZAVAS"
+    },
+    {
+        "id": 4269901,
+        "name": "MO hi"
+    },
+    {
+        "id": 5036903,
+        "name": "ONEZ"
+    },
+    {
+        "id": 3989843,
+        "name": "Laceva"
+    },
+    {
+        "id": 526847,
+        "name": "DUWA"
+    },
+    {
+        "id": 5233425,
+        "name": "WILLIAM WEIR"
+    },
+    {
+        "id": 853909,
+        "name": "TIZINIS"
+    },
+    {
+        "id": 559963,
+        "name": "Minsu"
+    },
+    {
+        "id": 49369,
+        "name": "Pierre Cardin"
+    },
+    {
+        "id": 222433,
+        "name": "Pettino"
+    },
+    {
+        "id": 332657,
+        "name": "Crocs"
+    },
+    {
+        "id": 221061,
+        "name": "BIGGBEN"
+    },
+    {
+        "id": 240925,
+        "name": "Biti's"
+    },
+    {
+        "id": 4738431,
+        "name": "Bụi Leather"
+    },
+    {
+        "id": 320403,
+        "name": "Saphir"
+    },
+    {
+        "id": 301909,
+        "name": "Piierre Cardin"
+    },
+    {
+        "id": 273653,
+        "name": "Lê Sang"
+    },
+    {
+        "id": 158523,
+        "name": "Mizuno"
+    },
+    {
+        "id": 842009,
+        "name": "DySeven"
+    },
+    {
+        "id": 150203,
+        "name": "Bita's"
+    },
+    {
+        "id": 278107,
+        "name": "SUNZIN"
+    },
+    {
+        "id": 4554495,
+        "name": "CHIKIGON"
+    },
+    {
+        "id": 5696865,
+        "name": "AHT CORP"
+    },
+    {
+        "id": 4612109,
+        "name": "HT.NEO"
+    },
+    {
+        "id": 561415,
+        "name": "\tOEM"
+    },
+    {
+        "id": 4740303,
+        "name": "EMHOME"
+    },
+    {
+        "id": 452825,
+        "name": "BIOLINE"
+    },
+    {
+        "id": 856589,
+        "name": "GOODFIT"
+    },
+    {
+        "id": 5196303,
+        "name": "HT Sports"
+    },
+    {
+        "id": 549763,
+        "name": "YORN"
+    },
+    {
+        "id": 4228535,
+        "name": "depla"
+    },
+    {
+        "id": 46679,
+        "name": "Huy Hoàng"
+    },
+    {
+        "id": 629037,
+        "name": "GPSHOP"
+    },
+    {
+        "id": 153494,
+        "name": "Bee Gee"
+    },
+    {
+        "id": 741017,
+        "name": "NineRed"
+    },
+    {
+        "id": 4439117,
+        "name": "BẢO BẢO STORE"
+    },
+    {
+        "id": 5076287,
+        "name": "GREPACO"
+    },
+    {
+        "id": 4401579,
+        "name": "SHOFUKA"
+    },
+    {
+        "id": 489335,
+        "name": "FALDO"
+    },
+    {
+        "id": 841705,
+        "name": "SAIGIO"
+    },
+    {
+        "id": 686325,
+        "name": "CAVARA"
+    },
+    {
+        "id": 5003355,
+        "name": "US ARMY"
+    },
+    {
+        "id": 837855,
+        "name": "XUDI"
+    },
+    {
+        "id": 680981,
+        "name": "KEIO NIPPON"
+    },
+    {
+        "id": 878301,
+        "name": "TRITA"
+    },
+    {
+        "id": 541697,
+        "name": "Camelia"
+    },
+    {
+        "id": 53195,
+        "name": "Sakos"
+    },
+    {
+        "id": 4247905,
+        "name": "ANANSHOP688"
+    },
+    {
+        "id": 143947,
+        "name": "HARAS"
+    },
+    {
+        "id": 4232757,
+        "name": "Dolanto"
+    },
+    {
+        "id": 7304183,
+        "name": "TEEMENT"
+    },
+    {
+        "id": 610593,
+        "name": "williampolo"
+    },
+    {
+        "id": 145132,
+        "name": "Praza"
+    },
+    {
+        "id": 7424641,
+        "name": "SUNUGY"
+    },
+    {
+        "id": 7520871,
+        "name": "mirrortowers MT"
+    },
+    {
+        "id": 47633,
+        "name": "YUUMY"
+    },
+    {
+        "id": 144852,
+        "name": "Uriage"
+    },
+    {
+        "id": 4428771,
+        "name": "Hier"
+    },
+    {
+        "id": 150343,
+        "name": "Galaxy Store"
+    },
+    {
+        "id": 192479,
+        "name": "YODY"
+    },
+    {
+        "id": 892751,
+        "name": "TAKIHA"
+    },
+    {
+        "id": 45773,
+        "name": "Lata"
+    },
+    {
+        "id": 7339107,
+        "name": "Trương Gia Túi Vải Túi Canvas"
+    },
+    {
+        "id": 150231,
+        "name": "Forever Young"
+    },
+    {
+        "id": 252345,
+        "name": "Lazy Box"
+    },
+    {
+        "id": 222659,
+        "name": "Elly"
+    },
+    {
+        "id": 201253,
+        "name": "No Brand"
+    },
+    {
+        "id": 460341,
+        "name": "Vascara"
+    },
+    {
+        "id": 224735,
+        "name": "GEDI"
+    },
+    {
+        "id": 48531,
+        "name": "Midori"
+    },
+    {
+        "id": 592931,
+        "name": "Aldo"
+    },
+    {
+        "id": 516547,
+        "name": "Havaianas"
+    },
+    {
+        "id": 5310129,
+        "name": "PANDAGO"
+    },
+    {
+        "id": 5218641,
+        "name": "NATOLI"
+    },
+    {
+        "id": 51228,
+        "name": "Vans"
+    },
+    {
+        "id": 535627,
+        "name": "5S"
+    },
+    {
+        "id": 488103,
+        "name": "MRM Manlywear"
+    },
+    {
+        "id": 4653515,
+        "name": "AK Corner"
+    },
+    {
+        "id": 246545,
+        "name": "dokafashion"
+    },
+    {
+        "id": 361817,
+        "name": "Tsimple"
+    },
+    {
+        "id": 273717,
+        "name": "GOKING"
+    },
+    {
+        "id": 723623,
+        "name": "JAMANO"
+    },
+    {
+        "id": 274275,
+        "name": "May 10"
+    },
+    {
+        "id": 4807177,
+        "name": "Micado"
+    },
+    {
+        "id": 159835,
+        "name": "LADOS"
+    },
+    {
+        "id": 224521,
+        "name": "Doka"
+    },
+    {
+        "id": 221573,
+        "name": "Amazing"
+    },
+    {
+        "id": 8140035,
+        "name": "SIXDO"
+    },
+    {
+        "id": 261801,
+        "name": "Leman"
+    },
+    {
+        "id": 718933,
+        "name": "ARADO FASHION"
+    },
+    {
+        "id": 4440587,
+        "name": "VHL"
+    },
+    {
+        "id": 4469177,
+        "name": "Chandi"
+    },
+    {
+        "id": 79991,
+        "name": "Aristino"
+    },
+    {
+        "id": 219929,
+        "name": "CITYMEN"
+    },
+    {
+        "id": 317963,
+        "name": "N6"
+    },
+    {
+        "id": 45784,
+        "name": "Relax"
+    },
+    {
+        "id": 534699,
+        "name": "CLEACCO"
+    },
+    {
+        "id": 448813,
+        "name": "CATRIO"
+    },
+    {
+        "id": 618559,
+        "name": "Nexx & Dee"
+    },
+    {
+        "id": 52304,
+        "name": "iBasic"
+    },
+    {
+        "id": 282067,
+        "name": "Travel-Mate"
+    },
+    {
+        "id": 4581269,
+        "name": "Baw"
+    },
+    {
+        "id": 7903429,
+        "name": "P Pinkaha"
+    },
+    {
+        "id": 4259567,
+        "name": "BEST UNIQUE IDEAS BỤI"
+    },
+    {
+        "id": 867979,
+        "name": "BODY-MATE"
+    },
+    {
+        "id": 48018,
+        "name": "Miley Lingerie"
+    },
+    {
+        "id": 240395,
+        "name": "Gumac"
+    },
+    {
+        "id": 21021,
+        "name": "Vera"
+    },
+    {
+        "id": 537679,
+        "name": "MAYHOMES"
+    },
+    {
+        "id": 5677653,
+        "name": "Vilady"
+    },
+    {
+        "id": 4254887,
+        "name": "Blazel"
+    },
+    {
+        "id": 5236665,
+        "name": "GOMTAT"
+    },
+    {
+        "id": 2140457,
+        "name": "CARDINA"
+    },
+    {
+        "id": 4514681,
+        "name": "CCHAT CLOTHES"
+    },
+    {
+        "id": 330843,
+        "name": "HATI"
+    },
+    {
+        "id": 476013,
+        "name": "jones'."
+    },
+    {
+        "id": 740219,
+        "name": "Jinrinteen"
+    },
+    {
+        "id": 4812677,
+        "name": "Madela"
+    },
+    {
+        "id": 183621,
+        "name": "VICCI"
+    },
+    {
+        "id": 617221,
+        "name": "FKARO"
+    },
+    {
+        "id": 270607,
+        "name": "Casual 1st"
+    },
+    {
+        "id": 290341,
+        "name": "NK FASHION"
+    }
+]
