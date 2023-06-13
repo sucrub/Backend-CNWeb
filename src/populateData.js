@@ -1,33 +1,10 @@
 const db = require("./models");
 const sequelize = db.sequelize;
 const bcrypt = require("bcrypt");
+const fs = require("fs");
 
-const user = [
-  {
-    id: 1567,
-    username: "test1",
-    password: "123456",
-    name: "User",
-    phone_number: "123456789",
-    avatar: "http://localhost:8080/uploads/baseavatar.png",
-  },
-  {
-    id: 12341,
-    username: "test2",
-    password: "123456",
-    name: "User",
-    phone_number: "123456789",
-    avatar: "http://localhost:8080/uploads/baseavatar.png",
-  },
-  {
-    id: 222,
-    username: "test3",
-    password: "123456",
-    name: "User",
-    phone_number: "123456789",
-    avatar: "http://localhost:8080/uploads/baseavatar.png",
-  },
-];
+const userData = fs.readFileSync("src/data/user.json");
+const user = JSON.parse(userData);
 
 // const seller = [
 //   {

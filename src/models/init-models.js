@@ -11,6 +11,7 @@ var _tags = require("./tags");
 var _users = require("./users");
 var _brands = require("./brands");
 var _branditem = require("./branditem");
+var _carts = require("./carts");
 
 function initModels(sequelize) {
   var items = _items(sequelize, DataTypes);
@@ -25,6 +26,7 @@ function initModels(sequelize) {
   var users = _users(sequelize, DataTypes);
   var branditem = _branditem(sequelize, DataTypes);
   var brands = _brands(sequelize, DataTypes);
+  var carts = _carts(sequelize, DataTypes);
 
   items.belongsToMany(orders, {
     as: "order_id_orders",
@@ -76,8 +78,22 @@ function initModels(sequelize) {
   });
   itemspecific.belongsTo(items, { as: "origin", foreignKey: "origin_id" });
   items.hasMany(itemspecific, { as: "itemspecifics", foreignKey: "origin_id" });
-  orderdetail.belongsTo(items, { as: "item", foreignKey: "item_id" });
-  items.hasMany(orderdetail, { as: "orderdetails", foreignKey: "item_id" });
+  orderdetail.belongsTo(itemspecific, {
+    as: "itemspecifics",
+    foreignKey: "item_id",
+  });
+  itemspecific.hasMany(orderdetail, {
+    as: "orderdetails",
+    foreignKey: "item_id",
+  });
+  carts.belongsTo(itemspecific, {
+    as: "itemspecifics",
+    foreignKey: "item_id",
+  });
+  itemspecific.hasMany(carts, {
+    as: "carts",
+    foreignKey: "item_id",
+  });
   rates.belongsTo(itemspecific, { as: "itemspecifics", foreignKey: "item_id" });
   itemspecific.hasMany(rates, { as: "rates", foreignKey: "item_id" });
   tagitem.belongsTo(items, { as: "item", foreignKey: "item_id" });
@@ -86,6 +102,8 @@ function initModels(sequelize) {
   items.hasMany(branditem, { as: "branditems", foreignKey: "item_id" });
   orderdetail.belongsTo(orders, { as: "order", foreignKey: "order_id" });
   orders.hasMany(orderdetail, { as: "orderdetails", foreignKey: "order_id" });
+  carts.belongsTo(users, { as: "user", foreignKey: "user_id" });
+  users.hasMany(carts, { as: "carts", foreignKey: "user_id" });
   items.belongsTo(sellers, { as: "seller", foreignKey: "seller_id" });
   sellers.hasMany(items, { as: "items", foreignKey: "seller_id" });
   tagitem.belongsTo(tags, { as: "tag", foreignKey: "tag_id" });
@@ -108,6 +126,9 @@ function initModels(sequelize) {
     tagitem,
     tags,
     users,
+    branditem,
+    brands,
+    carts,
   };
 }
 module.exports = initModels;
