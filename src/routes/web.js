@@ -57,6 +57,11 @@ const {
   handleGetAllBrand,
   handleGetBrandByName,
 } = require("../controllers/brandController");
+const {
+  handleGetCart,
+  handleAddCart,
+  handleDeleteCart,
+} = require("../controllers/cartController");
 
 // Set up the storage engine
 const storage = multer.diskStorage({
@@ -87,6 +92,10 @@ const initRouters = (app) => {
   router.post("/user/create-user", handleCreateUser); // okok
   router.post("/user/update-user", handleUpdateUser); // okok
   router.post("/user/update-password", handleUpdateUserPassword); // okok
+
+  router.get("/cart/get-cart/:id", handleGetCart);
+  router.post("/cart/add-cart", handleAddCart);
+  router.delete("/cart/delete-cart", handleDeleteCart);
 
   router.get("/seller/get-all-seller", handleGetAllSeller); // okok
   router.get("/seller/get-seller-by-id/:id", handleGetSellerById); // okok

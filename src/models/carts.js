@@ -12,7 +12,7 @@ module.exports = function (sequelize, DataTypes) {
           key: "id",
         },
       },
-      user_ud: {
+      user_id: {
         type: DataTypes.INTEGER,
         allowNull: false,
         primaryKey: true,

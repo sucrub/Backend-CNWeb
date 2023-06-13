@@ -3,8 +3,8 @@ const db = require("../models/index");
 const getCartByUserId = (id) => {
   return new Promise(async (resolve, reject) => {
     try {
-      const cart = "";
-      cart = await db.cart.findAll({
+      let cart = "";
+      cart = await db.carts.findAll({
         where: { user_id: id },
       });
       resolve(cart);
@@ -17,7 +17,7 @@ const getCartByUserId = (id) => {
 const addCart = (data) => {
   return new Promise(async (resolve, reject) => {
     try {
-      const cart = await db.cart.create({
+      const cart = await db.carts.create({
         item_id: data.item_id,
         user_id: data.user_id,
         quantity: data.quantity,
@@ -32,11 +32,13 @@ const addCart = (data) => {
 const deleteCart = (data) => {
   return new Promise(async (resolve, reject) => {
     try {
-      const cart = await db.cart.destroy({
-        item_id: data.item_id,
-        user_id: data.user_id,
+      const cart = await db.carts.destroy({
+        where: {
+          item_id: data.item_id,
+          user_id: data.user_id,
+        },
       });
-      resolve(cart);
+      resolve("Success");
     } catch (error) {
       reject(error);
     }

@@ -6,7 +6,7 @@ const {
 
 const handleGetCart = async (req, res) => {
   try {
-    const id = req.params;
+    const id = req.params.id;
     const cart = await getCartByUserId(id);
     res.status(200).json({
       message: "OK",
