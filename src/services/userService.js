@@ -11,6 +11,25 @@ const userRating = (data) => {
         comment: data.comment,
         title: data.title,
       });
+
+      // Calculate the average rating for the item
+      const itemRatings = await db.rates.findAll({
+        where: {
+          item_id: data.item_id,
+        },
+        attributes: [
+          [db.Sequelize.fn("AVG", db.Sequelize.col("rate")), "average_rating"],
+        ],
+        raw: true,
+      });
+
+      const averageRating = itemRatings[0].average_rating || 0;
+
+      // Update the item's rate with the calculated average rating
+      const item = await db.items.findByPk(data.item_id);
+      item.rate = averageRating;
+      await item.save();
+
       resolve(rating);
     } catch (error) {
       reject(error);

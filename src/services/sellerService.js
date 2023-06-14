@@ -86,14 +86,25 @@ const updatePasswordSeller = (data) => {
         where: { username: data.username },
       });
       if (seller) {
-        if (seller.password === data.old_password) {
+        const passwordMatch = await bcrypt.compare(
+          data.old_password,
+          seller.password
+        );
+        if (passwordMatch) {
           if (data.new_password === data.confirm_password) {
-            seller.password = data.new_password;
+            const hashedPassword = await bcrypt.hash(data.new_password, 10);
+            seller.password = hashedPassword;
             await seller.save();
-            resolve("Change successfully");
-          } else throw new Error("Password did not match");
-        } else throw new Error("Old password wrong");
-      } else throw new Error("Seller did not exist");
+            resolve("Password changed successfully");
+          } else {
+            throw new Error("New passwords do not match");
+          }
+        } else {
+          throw new Error("Incorrect old password");
+        }
+      } else {
+        throw new Error("Seller does not exist");
+      }
     } catch (error) {
       reject(error);
     }
@@ -179,6 +190,34 @@ const getSellerByNamePrefix = (prefix) => {
   });
 };
 
+const getSellerByCategory = (id) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const items = await db.items.findAll({
+        where: {
+          category_id: id,
+        },
+        raw: true,
+      });
+      const sellerIDs = items.map((item) => item.seller_id);
+      const uniquesellerIDs = [...new Set(sellerIDs)];
+      const sellers = await db.sellers.findAll({
+        where: {
+          id: uniquesellerIDs,
+        },
+        attributes: {
+          exclude: ["password"],
+        },
+        raw: true,
+      });
+      const uniqueSeller = [...new Set(sellers)];
+      resolve(uniqueSeller);
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
+
 module.exports = {
   createSeller,
   getAllSeller,
@@ -188,4 +227,5 @@ module.exports = {
   updatePasswordSeller,
   changeAvatarSeller,
   getSellerByName,
+  getSellerByCategory,
 };

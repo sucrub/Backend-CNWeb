@@ -22,6 +22,7 @@ const {
   handleUpdatePasswordSeller,
   handleChangeAvatarSeller,
   handleGetSellerByName,
+  handleGetSellerByCategory,
 } = require("../controllers/sellerController");
 const {
   handleRequestRefreshToken,
@@ -46,16 +47,22 @@ const {
   handleGetItemInRange,
   handleGetItemFilter,
   handleSearchItems,
+  handleGetRate,
+  handleGetItemByCategory,
 } = require("../controllers/itemController");
 const {
   handleCreateOrder,
   handleGetOrderById,
   handleGetOrderByUserId,
   handleGetOrderBySellerId,
+  handleChangeOrderStatus,
 } = require("../controllers/orderController");
 const {
   handleGetAllBrand,
   handleGetBrandByName,
+  handleGetBrandByCategory,
+  handleGetAllCategory,
+  handleGetCategoryById,
 } = require("../controllers/brandController");
 const {
   handleGetCart,
@@ -90,6 +97,7 @@ const initRouters = (app) => {
 
   // RATE
   router.post("/rate/create-rating", handleUserRating); // DONE
+  router.get("/rate/get-rate/:item_id", handleGetRate); // DONE
 
   // USER
   router.post(
@@ -104,70 +112,90 @@ const initRouters = (app) => {
   router.post("/user/update-user", handleUpdateUser); // DONE
   router.post("/user/update-password", handleUpdateUserPassword); // DONE
 
-  router.get("/cart/get-cart/:id", handleGetCart);
-  router.post("/cart/add-cart", handleAddCart);
-  router.delete("/cart/delete-cart", handleDeleteCart);
-
-  router.get("/seller/get-all-seller", handleGetAllSeller); // okok
-  router.get("/seller/get-seller-by-id/:id", handleGetSellerById); // okok
-  router.get("/seller/get-seller-by-name/:name", handleGetSellerByName); // okok
+  // SELLER
+  router.get(
+    "/seller/get-seller-by-category/:category_id",
+    handleGetSellerByCategory
+  ); // DONE
+  router.get("/seller/get-all-seller", handleGetAllSeller); // DONE
+  router.get("/seller/get-seller-by-id/:id", handleGetSellerById); // DONE
+  router.get("/seller/get-seller-by-name/:name", handleGetSellerByName); // DONE
   router.get(
     "/seller/get-seller-by-name-prefix/:prefix",
     handleGetSellerByNamePrefix
-  ); // okok
-  router.post("/seller/create-seller", handleCreateSeller); // okok
-  router.post("/seller/update-seller", handleUpdateSeller); // okok
-  router.post("/seller/update-password", handleUpdatePasswordSeller); // okok
-
-  router.get("/item/get-all-item", handleGetAllItem); // okok
-  router.get("/item/get-item-by-seller-id/:seller_id", handleGetItemBySellerId); // okok
-  router.get("/item/search-item", handleSearchItems); // hmmmmmmmm
-  router.get("/item/get-item-by-id/:id", handleGetItemById); // okok
-  router.post("/item/create-item", handleCreateItem); // okok
-  router.post("/item/update-item", handleUpdateItem); // okok
-  router.delete("/item/delete-item/:id", handleDeleteItem); // okok
-  router.get("/item/get-item-by-tag-id/:id", handleGetItemByTagId); // okok
-  router.get("/item/get-item-by-brand-id/:id", handleGetItemByBrandId); // ok
-  router.get("/item/get-item-in-range", handleGetItemInRange); // ok
-  router.get("/item/get-item-filter", handleGetItemFilter); // con thieu category
-  //get brand by tag @@
-
-  //create items specific
-  router.post("/item/create-item-specific", handleCreateItemSpecific); // okok
-  router.get(
-    "/item/get-item-specific-by-origin-id/:origin_id",
-    handleGetItemSpecificByOriginId
-  ); // okok
-  router.post("/item/update-specific-item", handleUpdateItemSpecific); // okok
-  router.delete("/item/delete-specific-item/:id", handleDeleteItemSpecific); // okok
-
-  //update create item
-  router.post("/item/create-item-v2", handleCreateItemV2); // ok
-
-  //create order
-  router.get("/order/get-order-by-id/:id", handleGetOrderById); // ok
-  router.get("/order/get-order-by-user-id/:user_id", handleGetOrderByUserId); // ok
-  router.post("/order/create-order", handleCreateOrder); // ok
-  router.get(
-    "/order/get-order-by-seller-id/:seller_id",
-    handleGetOrderBySellerId
-  ); // ok
-
-  //brand
-  router.get("/brand/get-all-brand", handleGetAllBrand); //ok
-  router.get("/brand/get-brand-by-name", handleGetBrandByName); // dont need to use
-
-  router.post("/upload", upload.single("image"), handlePicture); // test api
+  ); // DONE
+  router.post("/seller/create-seller", handleCreateSeller); // DONE
+  router.post("/seller/update-seller", handleUpdateSeller); // DONE
+  router.post("/seller/update-password", handleUpdatePasswordSeller); // DONE
   router.post(
     "/seller/change-avatar/:id",
     upload.single("image"),
     handleChangeAvatarSeller
-  ); // ok
+  ); // DONE
+
+  // BRAND
+  router.get(
+    "/brand/get-brand-by-category/:category_id",
+    handleGetBrandByCategory
+  ); // DONE
+  router.get("/brand/get-all-brand", handleGetAllBrand); //DONE
+
+  // CATEGORY
+  router.get("/category/get-all-category", handleGetAllCategory); // DONE
+  router.get(
+    "/category/get-category-by-id/:category_id",
+    handleGetCategoryById
+  ); // DONE
+
+  // ITEM
+  router.get("/item/get-item-by-seller-id/:seller_id", handleGetItemBySellerId); // DONE
+  router.get("/item/get-all-item", handleGetAllItem); // DONE
+  router.get(
+    "/item/get-item-by-category/:category_id",
+    handleGetItemByCategory
+  ); // DONE
+  router.get("/item/get-item-filter", handleGetItemFilter); // DONE
+  router.post("/item/create-item-v2", handleCreateItemV2); // DONE
   router.post(
     "/item/item-picture/:id",
     upload.array("image", 100),
     handleItemImage
-  ); // ok
+  ); // DONE
+  router.post("/item/create-item-specific", handleCreateItemSpecific); // DONE
+  router.get(
+    "/item/get-item-specific-by-origin-id/:origin_id",
+    handleGetItemSpecificByOriginId
+  ); // DONE
+  router.post("/item/update-specific-item", handleUpdateItemSpecific); // DONE
+  router.delete("/item/delete-specific-item/:id", handleDeleteItemSpecific); // DONE
+  router.get("/item/search-item", handleSearchItems); // DONE
+  router.get("/item/get-item-by-id/:id", handleGetItemById); // DONE
+  router.post("/item/update-item", handleUpdateItem); // DONE
+  router.get("/item/get-item-by-brand-id/:id", handleGetItemByBrandId); // DONE
+  router.get("/item/get-item-in-range", handleGetItemInRange); // DONE
+  router.delete("/item/delete-item/:id", handleDeleteItem); // DONE
+
+  //ORDER
+  router.post("/order/create-order", handleCreateOrder); // DONE
+  router.get("/order/get-order-by-id/:id", handleGetOrderById); // DONE
+  router.get("/order/get-order-by-user-id/:user_id", handleGetOrderByUserId); // DONE
+  router.get(
+    "/order/get-order-by-seller-id/:seller_id",
+    handleGetOrderBySellerId
+  ); // DONE
+  router.post("/order/change-status", handleChangeOrderStatus); // DONE
+
+  //CART
+  router.get("/cart/get-cart/:id", handleGetCart);
+  router.post("/cart/add-cart", handleAddCart);
+  router.delete("/cart/delete-cart", handleDeleteCart);
+
+  ///////////////////////////////////////////////////////////////////////
+  //TEST API, NO NEED TO USE
+  router.post("/item/create-item", handleCreateItem); // okok
+  router.get("/item/get-item-by-tag-id/:id", handleGetItemByTagId); // okok
+  router.get("/brand/get-brand-by-name", handleGetBrandByName); // dont need to use
+  router.post("/upload", upload.single("image"), handlePicture); // test api
 
   return app.use("/", router);
 };

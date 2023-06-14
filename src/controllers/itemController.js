@@ -16,7 +16,24 @@ const {
   getItemInRange,
   getItemFilter,
   getItemsByName,
+  getRate,
+  getItemByCategory,
 } = require("../services/itemService");
+
+const handleGetRate = async (req, res) => {
+  try {
+    const id = req.params.item_id;
+    const rates = await getRate(id);
+    res.status(200).json({
+      message: "OK",
+      data: rates,
+    });
+  } catch (error) {
+    res.status(400).json({
+      message: "Error",
+    });
+  }
+};
 
 const handleItemImage = async (req, res) => {
   try {
@@ -50,6 +67,21 @@ const handleCreateItemV2 = async (req, res) => {
     res.status(200).json({
       message: "OK",
       data: item,
+    });
+  } catch (error) {
+    res.status(400).json({
+      message: "Error",
+    });
+  }
+};
+
+const handleGetItemByCategory = async (req, res) => {
+  try {
+    const id = req.params.category_id;
+    const items = await getItemByCategory(id);
+    res.status(200).json({
+      message: "OK",
+      data: items,
     });
   } catch (error) {
     res.status(400).json({
@@ -303,4 +335,6 @@ module.exports = {
   handleGetItemInRange,
   handleGetItemFilter,
   handleSearchItems,
+  handleGetRate,
+  handleGetItemByCategory,
 };

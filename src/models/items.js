@@ -62,11 +62,11 @@ module.exports = function (sequelize, DataTypes) {
           using: "BTREE",
           fields: [{ name: "seller_id" }],
         },
-        {
-          name: "category_id",
-          using: "BTREE",
-          fields: [{ name: "category_id" }],
-        },
+        // {
+        //   name: "category_id",
+        //   using: "BTREE",
+        //   fields: [{ name: "category_id" }],
+        // },
       ],
     }
   );
