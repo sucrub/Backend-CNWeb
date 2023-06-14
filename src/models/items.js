@@ -37,6 +37,14 @@ module.exports = function (sequelize, DataTypes) {
         type: DataTypes.INTEGER,
         allowNull: false,
       },
+      category_id: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+        references: {
+          model: "categories",
+          key: "id",
+        },
+      },
     },
     {
       sequelize,
@@ -53,6 +61,11 @@ module.exports = function (sequelize, DataTypes) {
           name: "seller_id",
           using: "BTREE",
           fields: [{ name: "seller_id" }],
+        },
+        {
+          name: "category_id",
+          using: "BTREE",
+          fields: [{ name: "category_id" }],
         },
       ],
     }
