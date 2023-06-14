@@ -3,7 +3,6 @@ const jwt = require("jsonwebtoken");
 const {
   generateAccessToken,
   generateRefreshToken,
-  verifyToken,
   login,
 } = require("../services/authService");
 
@@ -14,15 +13,18 @@ const handleLoginUser = async (req, res) => {
   try {
     const data = req.body;
     const loginData = await login(data);
+
     const accessToken = generateAccessToken(data.username);
     const refreshToken = generateRefreshToken(data.username);
     refreshTokens.push(refreshToken);
+
     res.cookie("refreshToken", refreshToken, {
       httpOnly: true,
-      secure: false, // Set it to true for secure HTTPS connection
+      secure: false,
       path: "/",
       sameSite: "strict",
     });
+
     res.status(200).json({
       message: "OK",
       data: loginData,
@@ -53,6 +55,7 @@ const handleRefreshToken = (req, res) => {
       }
 
       const accessToken = generateAccessToken(user.username);
+
       res.status(200).json({
         accessToken,
       });

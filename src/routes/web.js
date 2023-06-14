@@ -63,7 +63,6 @@ const {
   handleDeleteCart,
 } = require("../controllers/cartController");
 
-// Set up the storage engine
 const storage = multer.diskStorage({
   destination: "uploads/",
   filename: function (req, file, cb) {
@@ -82,10 +81,13 @@ const storage = multer.diskStorage({
   },
 });
 
-// Set up the multer middleware
 const upload = multer({ storage });
 
 const initRouters = (app) => {
+  // AUTH
+  router.post("/auth/login", handleLoginUser); // DONE
+  router.post("/auth/refresh-token", handleRefreshToken); // DONE
+
   router.get("/user/get-all-user", handleGetAllUser); // okok
   router.get("/user/get-user-by-id/:id", handleGetUserById); // okok
   router.get("/user/get-user-by-username/:username", handleGetUserByUsername); // okok
@@ -141,10 +143,6 @@ const initRouters = (app) => {
     "/order/get-order-by-seller-id/:seller_id",
     handleGetOrderBySellerId
   ); // ok
-
-  router.post("/auth/login", handleLoginUser); // ok
-  router.post("/auth/refresh-token", handleRefreshToken); // ok
-  // quen mat khau
 
   //brand
   router.get("/brand/get-all-brand", handleGetAllBrand); //ok

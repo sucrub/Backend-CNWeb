@@ -83,7 +83,6 @@ function initModels(sequelize) {
   rates.belongsTo(itemspecific, { as: "itemspecifics", foreignKey: "item_id" });
   itemspecific.hasMany(rates, { as: "rates", foreignKey: "item_id" });
   branditem.belongsTo(items, { as: "item", foreignKey: "item_id" });
-  items.hasMany(tagitem, { as: "tagitems", foreignKey: "item_id" });
   items.hasMany(branditem, { as: "branditems", foreignKey: "item_id" });
   orderdetail.belongsTo(orders, { as: "order", foreignKey: "order_id" });
   orders.hasMany(orderdetail, { as: "orderdetails", foreignKey: "order_id" });
