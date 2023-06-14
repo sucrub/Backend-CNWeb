@@ -38,9 +38,12 @@ const loginUser = (data) => {
       const user = await db.users.findOne({
         where: { username: data.username },
       });
+
       if (!user) throw new Error("User not existed");
+
       const isCorrectPassword = user.password === data.password;
       if (!isCorrectPassword) throw new Error("Wrong password");
+
       const dataUser = await db.users.findOne({
         where: { username: data.username },
         attributes: {
@@ -48,6 +51,7 @@ const loginUser = (data) => {
         },
         raw: true,
       });
+
       resolve(dataUser);
     } catch (error) {
       reject(error);
@@ -68,6 +72,7 @@ const login = (data) => {
           data.password,
           user.password
         );
+
         if (passwordMatch) {
           const dataUser = await db.users.findOne({
             where: { username: data.username },
@@ -76,10 +81,12 @@ const login = (data) => {
             },
             raw: true,
           });
+
           outputData = {
             dataUser,
             role: "user",
           };
+
           resolve(outputData);
         } else {
           throw new Error("Wrong username or password");
@@ -88,11 +95,13 @@ const login = (data) => {
         const seller = await db.sellers.findOne({
           where: { username: data.username },
         });
+
         if (seller) {
           const passwordMatch = await bcrypt.compare(
             data.password,
             seller.password
           );
+
           if (passwordMatch) {
             const dataSeller = await db.sellers.findOne({
               where: { username: data.username },
@@ -101,10 +110,12 @@ const login = (data) => {
               },
               raw: true,
             });
+
             outputData = {
               dataSeller,
               role: "seller",
             };
+
             resolve(outputData);
           } else {
             throw new Error("Wrong username or password");
