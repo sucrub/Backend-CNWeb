@@ -9,6 +9,7 @@ const userRating = (data) => {
         item_id: data.item_id,
         rate: data.rate,
         comment: data.comment,
+        title: data.title,
       });
       resolve(rating);
     } catch (error) {
