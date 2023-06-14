@@ -13,6 +13,7 @@ const handleUserRating = async (req, res) => {
   try {
     const data = req.body;
     const rating = await userRating(data);
+
     res.status(200).json({
       message: "OK",
       data: rating,
@@ -63,6 +64,7 @@ const handleCreateUser = async (req, res) => {
   try {
     const data = req.body;
     const newUser = await createUser(data);
+
     res.status(200).json({
       message: "OK",
       data: newUser,

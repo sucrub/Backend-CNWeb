@@ -88,12 +88,21 @@ const initRouters = (app) => {
   router.post("/auth/login", handleLoginUser); // DONE
   router.post("/auth/refresh-token", handleRefreshToken); // DONE
 
-  router.get("/user/get-all-user", handleGetAllUser); // okok
-  router.get("/user/get-user-by-id/:id", handleGetUserById); // okok
-  router.get("/user/get-user-by-username/:username", handleGetUserByUsername); // okok
-  router.post("/user/create-user", handleCreateUser); // okok
-  router.post("/user/update-user", handleUpdateUser); // okok
-  router.post("/user/update-password", handleUpdateUserPassword); // okok
+  // RATE
+  router.post("/rate/create-rating", handleUserRating); // DONE
+
+  // USER
+  router.post(
+    "/user/change-avatar/:id",
+    upload.single("image"),
+    handleChangeAvatarUser
+  ); // DONE
+  router.get("/user/get-all-user", handleGetAllUser); // DONE
+  router.get("/user/get-user-by-id/:id", handleGetUserById); // DONE
+  router.get("/user/get-user-by-username/:username", handleGetUserByUsername); // DONE
+  router.post("/user/create-user", handleCreateUser); // DONE
+  router.post("/user/update-user", handleUpdateUser); // DONE
+  router.post("/user/update-password", handleUpdateUserPassword); // DONE
 
   router.get("/cart/get-cart/:id", handleGetCart);
   router.post("/cart/add-cart", handleAddCart);
@@ -147,15 +156,8 @@ const initRouters = (app) => {
   //brand
   router.get("/brand/get-all-brand", handleGetAllBrand); //ok
   router.get("/brand/get-brand-by-name", handleGetBrandByName); // dont need to use
-  //rate
-  router.post("/rate/create-rating", handleUserRating); // ok
 
   router.post("/upload", upload.single("image"), handlePicture); // test api
-  router.post(
-    "/user/change-avatar/:id",
-    upload.single("image"),
-    handleChangeAvatarUser
-  ); // ok
   router.post(
     "/seller/change-avatar/:id",
     upload.single("image"),

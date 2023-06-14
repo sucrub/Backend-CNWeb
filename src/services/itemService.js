@@ -51,6 +51,7 @@ const createItemV2 = (data) => {
         rate: 0,
         number_of_rating: 0,
         number_sold: 0,
+        category_id: data.category_id ? category_id : null,
       });
       const seller = await db.sellers.findOne({
         where: { id: data.seller_id },
@@ -71,7 +72,6 @@ const createItemV2 = (data) => {
         const brandName = brand.map((brandItem) => brandItem.name);
         const lowerCaseBrands = brandName.map((b) => b.toLowerCase());
         const lowerCaseDataBrand = data.brand.toLowerCase();
-        console.log(lowerCaseBrands);
         if (lowerCaseBrands.includes(lowerCaseDataBrand)) {
           await db.branditem.create({
             item_id: newItem.id,
