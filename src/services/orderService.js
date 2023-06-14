@@ -139,9 +139,28 @@ const getOrderyBySellerId = (id) => {
   });
 };
 
+const changeOrderStatus = (order_id, item_id, status) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const order = await db.orderdetail.findOne({
+        where: {
+          order_id: order_id,
+          item_id: item_id,
+        },
+      });
+      order.status = status;
+      await order.save;
+      resolve(order);
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
+
 module.exports = {
   createOrder,
   getOrderById,
   getOrderByUserId,
   getOrderyBySellerId,
+  changeOrderStatus,
 };

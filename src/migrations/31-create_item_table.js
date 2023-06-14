@@ -28,7 +28,7 @@ module.exports = {
       },
       rate: {
         allowNull: false,
-        type: Sequelize.INTEGER,
+        type: Sequelize.FLOAT,
       },
       number_of_rating: {
         allowNull: false,
