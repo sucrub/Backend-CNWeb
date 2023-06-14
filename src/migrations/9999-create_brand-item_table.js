@@ -1,13 +1,13 @@
 "use strict";
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable("Rates", {
-      user_id: {
+    return queryInterface.createTable("Branditem", {
+      brand_id: {
         allowNull: false,
         primaryKey: true,
         type: Sequelize.INTEGER,
         references: {
-          model: "Users",
+          model: "Brands",
           key: "id",
         },
         onUpdate: "CASCADE",
@@ -24,17 +24,9 @@ module.exports = {
         onUpdate: "CASCADE",
         onDelete: "CASCADE",
       },
-      rate: {
-        allowNull: false,
-        type: Sequelize.INTEGER,
-      },
-      comment: {
-        allowNull: false,
-        type: Sequelize.STRING,
-      },
     });
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable("Rates");
+    return queryInterface.dropTable("Branditem");
   },
 };

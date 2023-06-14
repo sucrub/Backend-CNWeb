@@ -37,6 +37,14 @@ module.exports = function (sequelize, DataTypes) {
         type: DataTypes.INTEGER,
         allowNull: false,
       },
+      review_count: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+      },
+      rating: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+      },
       number_of_products: {
         type: DataTypes.INTEGER,
         allowNull: false,

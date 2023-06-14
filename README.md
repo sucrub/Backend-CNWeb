@@ -33,6 +33,7 @@ http://localhost:8080/user/get-user-by-id/{id} |	GET |	Get user by ID |	N/A
 http://localhost:8080/user/get-user-by-id/{username} |	GET |	Get user by username |	N/A
 http://localhost:8080/user/update-user |	POST |	Update user |	username, (first_name, last_name, phone_number)
 http://localhost:8080/user/update-password |	POST |	Update user password |	username, old_password, new_password, confirm_password
+http://localhost:8080/user/change-avatar/{id} | POST | Change avatar user | N/A | Upload file
 
 ### Seller
 Endpoint       |	Method |	Description |	Request Body | Note
@@ -42,6 +43,7 @@ http://localhost:8080/seller/get-seller-by-id/{id} |	GET |	Get seller by ID |	N/
 http://localhost:8080/seller/get-seller-by-name-prefix/{prefix} |	GET |	Get seller by name prefix |	N/A
 http://localhost:8080/seller/update-seller |	POST |	Update seller |	username, (name, address, phone_number, description)
 http://localhost:8080/seller/update-password |	POST |	Update seller password |	username, old_password, new_password, confirm_password
+http://localhost:8080/seller/change-avatar/{id} | POST | Change avatar seller | N/A | Upload file
 
 ### Item
 Endpoint       |	Method |	Description |	Request Body | Note
@@ -55,6 +57,9 @@ http://localhost:8080/item/get-item-specific-by-origin-id/{origin_id} |	GET |	Ge
 http://localhost:8080/item/update-specific-item |	POST |	Update specific item |	id, (name, price)
 http://localhost:8080/item/delete-specific-item/{id} |	DELETE |	Delete specific item |	N/A
 http://localhost:8080/item/create-item-v2| POST | Create item including item specific | Note bên dưới
+http://localhost:8080/item/item-picture/{id} | POST | Push item spec image when creating item | N/A | Upload file
+http://localhost:8080/item/get-item-by-tag-id/{id} | GET | Get item by tag ID | N/A
+http://localhost:8080/item/get-item-by-brand-id/{id} | GET | Get item by brand ID | N/A
 
 ### Order
 Endpoint       |	Method |	Description |	Request Body | Note
@@ -64,13 +69,20 @@ http://localhost:8080/order/get-order-by-user-id/{user_id} | GET | Get order by 
 http://localhost:8080/order/create-order | POST | Get order by order id | Note bên dưới
 http://localhost:8080/order/get-order-by-seller-id/{seller_id} | GET | Get order by seller id | N/A
 
+### Brand
+Endpoint       |	Method |	Description |	Request Body | Note
+---------------|---------|--------------|--------------|------
+http://localhost:8080/brand/get-all-brand | GET | Get all brand | N/A
+
 ### Note cho một số API
 Req.body của create item v2:
-```ruby
+```js
 {
     "name": "Test item 5",
     "description": "test desc",
     "seller_id": 1,
+    "brand": "Nokia", // có hoặc không đều được
+    "tag": [], // có hoặc không
     "item_specific": [
         {
             "name": "test 1",
@@ -85,7 +97,7 @@ Req.body của create item v2:
 ```
 
 Req.body của create order: 
-```ruby
+```js
 {
     "user_id": 2,
     "ship_address": "HaNoi",

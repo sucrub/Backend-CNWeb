@@ -1,6 +1,23 @@
 const db = require("../models/index");
 const bcrypt = require("bcrypt");
 
+const userRating = (data) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const rating = await db.rates.create({
+        user_id: data.user_id,
+        item_id: data.item_id,
+        rate: data.rate,
+        comment: data.comment,
+        title: data.title,
+      });
+      resolve(rating);
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
+
 const changeAvatarUser = (id, filePath) => {
   return new Promise(async (resolve, reject) => {
     try {
@@ -22,9 +39,11 @@ const createUser = (data) => {
       const existingSeller = await db.sellers.findOne({
         where: { username: data.username },
       });
+
       const existingUser = await db.users.findOne({
         where: { username: data.username },
       });
+
       if (existingSeller || existingUser) {
         throw new Error("Username already exists");
       }
@@ -35,7 +54,7 @@ const createUser = (data) => {
         password: hashedPassword,
         name: data.name,
         phone_number: data.phone_number,
-        avatar: "uploads/baseavatar.png",
+        avatar: "http://localhost:8080/uploads/baseavatar.png",
       });
 
       resolve(newUser);
@@ -76,15 +95,28 @@ const updatePasswordUser = (data) => {
       let user = await db.users.findOne({
         where: { username: data.username },
       });
+
       if (user) {
-        if (user.password === data.old_password) {
+        const passwordMatch = await bcrypt.compare(
+          data.old_password,
+          user.password
+        );
+
+        if (passwordMatch) {
           if (data.new_password === data.confirm_password) {
-            user.password = data.new_password;
+            const hashedPassword = await bcrypt.hash(data.new_password, 10);
+            user.password = hashedPassword;
             await user.save();
             resolve("Change password successfully");
-          } else throw new Error("Password did not match");
-        } else throw new Error("Old password did not correct");
-      } else throw new Error("User did not exist");
+          } else {
+            throw new Error("Passwords do not match");
+          }
+        } else {
+          throw new Error("Incorrect old password");
+        }
+      } else {
+        throw new Error("User does not exist");
+      }
     } catch (error) {
       reject(error);
     }
@@ -156,4 +188,5 @@ module.exports = {
   updateUser,
   updatePasswordUser,
   changeAvatarUser,
+  userRating,
 };

@@ -10,7 +10,38 @@ const {
   updateItemSpecific,
   deleteItemSpecific,
   createItemV2,
+  itemImage,
+  getItemByTagId,
+  getItemByBrandId,
+  getItemInRange,
+  getItemFilter,
+  getItemsByName,
 } = require("../services/itemService");
+
+const handleItemImage = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const images = req.files; // Array of uploaded image files
+    const imagePath = [];
+    for (let image of images) {
+      let path = "http://localhost:8080/" + image.path;
+      imagePath.push(path);
+    }
+    const result = await itemImage(id, imagePath);
+
+    // Process the images as needed
+    // For example, you can save the file paths in a database or perform other operations
+
+    res.status(200).json({
+      message: "OK",
+      data: result,
+    });
+  } catch (error) {
+    res.status(400).json({
+      message: "Error",
+    });
+  }
+};
 
 const handleCreateItemV2 = async (req, res) => {
   try {
@@ -176,6 +207,84 @@ const handleDeleteItemSpecific = async (req, res) => {
   }
 };
 
+const handleGetItemByTagId = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const items = await getItemByTagId(id);
+    res.status(200).json({
+      message: "OK",
+      data: items,
+    });
+  } catch (error) {
+    res.status(400).json({
+      message: error.message,
+    });
+  }
+};
+
+const handleGetItemByBrandId = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const items = await getItemByBrandId(id);
+    res.status(200).json({
+      message: "OK",
+      data: items,
+    });
+  } catch (error) {
+    res.status(400).json({
+      message: error.message,
+    });
+  }
+};
+
+const handleGetItemInRange = async (req, res) => {
+  try {
+    const { minPrice, maxPrice } = req.body;
+    const items = await getItemInRange(minPrice, maxPrice);
+    res.status(200).json({
+      message: "OK",
+      data: items,
+    });
+  } catch (error) {
+    res.status(400).json({
+      message: error.message,
+    });
+  }
+};
+
+const handleGetItemFilter = async (req, res) => {
+  try {
+    const dataFilter = req.body;
+    const items = await getItemFilter(dataFilter);
+    res.status(200).json({
+      message: "OK",
+      data: items,
+    });
+  } catch (error) {
+    res.status(400).json({
+      message: error.message,
+    });
+  }
+};
+
+const handleSearchItems = async (req, res) => {
+  try {
+    const searchText = req.body.text; // Assuming the text is sent in the request body
+
+    // Call a function to retrieve items by name matching the search text
+    const items = await getItemsByName(searchText);
+
+    res.status(200).json({
+      message: "OK",
+      data: items,
+    });
+  } catch (error) {
+    res.status(400).json({
+      message: error.message,
+    });
+  }
+};
+
 module.exports = {
   handleGetAllItem,
   handleGetItemBySellerId,
@@ -188,4 +297,10 @@ module.exports = {
   handleUpdateItemSpecific,
   handleDeleteItemSpecific,
   handleCreateItemV2,
+  handleItemImage,
+  handleGetItemByTagId,
+  handleGetItemByBrandId,
+  handleGetItemInRange,
+  handleGetItemFilter,
+  handleSearchItems,
 };

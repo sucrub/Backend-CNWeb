@@ -37,7 +37,7 @@ const createSeller = (data) => {
         password: hashedPassword,
         name: data.name,
         phone_number: data.phone_number,
-        img_url: "uploads/baseavatar.png",
+        img_url: "http://localhost:8080/uploads/baseavatar.png",
         followers: 0,
         number_of_products: 0,
         description: "",
@@ -137,6 +137,26 @@ const getSellerById = (id) => {
   });
 };
 
+const getSellerByName = (name) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      let seller = "";
+      seller = await db.sellers.findOne({
+        where: {
+          name: name,
+        },
+        attributes: {
+          exclude: ["password"],
+        },
+        raw: true,
+      });
+      resolve(seller);
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
+
 const getSellerByNamePrefix = (prefix) => {
   return new Promise(async (resolve, reject) => {
     try {
@@ -167,4 +187,5 @@ module.exports = {
   updateSeller,
   updatePasswordSeller,
   changeAvatarSeller,
+  getSellerByName,
 };

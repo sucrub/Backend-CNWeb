@@ -1,58 +1,46 @@
 const Sequelize = require("sequelize");
 module.exports = function (sequelize, DataTypes) {
   return sequelize.define(
-    "rates",
+    "carts",
     {
-      id: {
-        autoIncrement: true,
+      item_id: {
         type: DataTypes.INTEGER,
         allowNull: false,
         primaryKey: true,
+        references: {
+          model: "itemspecific",
+          key: "id",
+        },
       },
       user_id: {
         type: DataTypes.INTEGER,
         allowNull: false,
+        primaryKey: true,
         references: {
           model: "users",
           key: "id",
         },
       },
-      item_id: {
+      quantity: {
         type: DataTypes.INTEGER,
         allowNull: false,
-        references: {
-          model: "items",
-          key: "id",
-        },
-      },
-      rate: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-      },
-      comment: {
-        type: DataTypes.STRING(255),
-        allowNull: false,
-      },
-      title: {
-        type: DataTypes.STRING(255),
-        allowNull: true,
       },
     },
     {
       sequelize,
-      tableName: "rates",
+      tableName: "carts",
       timestamps: false,
       indexes: [
         {
           name: "PRIMARY",
           unique: true,
           using: "BTREE",
-          fields: [{ name: "id" }],
+          fields: [{ name: "item_id" }, { name: "user_id" }],
         },
         {
-          name: "item_id",
+          name: "user_id",
           using: "BTREE",
-          fields: [{ name: "item_id" }],
+          fields: [{ name: "user_id" }],
         },
       ],
     }

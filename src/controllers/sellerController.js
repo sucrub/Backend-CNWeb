@@ -6,6 +6,7 @@ const {
   updateSeller,
   updatePasswordSeller,
   changeAvatarSeller,
+  getSellerByName,
 } = require("../services/sellerService");
 
 const handleChangeAvatarSeller = async (req, res) => {
@@ -13,7 +14,8 @@ const handleChangeAvatarSeller = async (req, res) => {
     const id = req.params.id;
     if (!req.file) throw new Error("No file");
     else {
-      const filePath = req.file.path;
+      let filePath = "http://localhost:8080/" + req.file.path;
+      filePath = filePath.replace(/\\/g, "/");
       await changeAvatarSeller(id, filePath);
       res.status(200).json({
         message: "OK",
@@ -107,6 +109,27 @@ const handleGetSellerById = async (req, res) => {
   }
 };
 
+const handleGetSellerByName = async (req, res) => {
+  try {
+    const name = req.params.name;
+    if (name) {
+      const seller = await getSellerByName(name);
+      res.status(200).json({
+        message: "OK",
+        data: seller,
+      });
+    } else {
+      res.status(402).json({
+        message: "Missing name",
+      });
+    }
+  } catch (error) {
+    res.status(400).json({
+      message: "Error",
+    });
+  }
+};
+
 const handleGetSellerByNamePrefix = async (req, res) => {
   try {
     const prefix = req.params.prefix;
@@ -136,4 +159,5 @@ module.exports = {
   handleUpdateSeller,
   handleUpdatePasswordSeller,
   handleChangeAvatarSeller,
+  handleGetSellerByName,
 };

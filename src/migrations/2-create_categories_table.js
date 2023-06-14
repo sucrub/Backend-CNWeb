@@ -1,30 +1,32 @@
 "use strict";
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable("Itempicture", {
+    return queryInterface.createTable("Categories", {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      item_specific_id: {
-        allowNull: false,
+      parent_id: {
+        allowNull: true,
         type: Sequelize.INTEGER,
-        references: {
-          model: "Itemspecific",
-          key: "id",
-        },
-        onUpdate: "CASCADE",
-        onDelete: "CASCADE",
       },
-      url: {
+      name: {
         allowNull: false,
         type: Sequelize.STRING,
+      },
+      createdAt: {
+        allowNull: false,
+        type: Sequelize.DATE,
+      },
+      updatedAt: {
+        allowNull: false,
+        type: Sequelize.DATE,
       },
     });
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable("Itempicture");
+    return queryInterface.dropTable("Categories");
   },
 };

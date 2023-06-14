@@ -11,6 +11,7 @@ const {
   handleUpdateUserPassword,
   handlePicture,
   handleChangeAvatarUser,
+  handleUserRating,
 } = require("../controllers/userController");
 const {
   handleCreateSeller,
@@ -20,6 +21,7 @@ const {
   handleUpdateSeller,
   handleUpdatePasswordSeller,
   handleChangeAvatarSeller,
+  handleGetSellerByName,
 } = require("../controllers/sellerController");
 const {
   handleRequestRefreshToken,
@@ -38,6 +40,12 @@ const {
   handleUpdateItemSpecific,
   handleDeleteItemSpecific,
   handleCreateItemV2,
+  handleItemImage,
+  handleGetItemByTagId,
+  handleGetItemByBrandId,
+  handleGetItemInRange,
+  handleGetItemFilter,
+  handleSearchItems,
 } = require("../controllers/itemController");
 const {
   handleCreateOrder,
@@ -46,31 +54,63 @@ const {
   handleGetOrderBySellerId,
 } = require("../controllers/orderController");
 const {
-  handleGetChildrenTags,
-} = require("controllers/tagController")
+  handleGetAllBrand,
+  handleGetBrandByName,
+} = require("../controllers/brandController");
+const {
+  handleGetCart,
+  handleAddCart,
+  handleDeleteCart,
+} = require("../controllers/cartController");
 
-// Set up the storage engine
 const storage = multer.diskStorage({
   destination: "uploads/",
   filename: function (req, file, cb) {
-    // Preserve the original file name
-    cb(null, file.originalname);
+    const originalName = file.originalname;
+    const extension = originalName.substring(originalName.lastIndexOf("."));
+    const timestamp = Date.now();
+    const randomDigits = Math.floor(10000 + Math.random() * 90000);
+    const uniqueFilename =
+      originalName.replace(extension, "") +
+      "-" +
+      timestamp +
+      "-" +
+      randomDigits +
+      extension;
+    cb(null, uniqueFilename);
   },
 });
 
-// Set up the multer middleware
 const upload = multer({ storage });
 
 const initRouters = (app) => {
-  router.get("/user/get-all-user", handleGetAllUser); // okok
-  router.get("/user/get-user-by-id/:id", handleGetUserById); // okok
-  router.get("/user/get-user-by-username/:username", handleGetUserByUsername); // okok
-  router.post("/user/create-user", handleCreateUser); // okok
-  router.post("/user/update-user", handleUpdateUser); // okok
-  router.post("/user/update-password", handleUpdateUserPassword); // okok
+  // AUTH
+  router.post("/auth/login", handleLoginUser); // DONE
+  router.post("/auth/refresh-token", handleRefreshToken); // DONE
+
+  // RATE
+  router.post("/rate/create-rating", handleUserRating); // DONE
+
+  // USER
+  router.post(
+    "/user/change-avatar/:id",
+    upload.single("image"),
+    handleChangeAvatarUser
+  ); // DONE
+  router.get("/user/get-all-user", handleGetAllUser); // DONE
+  router.get("/user/get-user-by-id/:id", handleGetUserById); // DONE
+  router.get("/user/get-user-by-username/:username", handleGetUserByUsername); // DONE
+  router.post("/user/create-user", handleCreateUser); // DONE
+  router.post("/user/update-user", handleUpdateUser); // DONE
+  router.post("/user/update-password", handleUpdateUserPassword); // DONE
+
+  router.get("/cart/get-cart/:id", handleGetCart);
+  router.post("/cart/add-cart", handleAddCart);
+  router.delete("/cart/delete-cart", handleDeleteCart);
 
   router.get("/seller/get-all-seller", handleGetAllSeller); // okok
   router.get("/seller/get-seller-by-id/:id", handleGetSellerById); // okok
+  router.get("/seller/get-seller-by-name/:name", handleGetSellerByName); // okok
   router.get(
     "/seller/get-seller-by-name-prefix/:prefix",
     handleGetSellerByNamePrefix
@@ -81,14 +121,17 @@ const initRouters = (app) => {
 
   router.get("/item/get-all-item", handleGetAllItem); // okok
   router.get("/item/get-item-by-seller-id/:seller_id", handleGetItemBySellerId); // okok
-  router.get("item/get-item-by-prefix/:prefix");
+  router.get("/item/search-item", handleSearchItems); // hmmmmmmmm
   router.get("/item/get-item-by-id/:id", handleGetItemById); // okok
   router.post("/item/create-item", handleCreateItem); // okok
   router.post("/item/update-item", handleUpdateItem); // okok
   router.delete("/item/delete-item/:id", handleDeleteItem); // okok
-  router.get("/item/get-item-by-tag");
-  // item tag
-  router.get("/item-tag/get-children-tag/:tag", handleGetChildrenTags); // okok
+  router.get("/item/get-item-by-tag-id/:id", handleGetItemByTagId); // okok
+  router.get("/item/get-item-by-brand-id/:id", handleGetItemByBrandId); // ok
+  router.get("/item/get-item-in-range", handleGetItemInRange); // ok
+  router.get("/item/get-item-filter", handleGetItemFilter); // con thieu category
+  //get brand by tag @@
+
   //create items specific
   router.post("/item/create-item-specific", handleCreateItemSpecific); // okok
   router.get(
@@ -110,21 +153,20 @@ const initRouters = (app) => {
     handleGetOrderBySellerId
   ); // ok
 
-  router.get("");
-  router.post("/auth/login", handleLoginUser); // ok
-  router.post("/auth/refresh-token", handleRefreshToken); // ok
-  // quen mat khau
+  //brand
+  router.get("/brand/get-all-brand", handleGetAllBrand); //ok
+  router.get("/brand/get-brand-by-name", handleGetBrandByName); // dont need to use
 
-  router.post("/upload", upload.single("image"), handlePicture);
-  router.post(
-    "/user/change-avatar/:id",
-    upload.single("image"),
-    handleChangeAvatarUser
-  ); // ok
+  router.post("/upload", upload.single("image"), handlePicture); // test api
   router.post(
     "/seller/change-avatar/:id",
     upload.single("image"),
     handleChangeAvatarSeller
+  ); // ok
+  router.post(
+    "/item/item-picture/:id",
+    upload.array("image", 100),
+    handleItemImage
   ); // ok
 
   return app.use("/", router);

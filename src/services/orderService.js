@@ -98,28 +98,40 @@ const getOrderByUserId = (id) => {
 const getOrderyBySellerId = (id) => {
   return new Promise(async (resolve, reject) => {
     try {
-      // tim items
       let items = await db.items.findAll({
         where: { seller_id: id },
       });
-      // tim itemspecific
+
       let listItemspecific = [];
       let itemspecific = "";
+
       for (let item of items) {
         itemspecific = await db.itemspecific.findAll({
           where: { origin_id: item.id },
         });
         listItemspecific.push(...itemspecific.map((spec) => spec.dataValues));
       }
-      // order itemspecific la 1 don hang rieng de duyet luon :v
+
       let listOrderDetail = [];
       let orderdetail = "";
+
       for (let itemspec of listItemspecific) {
         orderdetail = await db.orderdetail.findAll({
           where: { item_id: itemspec.id },
         });
-        listOrderDetail.push(...orderdetail.map((spec) => spec.dataValues));
+
+        for (let detail of orderdetail) {
+          const orderDetailData = {
+            item_id: detail.item_id,
+            order_id: detail.order_id,
+            quantity: detail.quantity,
+            status: detail.status,
+            itemspecific_name: itemspec.name, // Add the item-specific name to the result
+          };
+          listOrderDetail.push(orderDetailData);
+        }
       }
+
       resolve(listOrderDetail);
     } catch (error) {
       reject(error);

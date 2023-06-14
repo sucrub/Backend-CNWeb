@@ -6,14 +6,31 @@ const {
   updateUser,
   updatePasswordUser,
   changeAvatarUser,
+  userRating,
 } = require("../services/userService");
+
+const handleUserRating = async (req, res) => {
+  try {
+    const data = req.body;
+    const rating = await userRating(data);
+
+    res.status(200).json({
+      message: "OK",
+      data: rating,
+    });
+  } catch (error) {
+    res.status(400).json({
+      message: error.message,
+    });
+  }
+};
 
 const handlePicture = async (req, res) => {
   try {
     console.log(req.file, req.file.path);
     if (!req.file) throw new Error("No file");
     else {
-      const filePath = req.file.path;
+      const filePath = "http://localhost:8080/" + req.file.path;
       res.status(200).json({ path: filePath });
     }
   } catch (error) {
@@ -28,7 +45,8 @@ const handleChangeAvatarUser = async (req, res) => {
     const id = req.params.id;
     if (!req.file) throw new Error("No file");
     else {
-      const filePath = req.file.path;
+      let filePath = "http://localhost:8080/" + req.file.path;
+      filePath = filePath.replace(/\\/g, "/"); // Replace backslashes with forward slashes
       await changeAvatarUser(id, filePath);
       res.status(200).json({
         message: "OK",
@@ -46,6 +64,7 @@ const handleCreateUser = async (req, res) => {
   try {
     const data = req.body;
     const newUser = await createUser(data);
+
     res.status(200).json({
       message: "OK",
       data: newUser,
@@ -152,4 +171,5 @@ module.exports = {
   handleUpdateUserPassword,
   handlePicture,
   handleChangeAvatarUser,
+  handleUserRating,
 };
