@@ -2,9 +2,14 @@
 module.exports = {
   up: (queryInterface, Sequelize) => {
     return queryInterface.createTable("Rates", {
+      id: {
+        allowNull: false,
+        autoIncrement: true,
+        primaryKey: true,
+        type: Sequelize.INTEGER,
+      },
       user_id: {
         allowNull: false,
-        primaryKey: true,
         type: Sequelize.INTEGER,
         references: {
           model: "Users",
@@ -15,10 +20,9 @@ module.exports = {
       },
       item_id: {
         allowNull: false,
-        primaryKey: true,
         type: Sequelize.INTEGER,
         references: {
-          model: "Itemspecific",
+          model: "Items",
           key: "id",
         },
         onUpdate: "CASCADE",
