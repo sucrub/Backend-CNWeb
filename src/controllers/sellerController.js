@@ -7,6 +7,7 @@ const {
   updatePasswordSeller,
   changeAvatarSeller,
   getSellerByName,
+  getSellerByCategory,
 } = require("../services/sellerService");
 
 const handleChangeAvatarSeller = async (req, res) => {
@@ -151,6 +152,21 @@ const handleGetSellerByNamePrefix = async (req, res) => {
   }
 };
 
+const handleGetSellerByCategory = async (req, res) => {
+  try {
+    const id = req.params.category_id;
+    const sellers = await getSellerByCategory(id);
+    res.status(200).json({
+      message: "OK",
+      data: sellers,
+    });
+  } catch (error) {
+    res.status(400).json({
+      message: error.message,
+    });
+  }
+};
+
 module.exports = {
   handleCreateSeller,
   handleGetAllSeller,
@@ -160,4 +176,5 @@ module.exports = {
   handleUpdatePasswordSeller,
   handleChangeAvatarSeller,
   handleGetSellerByName,
+  handleGetSellerByCategory,
 };

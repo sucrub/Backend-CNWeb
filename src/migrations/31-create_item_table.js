@@ -14,7 +14,7 @@ module.exports = {
       },
       description: {
         allowNull: false,
-        type: Sequelize.STRING,
+        type: Sequelize.TEXT,
       },
       seller_id: {
         allowNull: false,
@@ -28,7 +28,7 @@ module.exports = {
       },
       rate: {
         allowNull: false,
-        type: Sequelize.INTEGER,
+        type: Sequelize.FLOAT,
       },
       number_of_rating: {
         allowNull: false,

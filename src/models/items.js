@@ -14,7 +14,7 @@ module.exports = function (sequelize, DataTypes) {
         allowNull: false,
       },
       description: {
-        type: DataTypes.STRING(255),
+        type: DataTypes.TEXT,
         allowNull: false,
       },
       seller_id: {
@@ -62,11 +62,11 @@ module.exports = function (sequelize, DataTypes) {
           using: "BTREE",
           fields: [{ name: "seller_id" }],
         },
-        {
-          name: "category_id",
-          using: "BTREE",
-          fields: [{ name: "category_id" }],
-        },
+        // {
+        //   name: "category_id",
+        //   using: "BTREE",
+        //   fields: [{ name: "category_id" }],
+        // },
       ],
     }
   );

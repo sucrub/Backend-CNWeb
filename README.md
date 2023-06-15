@@ -40,10 +40,12 @@ Endpoint       |	Method |	Description |	Request Body | Note
 ---------------|---------|--------------|--------------|------
 http://localhost:8080/seller/get-all-seller |	GET |	Get all sellers |	N/A
 http://localhost:8080/seller/get-seller-by-id/{id} |	GET |	Get seller by ID |	N/A
+http://localhost:8080/seller/get-seller-by-name/{name} |	GET |	Get seller by name |	N/A
 http://localhost:8080/seller/get-seller-by-name-prefix/{prefix} |	GET |	Get seller by name prefix |	N/A
 http://localhost:8080/seller/update-seller |	POST |	Update seller |	username, (name, address, phone_number, description)
 http://localhost:8080/seller/update-password |	POST |	Update seller password |	username, old_password, new_password, confirm_password
 http://localhost:8080/seller/change-avatar/{id} | POST | Change avatar seller | N/A | Upload file
+http://localhost:8080/seller/get-seller-by-category/{category_id} | GET | Get seller by category id | N/A 
 
 ### Item
 Endpoint       |	Method |	Description |	Request Body | Note
@@ -58,8 +60,13 @@ http://localhost:8080/item/update-specific-item |	POST |	Update specific item |	
 http://localhost:8080/item/delete-specific-item/{id} |	DELETE |	Delete specific item |	N/A
 http://localhost:8080/item/create-item-v2| POST | Create item including item specific | Note bên dưới
 http://localhost:8080/item/item-picture/{id} | POST | Push item spec image when creating item | N/A | Upload file
-http://localhost:8080/item/get-item-by-tag-id/{id} | GET | Get item by tag ID | N/A
+http://localhost:8080/item/get-item-by-category-id/{category_} | GET | Get item by tag ID | N/A
 http://localhost:8080/item/get-item-by-brand-id/{id} | GET | Get item by brand ID | N/A
+http://localhost:8080/item/get-item-filter | GET | Get item filter | (brand_id, id, seller_id, minPrice, maxPrice, category_id)
+http://localhost:8080/item/create-item-specific | POST | Create item  | origin_id, name, price
+http://localhost:8080/item/search-item | GET | Get item  | text
+http://localhost:8080/item/get-item-by-brand-id/{id} |	GET |	Get item by brand ID |	N/A
+http://localhost:8080/item/get-item-in-range |	GET |	Get item in range |	(minPrice, maxPrice)
 
 ### Order
 Endpoint       |	Method |	Description |	Request Body | Note
@@ -68,11 +75,27 @@ http://localhost:8080/order/get-order-by-id/{id} | GET | Get order by order id |
 http://localhost:8080/order/get-order-by-user-id/{user_id} | GET | Get order by user id | N/A
 http://localhost:8080/order/create-order | POST | Get order by order id | Note bên dưới
 http://localhost:8080/order/get-order-by-seller-id/{seller_id} | GET | Get order by seller id | N/A
+http://localhost:8080/order/change-status | POST | Change status order | item_id, order_id, status
 
 ### Brand
 Endpoint       |	Method |	Description |	Request Body | Note
 ---------------|---------|--------------|--------------|------
 http://localhost:8080/brand/get-all-brand | GET | Get all brand | N/A
+http://localhost:8080/brand/get-brand-by-category/{category_id} | GET | Get brand by category id | N/A
+
+### Category
+Endpoint       |	Method |	Description |	Request Body | Note
+---------------|---------|--------------|--------------|------
+http://localhost:8080/category/get-all-category | GET | Get all  | N/A
+http://localhost:8080/category/get-category-by-id/{category_id} | GET | Get category by id | N/A
+
+### Cart
+Endpoint       |	Method |	Description |	Request Body | Note
+---------------|---------|--------------|--------------|------
+http://localhost:8080/cart/get-cart/{user_id} | GET | Get user cart  | N/A
+http://localhost:8080/cart/add-cart | POST | Add in cart | user_id, item_id, quantity | Cái item_id ở đây là id của specificitem
+http://localhost:8080/cart/delete-cart | DELETE | Delete in cart | user_id, item_id
+
 
 ### Note cho một số API
 Req.body của create item v2:

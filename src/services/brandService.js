@@ -38,8 +38,68 @@ const getBrandByName = (name) => {
   });
 };
 
+const getBrandByCategoryId = (id) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const items = await db.items.findAll({
+        where: {
+          category_id: id,
+        },
+        raw: true,
+      });
+      const itemIDs = items.map((item) => item.id);
+      const brandItems = await db.branditem.findAll({
+        where: {
+          item_id: itemIDs,
+        },
+        raw: true,
+      });
+      const brandIDs = brandItems.map((brandItem) => brandItem.brand_id);
+      const uniqueBrandIDs = [...new Set(brandIDs)];
+      const brands = await db.brands.findAll({
+        where: {
+          id: uniqueBrandIDs,
+        },
+        raw: true,
+      });
+      const brandNames = brands.map((brand) => brand.name);
+      const uniqueBrandNames = [...new Set(brandNames)];
+      resolve(uniqueBrandNames);
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
+
+const getAllCategory = () => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const categories = await db.categories.findAll();
+      resolve(categories);
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
+
+const getCategoryById = (id) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const categories = await db.categories.findAll({
+        where: { id: id },
+      });
+      resolve(categories);
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
+
 module.exports = {
   getAllBrand,
   getBrandByName,
   createBrand,
+  getBrandByCategoryId,
+  getAllCategory,
+  getCategoryById,
 };

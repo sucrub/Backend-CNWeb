@@ -26,7 +26,7 @@ module.exports = function (sequelize, DataTypes) {
         },
       },
       rate: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.FLOAT,
         allowNull: false,
       },
       comment: {
