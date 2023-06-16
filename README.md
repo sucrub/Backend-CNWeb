@@ -60,7 +60,7 @@ http://localhost:8080/item/update-specific-item |	POST |	Update specific item |	
 http://localhost:8080/item/delete-specific-item/{id} |	DELETE |	Delete specific item |	N/A
 http://localhost:8080/item/create-item-v2| POST | Create item including item specific | Note bên dưới
 http://localhost:8080/item/item-picture/{id} | POST | Push item spec image when creating item | N/A | Upload file
-http://localhost:8080/item/get-item-by-category-id/{category_} | GET | Get item by tag ID | N/A
+http://localhost:8080/item/get-item-by-category/{category_} | GET | Get item by tag ID | N/A
 http://localhost:8080/item/get-item-by-brand-id/{id} | GET | Get item by brand ID | N/A
 http://localhost:8080/item/get-item-filter | GET | Get item filter | (brand_id, id, seller_id, minPrice, maxPrice, category_id)
 http://localhost:8080/item/create-item-specific | POST | Create item  | origin_id, name, price
@@ -96,6 +96,11 @@ http://localhost:8080/cart/get-cart/{user_id} | GET | Get user cart  | N/A
 http://localhost:8080/cart/add-cart | POST | Add in cart | user_id, item_id, quantity | Cái item_id ở đây là id của specificitem
 http://localhost:8080/cart/delete-cart | DELETE | Delete in cart | user_id, item_id
 
+### Rate
+Endpoint       |	Method |	Description |	Request Body | Note
+---------------|---------|--------------|--------------|------
+http://localhost:8080/rate/create-rating | POST | Create rate  | user_id, item_id, rate, comment, title
+http://localhost:8080/rate/get-rate/{item_id} | GET | Get rate | N/A
 
 ### Note cho một số API
 Req.body của create item v2:

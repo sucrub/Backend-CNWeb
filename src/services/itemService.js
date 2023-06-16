@@ -23,11 +23,33 @@ const {getLeafCategories} = require("./categoryService")
 const getRate = (id) => {
   return new Promise(async (resolve, reject) => {
     try {
-      let rates = "";
-      rates = await db.rates.findAll({
+      let rates = await db.rates.findAll({
         where: { item_id: id },
       });
-      resolve(rates);
+
+      // Fetch user data for each rate
+      const ratePromises = rates.map(async (rate) => {
+        const user = await db.users.findOne({
+          where: { id: rate.user_id },
+          attributes: ["name", "avatar"],
+        });
+        return {
+          id: rate.id,
+          rating: rate.rate,
+          title: rate.title,
+          comment: rate.comment,
+          item_id: rate.item_id,
+          user: {
+            id: rate.user_id,
+            name: user.name,
+            avatar: user.avatar,
+          },
+        };
+      });
+
+      // Wait for all user data to be fetched
+      const formattedRates = await Promise.all(ratePromises);
+      resolve(formattedRates);
     } catch (error) {
       reject(error);
     }
