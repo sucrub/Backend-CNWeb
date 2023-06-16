@@ -1,7 +1,7 @@
 const db = require("../models/index");
 const { getAllBrand, createBrand } = require("./brandService");
 const { Op } = require("sequelize");
-
+const {getLeafCategories} = require("./categoryService")
 /*
 {
   name,
@@ -178,15 +178,24 @@ const deleteItem = (id) => {
     }
   });
 };
-
 const getItemByCategory = (id) => {
   return new Promise(async (resolve, reject) => {
     try {
-      const items = await db.items.findAll({
-        where: { category_id: id },
+      // TODO: can not reference db.brands
+      const leafcategories = await getLeafCategories(id);
+      leafcategories.push(id);
+      let items = await db.items.findAll({
+        where: { category_id: {[Op.in]: leafcategories} },
         raw: true,
       });
-
+      let branditem = await db.branditem.findAll();
+      let branditem1 = {}
+      for (let i = 0; i < branditem.length; i++) {
+        branditem1[branditem[i].item_id] = branditem[i].brand_id
+      }
+      items = items.map((item) => {
+        return {...item, brand_id: branditem1[item.id]}
+      })
       // Fetch item-specific data for each item
       const itemsWithSpecific = await Promise.all(
         items.map(async (item) => {

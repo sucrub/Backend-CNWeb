@@ -1,5 +1,6 @@
 const db = require("../models/index");
-
+const { Op } = require('sequelize');
+const { getLeafCategories } = require("./categoryService")
 const createBrand = (name) => {
   return new Promise(async (resolve, reject) => {
     try {
@@ -95,11 +96,30 @@ const getCategoryById = (id) => {
   });
 };
 
+const getBrandsByCategory = (id) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const leafCategories = await getLeafCategories(id);
+      const brandIds = await db.brand_category.findAll({
+        attribute: ["brand_id"],
+        where: { category_id: {[Op.in] : leafCategories }},
+      });
+      const brands = await db.brands.findAll({
+        attribute: ["id", "name"],
+        where: { id: {[Op.in] : brandIds.map(brandId => brandId.brand_id)}},
+      });
+      resolve(brands);
+    } catch(error) {
+      reject(error);
+    }
+  });
+}
 module.exports = {
   getAllBrand,
   getBrandByName,
   createBrand,
   getBrandByCategoryId,
+  getBrandsByCategory,
   getAllCategory,
   getCategoryById,
 };
