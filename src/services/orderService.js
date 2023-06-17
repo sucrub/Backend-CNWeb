@@ -149,7 +149,7 @@ const changeOrderStatus = (order_id, item_id, status) => {
         },
       });
       order.status = status;
-      await order.save;
+      await order.save();
       resolve(order);
     } catch (error) {
       reject(error);
