@@ -209,17 +209,10 @@ const getItemByCategory = (id) => {
         raw: true,
       });
 
-      // Fetch item-specific data for each item
       const itemsWithSpecific = await Promise.all(
         items.map(async (item) => {
           // Get the item-specific data
-          const itemSpecific = await db.itemspecific.findOne({
-            where: {
-              origin_id: item.id,
-            },
-            raw: true,
-          });
-
+          const itemSpecific = await getOneItemSpecific(item.id);
           // Merge the item-specific data (img and price) into the item object
           const itemWithSpecific = {
             ...item,
@@ -249,12 +242,7 @@ const getAllItem = () => {
       const itemsWithSpecific = await Promise.all(
         items.map(async (item) => {
           // Get the item-specific data
-          const itemSpecific = await db.itemspecific.findOne({
-            where: {
-              origin_id: item.id,
-            },
-            raw: true,
-          });
+          const itemSpecific = getOneItemSpecific(item.id);
 
           // Merge the item-specific data (img and price) into the item object
           const itemWithSpecific = {
@@ -288,12 +276,7 @@ const getItemBySellerId = (id) => {
       const itemsWithSpecific = await Promise.all(
         items.map(async (item) => {
           // Get the item-specific data
-          const itemSpecific = await db.itemspecific.findOne({
-            where: {
-              origin_id: item.id,
-            },
-            raw: true,
-          });
+          const itemSpecific = await getOneItemSpecific(item.id);
 
           // Merge the item-specific data into the item object
           const itemWithSpecific = {
@@ -325,12 +308,7 @@ const getItemById = (id) => {
       const itemsWithSpecific = await Promise.all(
         items.map(async (item) => {
           // Get the item-specific data
-          const itemSpecific = await db.itemspecific.findOne({
-            where: {
-              origin_id: item.id,
-            },
-            raw: true,
-          });
+          const itemSpecific = await getOneItemSpecific(item.id);
 
           // Merge the item-specific data (img and price) into the item object
           const itemWithSpecific = {
@@ -364,6 +342,20 @@ const createItemSpecific = (data) => {
         });
         resolve(newItemSpecific);
       } else throw new Error("Origin item did not existed");
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
+
+const getOneItemSpecific = (origin_id) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      let items = "";
+      items = await db.itemspecific.findOne({
+        where: { origin_id: origin_id },
+      });
+      resolve(items);
     } catch (error) {
       reject(error);
     }
@@ -438,12 +430,7 @@ const getItemByTagId = (id) => {
       const itemsWithSpecific = await Promise.all(
         items.map(async (item) => {
           // Get the item-specific data
-          const itemSpecific = await db.itemspecific.findOne({
-            where: {
-              origin_id: item.id,
-            },
-            raw: true,
-          });
+          const itemSpecific = await getOneItemSpecific(item.id);
 
           // Merge the item-specific data into the item object
           const itemWithSpecific = {
@@ -479,12 +466,7 @@ const getItemByBrandId = (id) => {
           });
 
           // Get the item-specific data
-          const itemSpecific = await db.itemspecific.findOne({
-            where: {
-              origin_id: item.id,
-            },
-            raw: true,
-          });
+          const itemSpecific = await getOneItemSpecific(item.id);
 
           // Merge the item-specific data (img and price) into the item object
           const itemWithSpecific = {
@@ -515,12 +497,7 @@ const getItemInRange = (minPrice, maxPrice) => {
       const itemsWithSpecific = await Promise.all(
         items.map(async (item) => {
           // Get the item-specific data
-          const itemSpecific = await db.itemspecific.findOne({
-            where: {
-              origin_id: item.id,
-            },
-            raw: true,
-          });
+          const itemSpecific = await getOneItemSpecific(item.id);
 
           // Merge the item-specific data (img and price) into the item object
           const itemWithSpecific = {
@@ -562,12 +539,7 @@ const getItemFilter = (filterData) => {
       const itemsWithSpecific = await Promise.all(
         items.map(async (item) => {
           // Get the item-specific data
-          const itemSpecific = await db.itemspecific.findOne({
-            where: {
-              origin_id: item.id,
-            },
-            raw: true,
-          });
+          const itemSpecific = await getOneItemSpecific(item.id);
 
           // Fetch the brand IDs for the item from the branditem table
           const brandItems = await db.branditem.findAll({
@@ -644,12 +616,7 @@ const getItemsByName = async (searchText) => {
       const itemsWithSpecific = await Promise.all(
         items.map(async (item) => {
           // Get the item-specific data
-          const itemSpecific = await db.itemspecific.findOne({
-            where: {
-              origin_id: item.id,
-            },
-            raw: true,
-          });
+          const itemSpecific = await getOneItemSpecific(item.id);
 
           // Merge the item-specific data (img and price) into the item object
           const itemWithSpecific = {
