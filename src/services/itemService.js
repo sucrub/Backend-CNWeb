@@ -1,6 +1,6 @@
 const db = require("../models/index");
 const { getAllBrand, createBrand } = require("./brandService");
-const { Op } = require("sequelize");
+const { Op, sequelize } = require("sequelize");
 const {getLeafCategories} = require("./categoryService")
 /*
 {
@@ -19,7 +19,22 @@ const {getLeafCategories} = require("./categoryService")
   ]
 }
 */
-
+const searchItems = (searchTerm) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      let items = await db.items.findAll({
+        where: {
+          name: {
+            [Op.like]: `%${searchTerm}%`,
+          },
+        },
+      });
+      resolve(items);
+    } catch (error) {
+      reject(error);
+    }
+  });
+}
 const getRate = (id) => {
   return new Promise(async (resolve, reject) => {
     try {
@@ -640,12 +655,68 @@ const getItemFilter = (filterData) => {
 const getItemsByName = async (searchText) => {
   return new Promise(async (resolve, reject) => {
     try {
-      const items = await db.items.findAll({
+      let items = await db.items.findAll({
         where: {
           name: {
             [Op.like]: `%${searchText}%`,
           },
         },
+        raw: true,
+      });
+      const firstWord = searchText.split(" ")[0];
+      console.log(firstWord);
+      const categories = await db.categories.findAll({
+        where: {
+          name: {
+            [Op.like]: `%${firstWord}%`,
+          },
+        },
+        raw: true,
+      });
+      console.log(categories);
+      if (categories.length > 0) {
+        items = items.filter((item) => {
+          return categories.some(
+            (category) => category.id === item.category_id
+          );
+        });
+      }
+      // Fetch item-specific data for each item
+      const itemsWithSpecific = await Promise.all(
+        items.map(async (item) => {
+          // Get the item-specific data
+          const itemSpecific = await db.itemspecific.findOne({
+            where: {
+              origin_id: item.id,
+            },
+            raw: true,
+          });
+
+          // Merge the item-specific data (img and price) into the item object
+          const itemWithSpecific = {
+            ...item,
+            img: itemSpecific && itemSpecific.img ? itemSpecific.img : "",
+            price: itemSpecific && itemSpecific.price ? itemSpecific.price : 0,
+          };
+
+          return itemWithSpecific;
+        })
+      );
+
+      resolve(itemsWithSpecific);
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
+const getItemRecommendations = () => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const items = await db.items.findAll({
+        order: [
+          [db.sequelize.literal('number_sold DESC')], // Order by price in descending order
+        ],
+        limit: 50,
         raw: true,
       });
 
@@ -676,8 +747,7 @@ const getItemsByName = async (searchText) => {
       reject(error);
     }
   });
-};
-
+}
 module.exports = {
   getAllItem,
   getItemBySellerId,
@@ -698,4 +768,5 @@ module.exports = {
   getItemsByName,
   getRate,
   getItemByCategory,
+  getItemRecommendations,
 };

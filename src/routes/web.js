@@ -49,6 +49,7 @@ const {
   handleSearchItems,
   handleGetRate,
   handleGetItemByCategory,
+  handleGetItemRecommendation
 } = require("../controllers/itemController");
 const {
   handleCreateOrder,
@@ -141,7 +142,6 @@ const initRouters = (app) => {
     "/seller/get-seller-by-name-prefix/:prefix",
     handleGetSellerByNamePrefix
   ); // DONE
-  router.post("/seller/create-seller", handleCreateSeller); // DONE
   router.post("/seller/update-seller", handleUpdateSeller); // DONE
   router.post("/seller/update-password", handleUpdatePasswordSeller); // DONE
   router.post(
@@ -195,7 +195,8 @@ const initRouters = (app) => {
   router.get("/item/get-item-by-brand-id/:id", handleGetItemByBrandId); // DONE
   router.get("/item/get-item-in-range", handleGetItemInRange); // DONE
   router.delete("/item/delete-item/:id", handleDeleteItem); // DONE
-
+  router.get("/item/get-item-recommendation", handleGetItemRecommendation); // DONE
+  router.get
   //ORDER
   router.post("/order/create-order", handleCreateOrder); // DONE
   router.get("/order/get-order-by-id/:id", handleGetOrderById); // DONE
