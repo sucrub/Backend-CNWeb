@@ -606,7 +606,7 @@ const getItemsByName = async (searchText) => {
       const items = await db.items.findAll({
         where: {
           name: {
-            [Op.like]: `%${searchText}%`,
+            [Op.regexp]: `\\b${searchText}\\b|\\b${searchText}.+|.+${searchText}\\b`,
           },
         },
         raw: true,
