@@ -45,6 +45,14 @@ module.exports = function (sequelize, DataTypes) {
           key: "id",
         },
       },
+      brand_id: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+        references: {
+          model: "brands",
+          key: "id",
+        },
+      }
     },
     {
       sequelize,
