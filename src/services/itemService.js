@@ -1,7 +1,7 @@
 const db = require("../models/index");
 const { getAllBrand, createBrand } = require("./brandService");
 const { Op, sequelize } = require("sequelize");
-const {getLeafCategories} = require("./categoryService")
+const { getLeafCategories } = require("./categoryService");
 /*
 {
   name,
@@ -34,7 +34,7 @@ const searchItems = (searchTerm) => {
       reject(error);
     }
   });
-}
+};
 const getRate = (id) => {
   return new Promise(async (resolve, reject) => {
     try {
@@ -107,7 +107,7 @@ const createItemV2 = (data) => {
       const seller = await db.sellers.findOne({
         where: { id: data.seller_id },
       });
-      seller.number_of_products += 1;
+      seller.number_of_products = seller.number_of_products++;
       await seller.save();
       let listItemSpec = [];
       for (let itemspec of data.item_specific) {
@@ -204,6 +204,11 @@ const deleteItem = (id) => {
       const deleteItem = await db.items.findOne({
         where: { id: id },
       });
+      const seller = await db.sellers.findOne({
+        where: { id: deleteItem.seller_id },
+      });
+      seller.number_of_products = seller.number_of_products--;
+      await seller.save();
       if (deleteItem) {
         await db.items.destroy({
           where: { id: id },
@@ -215,6 +220,7 @@ const deleteItem = (id) => {
     }
   });
 };
+
 const getItemByCategory = (id) => {
   return new Promise(async (resolve, reject) => {
     try {
@@ -222,17 +228,17 @@ const getItemByCategory = (id) => {
       const leafcategories = await getLeafCategories(id);
       leafcategories.push(id);
       let items = await db.items.findAll({
-        where: { category_id: {[Op.in]: leafcategories} },
+        where: { category_id: { [Op.in]: leafcategories } },
         raw: true,
       });
       let branditem = await db.branditem.findAll();
-      let branditem1 = {}
+      let branditem1 = {};
       for (let i = 0; i < branditem.length; i++) {
-        branditem1[branditem[i].item_id] = branditem[i].brand_id
+        branditem1[branditem[i].item_id] = branditem[i].brand_id;
       }
       items = items.map((item) => {
-        return {...item, brand_id: branditem1[item.id]}
-      })
+        return { ...item, brand_id: branditem1[item.id] };
+      });
       // Fetch item-specific data for each item
 
       const itemsWithSpecific = await Promise.all(
@@ -683,7 +689,7 @@ const getItemRecommendations = () => {
     try {
       const items = await db.items.findAll({
         order: [
-          [db.sequelize.literal('number_sold DESC')], // Order by price in descending order
+          [db.sequelize.literal("number_sold DESC")], // Order by price in descending order
         ],
         limit: 50,
         raw: true,
@@ -716,7 +722,7 @@ const getItemRecommendations = () => {
       reject(error);
     }
   });
-}
+};
 module.exports = {
   getAllItem,
   getItemBySellerId,
