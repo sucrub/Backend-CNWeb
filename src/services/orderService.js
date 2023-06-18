@@ -17,14 +17,17 @@ const createOrder = (data) => {
       let sumPrice = 0;
       //create order detail
       for (let detail of data.order_detail) {
+        let item = await db.itemspecific.findOne({
+          where: { id: detail.item_id },
+        });
+        if (!item) {
+          throw new Error(`Item with id ${detail.item_id} does not exist.`);
+        }
         let orderDetail = await db.orderdetail.create({
           order_id: orderId,
           item_id: detail.item_id,
           quantity: detail.quantity,
           status: "pending",
-        });
-        let item = await db.itemspecific.findOne({
-          where: { id: detail.item_id },
         });
         sumPrice += item.price * detail.quantity;
         orderDetails.push(orderDetail);
