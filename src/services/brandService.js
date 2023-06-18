@@ -100,6 +100,9 @@ const getBrandsByCategory = (id) => {
   return new Promise(async (resolve, reject) => {
     try {
       const leafCategories = await getLeafCategories(id);
+      if (leafCategories.length === 0) {
+        leafCategories.push(id);
+      }
       const brandIds = await db.brand_category.findAll({
         attribute: ["brand_id"],
         where: { category_id: {[Op.in] : leafCategories }},
