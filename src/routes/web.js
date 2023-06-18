@@ -49,7 +49,7 @@ const {
   handleSearchItems,
   handleGetRate,
   handleGetItemByCategory,
-  handleGetItemRecommendation
+  handleGetItemRecommendation,
 } = require("../controllers/itemController");
 const {
   handleCreateOrder,
@@ -64,16 +64,14 @@ const {
   handleGetBrandByCategory,
   handleGetAllCategory,
   handleGetCategoryById,
-  handleGetBrandsByCategory
+  handleGetBrandsByCategory,
 } = require("../controllers/brandController");
 const {
   handleGetCart,
   handleAddCart,
   handleDeleteCart,
 } = require("../controllers/cartController");
-const {
-  handleGetSubcategories
-} = require("../controllers/categoryController");
+const { handleGetSubcategories } = require("../controllers/categoryController");
 const storage = multer.diskStorage({
   destination: "uploads/",
   filename: function (req, file, cb) {
@@ -93,20 +91,6 @@ const storage = multer.diskStorage({
 });
 
 const upload = multer({ storage });
-const {getLeafCategories} = require("../services/categoryService");
-const handleGetLeafCategories = async (req, res) => {
-  try {
-    const categories = await getLeafCategories(req.params.category_id);
-    res.status(200).json({
-      message: "OK",
-      data: categories,
-    });
-  } catch (error) {
-    res.status(400).json({
-      message: error.message,
-    });
-  }
-};
 
 const initRouters = (app) => {
   // AUTH
@@ -156,17 +140,21 @@ const initRouters = (app) => {
     handleGetBrandByCategory
   ); // DONE
   router.get("/brand/get-all-brand", handleGetAllBrand); //DONE
-  router.get("/brand/get-brands-by-category/:category_id", handleGetBrandsByCategory);
-  
+  router.get(
+    "/brand/get-brands-by-category/:category_id",
+    handleGetBrandsByCategory
+  );
+
   // CATEGORY
   router.get("/category/get-all-category", handleGetAllCategory); // DONE
   router.get(
     "/category/get-category-by-id/:category_id",
     handleGetCategoryById
-  ); 
-  router.get("/category/get-subcategories/:category_id", handleGetSubcategories);
-  router.get("/test-leaf/:category_id", handleGetLeafCategories);
-
+  );
+  router.get(
+    "/category/get-subcategories/:category_id",
+    handleGetSubcategories
+  );
 
   // ITEM
   router.get("/item/get-item-by-seller-id/:seller_id", handleGetItemBySellerId); // DONE
@@ -196,7 +184,7 @@ const initRouters = (app) => {
   router.get("/item/get-item-in-range", handleGetItemInRange); // DONE
   router.delete("/item/delete-item/:id", handleDeleteItem); // DONE
   router.get("/item/get-item-recommendation", handleGetItemRecommendation); // DONE
-  router.get
+  router.get;
   //ORDER
   router.post("/order/create-order", handleCreateOrder); // DONE
   router.get("/order/get-order-by-id/:id", handleGetOrderById); // DONE
