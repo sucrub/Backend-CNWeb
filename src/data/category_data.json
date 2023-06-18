@@ -1,0 +1,475 @@
+{
+    "dien thoai - may tinh bang": {
+        "children": [
+            "dien thoai smartphone",
+            "may tinh bang",
+            "may doc sach"
+        ],
+        "name": "Điện Thoại - Máy Tính Bảng",
+        "parent": ""
+    },
+    "dien thoai smartphone": {
+        "children": [],
+        "name": "Điện thoại Smartphone",
+        "parent": "dien thoai - may tinh bang"
+    },
+    "may tinh bang": {
+        "children": [],
+        "name": "Máy tính bảng",
+        "parent": "dien thoai - may tinh bang"
+    },
+    "may doc sach": {
+        "children": [],
+        "name": "Máy đọc sách",
+        "parent": "dien thoai - may tinh bang"
+    },
+    "dien gia dung": {
+        "children": [
+            "do dung nha bep",
+            "thiet bi gia dinh"
+        ],
+        "name": "Điện Gia Dụng",
+        "parent": ""
+    },
+    "do dung nha bep": {
+        "children": [
+            "noi dien cac loai",
+            "bep cac loai",
+            "may hut khoi, khu mui"
+        ],
+        "name": "Đồ dùng nhà bếp",
+        "parent": "dien gia dung"
+    },
+    "noi dien cac loai": {
+        "children": [],
+        "name": "Nồi điện các loại",
+        "parent": "do dung nha bep"
+    },
+    "bep cac loai": {
+        "children": [],
+        "name": "Bếp các loại",
+        "parent": "do dung nha bep"
+    },
+    "may hut khoi, khu mui": {
+        "children": [],
+        "name": "Máy hút khói, khử mùi",
+        "parent": "do dung nha bep"
+    },
+    "thiet bi gia dinh": {
+        "children": [
+            "ban ui, ban la",
+            "may may, theu, vat so",
+            "quat dien"
+        ],
+        "name": "Thiết bị gia đình",
+        "parent": "dien gia dung"
+    },
+    "ban ui, ban la": {
+        "children": [],
+        "name": "Bàn ủi, bàn là",
+        "parent": "thiet bi gia dinh"
+    },
+    "may may, theu, vat so": {
+        "children": [],
+        "name": "Máy may, thêu, vắt sổ",
+        "parent": "thiet bi gia dinh"
+    },
+    "quat dien": {
+        "children": [],
+        "name": "Quạt điện",
+        "parent": "thiet bi gia dinh"
+    },
+    "giay - dep nam": {
+        "children": [
+            "giay the thao nam",
+            "giay luoi nam",
+            "giay tay nam"
+        ],
+        "name": "Giày - Dép nam",
+        "parent": ""
+    },
+    "giay the thao nam": {
+        "children": [
+            "giay the thao nam co thap",
+            "giay the thao nam co cao"
+        ],
+        "name": "Giày thể thao nam",
+        "parent": "giay - dep nam"
+    },
+    "giay the thao nam co thap": {
+        "children": [],
+        "name": "Giày thể thao nam cổ thấp",
+        "parent": "giay the thao nam"
+    },
+    "giay the thao nam co cao": {
+        "children": [],
+        "name": "Giày thể thao nam cổ cao",
+        "parent": "giay the thao nam"
+    },
+    "giay luoi nam": {
+        "children": [
+            "giay luoi vai nam",
+            "giay luoi da nam",
+            "giay luoi nhua nam"
+        ],
+        "name": "Giày lười nam",
+        "parent": "giay - dep nam"
+    },
+    "giay luoi vai nam": {
+        "children": [],
+        "name": "Giày lười vải nam",
+        "parent": "giay luoi nam"
+    },
+    "giay luoi da nam": {
+        "children": [],
+        "name": "Giày lười da nam",
+        "parent": "giay luoi nam"
+    },
+    "giay luoi nhua nam": {
+        "children": [],
+        "name": "Giày lười nhựa nam",
+        "parent": "giay luoi nam"
+    },
+    "giay tay nam": {
+        "children": [
+            "giay tay nam co day",
+            "giay tay nam khong day"
+        ],
+        "name": "Giày tây nam",
+        "parent": "giay - dep nam"
+    },
+    "giay tay nam co day": {
+        "children": [],
+        "name": "Giày tây nam có dây",
+        "parent": "giay tay nam"
+    },
+    "giay tay nam khong day": {
+        "children": [],
+        "name": "Giày tây nam không dây",
+        "parent": "giay tay nam"
+    },
+    "giay - dep nu": {
+        "children": [
+            "giay cao got",
+            "giay the thao nu",
+            "giay sandals nu"
+        ],
+        "name": "Giày - Dép nữ",
+        "parent": ""
+    },
+    "giay cao got": {
+        "children": [
+            "giay cao got nhon",
+            "giay cao got quai sau",
+            "giay bit mui quai ngang"
+        ],
+        "name": "Giày cao gót",
+        "parent": "giay - dep nu"
+    },
+    "giay cao got nhon": {
+        "children": [],
+        "name": "Giày cao gót nhọn",
+        "parent": "giay cao got"
+    },
+    "giay cao got quai sau": {
+        "children": [],
+        "name": "Giày cao gót quai sau",
+        "parent": "giay cao got"
+    },
+    "giay bit mui quai ngang": {
+        "children": [],
+        "name": "Giày bít mũi quai ngang",
+        "parent": "giay cao got"
+    },
+    "giay the thao nu": {
+        "children": [
+            "giay the thao co thap",
+            "giay the thao co cao"
+        ],
+        "name": "Giày thể thao nữ",
+        "parent": "giay - dep nu"
+    },
+    "giay the thao co thap": {
+        "children": [],
+        "name": "Giày thể thao cổ thấp",
+        "parent": "giay the thao nu"
+    },
+    "giay the thao co cao": {
+        "children": [],
+        "name": "Giày thể thao cổ cao",
+        "parent": "giay the thao nu"
+    },
+    "giay sandals nu": {
+        "children": [
+            "giay sandals de bang",
+            "giay sandals chien binh",
+            "giay sandals buoc day"
+        ],
+        "name": "Giày sandals nữ",
+        "parent": "giay - dep nu"
+    },
+    "giay sandals de bang": {
+        "children": [],
+        "name": "Giày sandals đế bằng",
+        "parent": "giay sandals nu"
+    },
+    "giay sandals chien binh": {
+        "children": [],
+        "name": "Giày sandals chiến binh",
+        "parent": "giay sandals nu"
+    },
+    "giay sandals buoc day": {
+        "children": [],
+        "name": "Giày sandals buộc dây",
+        "parent": "giay sandals nu"
+    },
+    "tui thoi trang nu": {
+        "children": [
+            "tui tote nu",
+            "tui deo cheo, tui deo vai nu",
+            "tui xach tay nu"
+        ],
+        "name": "Túi thời trang nữ",
+        "parent": ""
+    },
+    "tui tote nu": {
+        "children": [
+            "tui tote co khoa",
+            "tui tote khong khoa"
+        ],
+        "name": "Túi tote nữ",
+        "parent": "tui thoi trang nu"
+    },
+    "tui tote co khoa": {
+        "children": [],
+        "name": "Túi tote có khóa",
+        "parent": "tui tote nu"
+    },
+    "tui tote khong khoa": {
+        "children": [],
+        "name": "Túi tote không khóa",
+        "parent": "tui tote nu"
+    },
+    "tui deo cheo, tui deo vai nu": {
+        "children": [
+            "tui deo cheo cong so",
+            "tui deo cheo dao pho"
+        ],
+        "name": "Túi đeo chéo, túi đeo vai nữ",
+        "parent": "tui thoi trang nu"
+    },
+    "tui deo cheo cong so": {
+        "children": [],
+        "name": "Túi đeo chéo công sở",
+        "parent": "tui deo cheo, tui deo vai nu"
+    },
+    "tui deo cheo dao pho": {
+        "children": [],
+        "name": "Túi đeo chéo dạo phố",
+        "parent": "tui deo cheo, tui deo vai nu"
+    },
+    "tui xach tay nu": {
+        "children": [
+            "tui xach to ban",
+            "tui xach vua va nho"
+        ],
+        "name": "Túi xách tay nữ",
+        "parent": "tui thoi trang nu"
+    },
+    "tui xach to ban": {
+        "children": [],
+        "name": "Túi xách to bản",
+        "parent": "tui xach tay nu"
+    },
+    "tui xach vua va nho": {
+        "children": [],
+        "name": "Túi xách vừa và nhỏ",
+        "parent": "tui xach tay nu"
+    },
+    "tui thoi trang nam": {
+        "children": [
+            "tui xach cong so nam",
+            "tui deo cheo nam",
+            "tui bao tu, tui deo bung"
+        ],
+        "name": "Túi thời trang nam",
+        "parent": ""
+    },
+    "tui xach cong so nam": {
+        "children": [],
+        "name": "Túi xách công sở nam",
+        "parent": "tui thoi trang nam"
+    },
+    "tui deo cheo nam": {
+        "children": [],
+        "name": "Túi đeo chéo nam",
+        "parent": "tui thoi trang nam"
+    },
+    "tui bao tu, tui deo bung": {
+        "children": [],
+        "name": "Túi bao tử, túi đeo bụng",
+        "parent": "tui thoi trang nam"
+    },
+    "thoi trang nu": {
+        "children": [
+            "ao nu",
+            "dam nu",
+            "chan vay"
+        ],
+        "name": "Thời trang nữ",
+        "parent": ""
+    },
+    "ao nu": {
+        "children": [
+            "ao thun nu",
+            "ao so mi nu",
+            "ao kieu"
+        ],
+        "name": "Áo nữ",
+        "parent": "thoi trang nu"
+    },
+    "ao thun nu": {
+        "children": [],
+        "name": "Áo thun nữ",
+        "parent": "ao nu"
+    },
+    "ao so mi nu": {
+        "children": [],
+        "name": "Áo sơ mi nữ",
+        "parent": "ao nu"
+    },
+    "ao kieu": {
+        "children": [],
+        "name": "Áo kiểu",
+        "parent": "ao nu"
+    },
+    "dam nu": {
+        "children": [
+            "dam dang xoe",
+            "dam dang om",
+            "dam suong"
+        ],
+        "name": "Đầm nữ",
+        "parent": "thoi trang nu"
+    },
+    "dam dang xoe": {
+        "children": [],
+        "name": "Đầm Dáng Xòe",
+        "parent": "dam nu"
+    },
+    "dam dang om": {
+        "children": [],
+        "name": "Đầm dáng ôm",
+        "parent": "dam nu"
+    },
+    "dam suong": {
+        "children": [],
+        "name": "Đầm suông",
+        "parent": "dam nu"
+    },
+    "chan vay": {
+        "children": [
+            "chan vay dai",
+            "chan vay ngan",
+            "chan vay xep li"
+        ],
+        "name": "Chân váy",
+        "parent": "thoi trang nu"
+    },
+    "chan vay dai": {
+        "children": [],
+        "name": "Chân váy dài",
+        "parent": "chan vay"
+    },
+    "chan vay ngan": {
+        "children": [],
+        "name": "Chân váy ngắn",
+        "parent": "chan vay"
+    },
+    "chan vay xep li": {
+        "children": [],
+        "name": "Chân váy xếp li",
+        "parent": "chan vay"
+    },
+    "thoi trang nam": {
+        "children": [
+            "ao thun nam",
+            "ao so mi nam",
+            "ao vest - ao khoac nam"
+        ],
+        "name": "Thời trang nam",
+        "parent": ""
+    },
+    "ao thun nam": {
+        "children": [
+            "ao thun nam ngan tay co co",
+            "ao thun nam ngan tay khong co",
+            "ao thun nam ba lo"
+        ],
+        "name": "Áo thun nam",
+        "parent": "thoi trang nam"
+    },
+    "ao thun nam ngan tay co co": {
+        "children": [],
+        "name": "Áo thun nam ngắn tay có cổ",
+        "parent": "ao thun nam"
+    },
+    "ao thun nam ngan tay khong co": {
+        "children": [],
+        "name": "Áo thun nam ngắn tay không cổ",
+        "parent": "ao thun nam"
+    },
+    "ao thun nam ba lo": {
+        "children": [],
+        "name": "Áo thun nam ba lỗ",
+        "parent": "ao thun nam"
+    },
+    "ao so mi nam": {
+        "children": [
+            "ao so mi nam tay dai",
+            "ao so mi nam tay ngan",
+            "ao so mi nam co tau"
+        ],
+        "name": "Áo sơ mi nam",
+        "parent": "thoi trang nam"
+    },
+    "ao so mi nam tay dai": {
+        "children": [],
+        "name": "Áo sơ mi nam tay dài",
+        "parent": "ao so mi nam"
+    },
+    "ao so mi nam tay ngan": {
+        "children": [],
+        "name": "Áo sơ mi nam tay ngắn",
+        "parent": "ao so mi nam"
+    },
+    "ao so mi nam co tau": {
+        "children": [],
+        "name": "Áo sơ mi nam cổ tàu",
+        "parent": "ao so mi nam"
+    },
+    "ao vest - ao khoac nam": {
+        "children": [
+            "ao khoac phao nam",
+            "ao khoac da nam",
+            "ao khoac gio"
+        ],
+        "name": "Áo vest - Áo khoác nam",
+        "parent": "thoi trang nam"
+    },
+    "ao khoac phao nam": {
+        "children": [],
+        "name": "Áo khoác phao nam",
+        "parent": "ao vest - ao khoac nam"
+    },
+    "ao khoac da nam": {
+        "children": [],
+        "name": "Áo khoác da nam",
+        "parent": "ao vest - ao khoac nam"
+    },
+    "ao khoac gio": {
+        "children": [],
+        "name": "Áo khoác gió",
+        "parent": "ao vest - ao khoac nam"
+    }
+}

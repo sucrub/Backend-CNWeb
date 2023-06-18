@@ -1,7 +1,7 @@
 const db = require("../models/index");
 const { getAllBrand, createBrand } = require("./brandService");
-const { Op } = require("sequelize");
-
+const { Op, sequelize } = require("sequelize");
+const {getLeafCategories} = require("./categoryService")
 /*
 {
   name,
@@ -19,7 +19,22 @@ const { Op } = require("sequelize");
   ]
 }
 */
-
+const searchItems = (searchTerm) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      let items = await db.items.findAll({
+        where: {
+          name: {
+            [Op.like]: `%${searchTerm}%`,
+          },
+        },
+      });
+      resolve(items);
+    } catch (error) {
+      reject(error);
+    }
+  });
+}
 const getRate = (id) => {
   return new Promise(async (resolve, reject) => {
     try {
@@ -200,14 +215,25 @@ const deleteItem = (id) => {
     }
   });
 };
-
 const getItemByCategory = (id) => {
   return new Promise(async (resolve, reject) => {
     try {
-      const items = await db.items.findAll({
-        where: { category_id: id },
+      // TODO: can not reference db.brands
+      const leafcategories = await getLeafCategories(id);
+      leafcategories.push(id);
+      let items = await db.items.findAll({
+        where: { category_id: {[Op.in]: leafcategories} },
         raw: true,
       });
+      let branditem = await db.branditem.findAll();
+      let branditem1 = {}
+      for (let i = 0; i < branditem.length; i++) {
+        branditem1[branditem[i].item_id] = branditem[i].brand_id
+      }
+      items = items.map((item) => {
+        return {...item, brand_id: branditem1[item.id]}
+      })
+      // Fetch item-specific data for each item
 
       const itemsWithSpecific = await Promise.all(
         items.map(async (item) => {
@@ -603,7 +629,7 @@ const getItemFilter = (filterData) => {
 const getItemsByName = async (searchText) => {
   return new Promise(async (resolve, reject) => {
     try {
-      const items = await db.items.findAll({
+      let items = await db.items.findAll({
         where: {
           name: {
             [Op.regexp]: `\\b${searchText}\\b|\\b${searchText}.+|.+${searchText}\\b`,
@@ -611,7 +637,24 @@ const getItemsByName = async (searchText) => {
         },
         raw: true,
       });
-
+      const firstWord = searchText.split(" ")[0];
+      console.log(firstWord);
+      const categories = await db.categories.findAll({
+        where: {
+          name: {
+            [Op.like]: `%${firstWord}%`,
+          },
+        },
+        raw: true,
+      });
+      console.log(categories);
+      if (categories.length > 0) {
+        items = items.filter((item) => {
+          return categories.some(
+            (category) => category.id === item.category_id
+          );
+        });
+      }
       // Fetch item-specific data for each item
       const itemsWithSpecific = await Promise.all(
         items.map(async (item) => {
@@ -635,7 +678,45 @@ const getItemsByName = async (searchText) => {
     }
   });
 };
+const getItemRecommendations = () => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const items = await db.items.findAll({
+        order: [
+          [db.sequelize.literal('number_sold DESC')], // Order by price in descending order
+        ],
+        limit: 50,
+        raw: true,
+      });
 
+      // Fetch item-specific data for each item
+      const itemsWithSpecific = await Promise.all(
+        items.map(async (item) => {
+          // Get the item-specific data
+          const itemSpecific = await db.itemspecific.findOne({
+            where: {
+              origin_id: item.id,
+            },
+            raw: true,
+          });
+
+          // Merge the item-specific data (img and price) into the item object
+          const itemWithSpecific = {
+            ...item,
+            img: itemSpecific && itemSpecific.img ? itemSpecific.img : "",
+            price: itemSpecific && itemSpecific.price ? itemSpecific.price : 0,
+          };
+
+          return itemWithSpecific;
+        })
+      );
+
+      resolve(itemsWithSpecific);
+    } catch (error) {
+      reject(error);
+    }
+  });
+}
 module.exports = {
   getAllItem,
   getItemBySellerId,
@@ -656,4 +737,5 @@ module.exports = {
   getItemsByName,
   getRate,
   getItemByCategory,
+  getItemRecommendations,
 };

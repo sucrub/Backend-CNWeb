@@ -99,6 +99,10 @@ function initModels(sequelize) {
   rates.belongsTo(users, { as: "user", foreignKey: "user_id" });
   users.hasMany(rates, { as: "rates", foreignKey: "user_id" });
 
+  // for brand_category
+  
+  // for leaf_categories
+
   return {
     items,
     itemspecific,

@@ -4,6 +4,7 @@ const {
   getBrandByCategoryId,
   getAllCategory,
   getCategoryById,
+  getBrandsByCategory,
 } = require("../services/brandService");
 
 const handleGetAllBrand = async (req, res) => {
@@ -49,7 +50,6 @@ const handleGetBrandByCategory = async (req, res) => {
     });
   }
 };
-
 const handleGetAllCategory = async (req, res) => {
   try {
     const categories = await getAllCategory();
@@ -78,11 +78,26 @@ const handleGetCategoryById = async (req, res) => {
     });
   }
 };
-
+const handleGetBrandsByCategory = async (req, res) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const brands = await getBrandsByCategory(req.params.category_id);
+      res.status(200).json({
+        message: "OK",
+        data: brands,
+      });
+    } catch (error) {
+      res.status(400).json({
+        message: error.message,
+      });
+    }
+  });
+}
 module.exports = {
   handleGetAllBrand,
   handleGetBrandByName,
   handleGetBrandByCategory,
   handleGetAllCategory,
   handleGetCategoryById,
+  handleGetBrandsByCategory,
 };
