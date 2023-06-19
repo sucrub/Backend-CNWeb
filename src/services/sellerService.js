@@ -131,8 +131,7 @@ const getAllSeller = () => {
 const getSellerById = (id) => {
   return new Promise(async (resolve, reject) => {
     try {
-      let seller = "";
-      seller = await db.sellers.findOne({
+      let seller = await db.sellers.findOne({
         where: {
           id: id,
         },
@@ -141,6 +140,15 @@ const getSellerById = (id) => {
         },
         raw: true,
       });
+
+      const itemCount = await db.items.count({
+        where: {
+          seller_id: seller.id,
+        },
+      });
+
+      seller.number_of_products = itemCount;
+
       resolve(seller);
     } catch (error) {
       reject(error);
@@ -161,6 +169,16 @@ const getSellerByName = (name) => {
         },
         raw: true,
       });
+
+      const itemCount = await db.items.count({
+        where: {
+          seller_id: seller.id,
+        },
+      });
+
+      seller.number_of_products = itemCount;
+
+      resolve(seller);
       resolve(seller);
     } catch (error) {
       reject(error);
