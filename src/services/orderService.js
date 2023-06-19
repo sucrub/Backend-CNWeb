@@ -129,7 +129,7 @@ const getOrderyBySellerId = (id) => {
             order_id: detail.order_id,
             quantity: detail.quantity,
             status: detail.status,
-            itemspecific_name: itemspec.name, // Add the item-specific name to the result
+            itemspecific_name: itemspec.name,
           };
           listOrderDetail.push(orderDetailData);
         }
