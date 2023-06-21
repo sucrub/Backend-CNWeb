@@ -94,6 +94,18 @@ const itemImage = (id, imagePath) => {
 const createItemV2 = (data) => {
   return new Promise(async (resolve, reject) => {
     try {
+      let newBrand;
+      if (data.brand) {
+        const brand = await getAllBrand();
+        const brandName = brand.map((brandItem) => brandItem.name);
+        const lowerCaseBrands = brandName.map((b) => b.toLowerCase());
+        const lowerCaseDataBrand = data.brand.toLowerCase();
+        if (lowerCaseBrands.includes(lowerCaseDataBrand)!==true) {
+          newBrand = await createBrand(lowerCaseDataBrand);
+        } else {
+          newBrand = brand.find(item => item.name.toLowerCase() === lowerCaseDataBrand);
+        }
+      }
       const newItem = await db.items.create({
         name: data.name,
         description: data.description,
@@ -102,6 +114,7 @@ const createItemV2 = (data) => {
         number_of_rating: 0,
         number_sold: 0,
         category_id: data.category_id ? data.category_id : null,
+        brand_id: newBrand ? newBrand.id : null,
       });
       const seller = await db.sellers.findOne({
         where: { id: data.seller_id },
@@ -117,24 +130,7 @@ const createItemV2 = (data) => {
         });
         listItemSpec.push(itemSpecific);
       }
-      if (data.brand) {
-        const brand = await getAllBrand();
-        const brandName = brand.map((brandItem) => brandItem.name);
-        const lowerCaseBrands = brandName.map((b) => b.toLowerCase());
-        const lowerCaseDataBrand = data.brand.toLowerCase();
-        if (lowerCaseBrands.includes(lowerCaseDataBrand)) {
-          await db.branditem.create({
-            item_id: newItem.id,
-            brand_id: lowerCaseBrands.indexOf(lowerCaseDataBrand) + 1,
-          });
-        } else {
-          const newBrand = await createBrand(lowerCaseDataBrand);
-          await db.branditem.create({
-            item_id: newItem.id,
-            brand_id: newBrand.id,
-          });
-        }
-      }
+      
       if (data.tag && Array.isArray(data.tag)) {
         for (let tagId of data.tag) {
           await db.tagitem.create({
@@ -149,6 +145,7 @@ const createItemV2 = (data) => {
       };
       resolve(result);
     } catch (error) {
+      console.log(error);
       reject(error);
     }
   });
