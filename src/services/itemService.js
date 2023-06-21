@@ -635,7 +635,6 @@ const getItemsByName = async (searchText) => {
         raw: true,
       });
       const firstWord = searchText.split(" ")[0];
-      console.log(firstWord);
       const categories = await db.categories.findAll({
         where: {
           name: {
@@ -644,7 +643,6 @@ const getItemsByName = async (searchText) => {
         },
         raw: true,
       });
-      console.log(categories);
       if (categories.length > 0) {
         items = items.filter((item) => {
           return categories.some(
