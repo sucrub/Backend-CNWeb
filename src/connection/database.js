@@ -5,9 +5,9 @@ const sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USER, proces
   dialect: "mysql",
   logging: false,
 });
-console.log(process.env.DB_NAME, process.env.DB_USER, process.env.DB_PASSWORD, process.env.DB_HOSTNAME, process.env.DB_PORT)
 
 const connectionDatabase = async () => {
+  console.log(process.env.DB_NAME, process.env.DB_USER, process.env.DB_PASSWORD, process.env.DB_HOSTNAME, process.env.DB_PORT)
   try {
     await sequelize.authenticate();
     console.log("Connection has been established successfully.");
