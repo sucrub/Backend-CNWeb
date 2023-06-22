@@ -30,7 +30,7 @@ Endpoint       |	Method |	Description |	Request Body | Note
 ---------------|---------|--------------|--------------|------
 http://localhost:8080/user/get-all-user |	GET |	Get all users |	N/A
 http://localhost:8080/user/get-user-by-id/{id} |	GET |	Get user by ID |	N/A
-http://localhost:8080/user/get-user-by-id/{username} |	GET |	Get user by username |	N/A
+http://localhost:8080/user/get-user-by-username/{username} |	GET |	Get user by username |	N/A
 http://localhost:8080/user/update-user |	POST |	Update user |	username, (first_name, last_name, phone_number)
 http://localhost:8080/user/update-password |	POST |	Update user password |	username, old_password, new_password, confirm_password
 http://localhost:8080/user/change-avatar/{id} | POST | Change avatar user | N/A | Upload file

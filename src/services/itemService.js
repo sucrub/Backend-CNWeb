@@ -1,7 +1,7 @@
 const db = require("../models/index");
 const { getAllBrand, createBrand } = require("./brandService");
 const { Op, sequelize } = require("sequelize");
-const {getLeafCategories} = require("./categoryService")
+const { getLeafCategories } = require("./categoryService");
 /*
 {
   name,
@@ -34,7 +34,7 @@ const searchItems = (searchTerm) => {
       reject(error);
     }
   });
-}
+};
 const getRate = (id) => {
   return new Promise(async (resolve, reject) => {
     try {
@@ -42,7 +42,6 @@ const getRate = (id) => {
         where: { item_id: id },
       });
 
-      // Fetch user data for each rate
       const ratePromises = rates.map(async (rate) => {
         const user = await db.users.findOne({
           where: { id: rate.user_id },
@@ -120,7 +119,7 @@ const createItemV2 = (data) => {
       const seller = await db.sellers.findOne({
         where: { id: data.seller_id },
       });
-      seller.number_of_products += 1;
+      seller.number_of_products = seller.number_of_products++;
       await seller.save();
       let listItemSpec = [];
       for (let itemspec of data.item_specific) {
@@ -201,6 +200,11 @@ const deleteItem = (id) => {
       const deleteItem = await db.items.findOne({
         where: { id: id },
       });
+      const seller = await db.sellers.findOne({
+        where: { id: deleteItem.seller_id },
+      });
+      seller.number_of_products = seller.number_of_products--;
+      await seller.save();
       if (deleteItem) {
         await db.items.destroy({
           where: { id: id },
@@ -212,6 +216,7 @@ const deleteItem = (id) => {
     }
   });
 };
+
 const getItemByCategory = (id) => {
   return new Promise(async (resolve, reject) => {
     try {
@@ -219,17 +224,17 @@ const getItemByCategory = (id) => {
       const leafcategories = await getLeafCategories(id);
       leafcategories.push(id);
       let items = await db.items.findAll({
-        where: { category_id: {[Op.in]: leafcategories} },
+        where: { category_id: { [Op.in]: leafcategories } },
         raw: true,
       });
       let branditem = await db.branditem.findAll();
-      let branditem1 = {}
+      let branditem1 = {};
       for (let i = 0; i < branditem.length; i++) {
-        branditem1[branditem[i].item_id] = branditem[i].brand_id
+        branditem1[branditem[i].item_id] = branditem[i].brand_id;
       }
       items = items.map((item) => {
-        return {...item, brand_id: branditem1[item.id]}
-      })
+        return { ...item, brand_id: branditem1[item.id] };
+      });
       // Fetch item-specific data for each item
 
       const itemsWithSpecific = await Promise.all(
@@ -261,13 +266,10 @@ const getAllItem = () => {
         raw: true,
       });
 
-      // Fetch item-specific data for each item
       const itemsWithSpecific = await Promise.all(
         items.map(async (item) => {
-          // Get the item-specific data
           const itemSpecific = getOneItemSpecific(item.id);
 
-          // Merge the item-specific data (img and price) into the item object
           const itemWithSpecific = {
             ...item,
             img: itemSpecific && itemSpecific.img ? itemSpecific.img : "",
@@ -295,13 +297,10 @@ const getItemBySellerId = (id) => {
         raw: true,
       });
 
-      // Fetch item-specific data for each item
       const itemsWithSpecific = await Promise.all(
         items.map(async (item) => {
-          // Get the item-specific data
           const itemSpecific = await getOneItemSpecific(item.id);
 
-          // Merge the item-specific data into the item object
           const itemWithSpecific = {
             ...item,
             img: itemSpecific && itemSpecific.img ? itemSpecific.img : "",
@@ -327,13 +326,10 @@ const getItemById = (id) => {
         raw: true,
       });
 
-      // Fetch item-specific data for each item
       const itemsWithSpecific = await Promise.all(
         items.map(async (item) => {
-          // Get the item-specific data
           const itemSpecific = await getOneItemSpecific(item.id);
 
-          // Merge the item-specific data (img and price) into the item object
           const itemWithSpecific = {
             ...item,
             img: itemSpecific && itemSpecific.img ? itemSpecific.img : "",
@@ -449,13 +445,10 @@ const getItemByTagId = (id) => {
         raw: true,
       });
 
-      // Fetch item-specific data for each item
       const itemsWithSpecific = await Promise.all(
         items.map(async (item) => {
-          // Get the item-specific data
           const itemSpecific = await getOneItemSpecific(item.id);
 
-          // Merge the item-specific data into the item object
           const itemWithSpecific = {
             ...item,
             img: itemSpecific.img,
@@ -488,10 +481,8 @@ const getItemByBrandId = (id) => {
             where: { id: oneItemId },
           });
 
-          // Get the item-specific data
           const itemSpecific = await getOneItemSpecific(item.id);
 
-          // Merge the item-specific data (img and price) into the item object
           const itemWithSpecific = {
             ...item.dataValues,
             img: itemSpecific && itemSpecific.img ? itemSpecific.img : "",
@@ -516,13 +507,10 @@ const getItemInRange = (minPrice, maxPrice) => {
         raw: true,
       });
 
-      // Fetch item-specific data for each item
       const itemsWithSpecific = await Promise.all(
         items.map(async (item) => {
-          // Get the item-specific data
           const itemSpecific = await getOneItemSpecific(item.id);
 
-          // Merge the item-specific data (img and price) into the item object
           const itemWithSpecific = {
             ...item,
             img: itemSpecific && itemSpecific.img ? itemSpecific.img : "",
@@ -533,7 +521,6 @@ const getItemInRange = (minPrice, maxPrice) => {
         })
       );
 
-      // Filter items based on price range
       const filteredItems = itemsWithSpecific.filter((item) => {
         if (minPrice && item.price < minPrice) {
           return false; // Item's price is below the minimum price
@@ -558,13 +545,10 @@ const getItemFilter = (filterData) => {
         raw: true,
       });
 
-      // Fetch item-specific data for each item
       const itemsWithSpecific = await Promise.all(
         items.map(async (item) => {
-          // Get the item-specific data
           const itemSpecific = await getOneItemSpecific(item.id);
 
-          // Fetch the brand IDs for the item from the branditem table
           const brandItems = await db.branditem.findAll({
             where: {
               item_id: item.id,
@@ -572,10 +556,8 @@ const getItemFilter = (filterData) => {
             raw: true,
           });
 
-          // Extract the brand IDs from brandItems
           const brandIds = brandItems.map((brandItem) => brandItem.brand_id);
 
-          // Merge the item-specific data (img, price, and brand_id) into the item object
           const itemWithSpecific = {
             ...item,
             img: itemSpecific && itemSpecific.img ? itemSpecific.img : "",
@@ -587,7 +569,6 @@ const getItemFilter = (filterData) => {
         })
       );
 
-      // Filter items based on provided data
       const filteredItems = itemsWithSpecific.filter((item) => {
         if (
           filterData.brand_id &&
@@ -650,13 +631,10 @@ const getItemsByName = async (searchText) => {
           );
         });
       }
-      // Fetch item-specific data for each item
       const itemsWithSpecific = await Promise.all(
         items.map(async (item) => {
-          // Get the item-specific data
           const itemSpecific = await getOneItemSpecific(item.id);
 
-          // Merge the item-specific data (img and price) into the item object
           const itemWithSpecific = {
             ...item,
             img: itemSpecific && itemSpecific.img ? itemSpecific.img : "",
@@ -677,17 +655,13 @@ const getItemRecommendations = () => {
   return new Promise(async (resolve, reject) => {
     try {
       const items = await db.items.findAll({
-        order: [
-          [db.sequelize.literal('number_sold DESC')], // Order by price in descending order
-        ],
+        order: [[db.sequelize.literal("number_sold DESC")]],
         limit: 50,
         raw: true,
       });
 
-      // Fetch item-specific data for each item
       const itemsWithSpecific = await Promise.all(
         items.map(async (item) => {
-          // Get the item-specific data
           const itemSpecific = await db.itemspecific.findOne({
             where: {
               origin_id: item.id,
@@ -695,7 +669,6 @@ const getItemRecommendations = () => {
             raw: true,
           });
 
-          // Merge the item-specific data (img and price) into the item object
           const itemWithSpecific = {
             ...item,
             img: itemSpecific && itemSpecific.img ? itemSpecific.img : "",
@@ -711,7 +684,7 @@ const getItemRecommendations = () => {
       reject(error);
     }
   });
-}
+};
 module.exports = {
   getAllItem,
   getItemBySellerId,

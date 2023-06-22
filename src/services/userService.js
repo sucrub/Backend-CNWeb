@@ -12,7 +12,6 @@ const userRating = (data) => {
         title: data.title,
       });
 
-      // Calculate the average rating for the item
       const itemRatings = await db.rates.findAll({
         where: {
           item_id: data.item_id,
@@ -25,7 +24,6 @@ const userRating = (data) => {
 
       const averageRating = itemRatings[0].average_rating || 0;
 
-      // Update the item's rate with the calculated average rating
       const item = await db.items.findByPk(data.item_id);
       item.rate = averageRating;
       await item.save();
