@@ -8,7 +8,7 @@ const connectionDatabase = require("./connection/database");
 
 
 
-const PORT = process.env.PORT || 8000;
+const PORT = process.env.PORT;
 const HOSTNAME = process.env.HOST;
 app.use(cookieParser());
 
