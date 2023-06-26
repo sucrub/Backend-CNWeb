@@ -1,4 +1,4 @@
-require("dotenv").config()
+require("dotenv").config();
 const express = require("express");
 const initRouters = require("./routes/web");
 const cookieParser = require("cookie-parser");
@@ -6,11 +6,14 @@ const cookieParser = require("cookie-parser");
 const cors = require("cors");
 
 const app = express();
-app.use(cors());
+app.use(
+  cors({
+    origin: "*",
+    credentials: true,
+  })
+);
 
 const connectionDatabase = require("./connection/database");
-
-
 
 const PORT = process.env.PORT || 8080;
 const HOSTNAME = process.env.HOST;
