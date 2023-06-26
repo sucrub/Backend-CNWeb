@@ -100,10 +100,12 @@ const createItemV2 = (data) => {
         const brandName = brand.map((brandItem) => brandItem.name);
         const lowerCaseBrands = brandName.map((b) => b.toLowerCase());
         const lowerCaseDataBrand = data.brand.toLowerCase();
-        if (lowerCaseBrands.includes(lowerCaseDataBrand)!==true) {
+        if (lowerCaseBrands.includes(lowerCaseDataBrand) !== true) {
           newBrand = await createBrand(lowerCaseDataBrand);
         } else {
-          newBrand = brand.find(item => item.name.toLowerCase() === lowerCaseDataBrand);
+          newBrand = brand.find(
+            (item) => item.name.toLowerCase() === lowerCaseDataBrand
+          );
         }
       }
       const newItem = await db.items.create({
@@ -130,7 +132,7 @@ const createItemV2 = (data) => {
         });
         listItemSpec.push(itemSpecific);
       }
-      
+
       if (data.tag && Array.isArray(data.tag)) {
         for (let tagId of data.tag) {
           await db.tagitem.create({
@@ -282,6 +284,7 @@ const getAllItem = () => {
 
       resolve(itemsWithSpecific);
     } catch (error) {
+      console.log(error);
       reject(error);
     }
   });
@@ -616,7 +619,6 @@ const getItemsByName = async (searchText) => {
         raw: true,
       });
       const firstWord = searchText.split(" ")[0];
-      console.log(firstWord);
       const categories = await db.categories.findAll({
         where: {
           name: {
@@ -625,7 +627,6 @@ const getItemsByName = async (searchText) => {
         },
         raw: true,
       });
-      console.log(categories);
       if (categories.length > 0) {
         items = items.filter((item) => {
           return categories.some(
@@ -657,7 +658,9 @@ const getItemRecommendations = () => {
   return new Promise(async (resolve, reject) => {
     try {
       const items = await db.items.findAll({
-        order: [[db.sequelize.literal("number_sold DESC")]],
+        order: [
+          [db.sequelize.literal("number_sold DESC")], // Order by price in descending order
+        ],
         limit: 50,
         raw: true,
       });

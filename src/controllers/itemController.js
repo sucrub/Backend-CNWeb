@@ -18,7 +18,7 @@ const {
   getItemsByName,
   getRate,
   getItemByCategory,
-  getItemRecommendations
+  getItemRecommendations,
 } = require("../services/itemService");
 
 const handleGetRate = async (req, res) => {
@@ -99,6 +99,7 @@ const handleGetAllItem = async (req, res) => {
       data: items,
     });
   } catch (error) {
+    console.log("Line 102 - error", error);
     res.status(400).json({
       message: "Error",
     });
@@ -316,7 +317,7 @@ const handleSearchItems = async (req, res) => {
     });
   }
 };
-const handleGetItemRecommendation = async(req, res) => {
+const handleGetItemRecommendation = async (req, res) => {
   try {
     const result = await getItemRecommendations();
     res.status(200).json({
@@ -328,8 +329,7 @@ const handleGetItemRecommendation = async(req, res) => {
       message: error.message,
     });
   }
-
-}
+};
 module.exports = {
   handleGetAllItem,
   handleGetItemBySellerId,
@@ -350,5 +350,5 @@ module.exports = {
   handleSearchItems,
   handleGetRate,
   handleGetItemByCategory,
-  handleGetItemRecommendation
+  handleGetItemRecommendation,
 };
