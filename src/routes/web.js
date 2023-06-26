@@ -49,7 +49,7 @@ const {
   handleSearchItems,
   handleGetRate,
   handleGetItemByCategory,
-  handleGetItemRecommendation
+  handleGetItemRecommendation,
 } = require("../controllers/itemController");
 const {
   handleCreateOrder,
@@ -64,16 +64,19 @@ const {
   handleGetBrandByCategory,
   handleGetAllCategory,
   handleGetCategoryById,
-  handleGetBrandsByCategory
+  handleGetBrandsByCategory,
 } = require("../controllers/brandController");
 const {
   handleGetCart,
   handleAddCart,
   handleDeleteCart,
 } = require("../controllers/cartController");
+const { handleGetSubcategories } = require("../controllers/categoryController");
 const {
-  handleGetSubcategories
-} = require("../controllers/categoryController");
+  authenticateUser,
+  authenticateSeller,
+  simppleMiddleware,
+} = require("../middlewares/auth");
 const storage = multer.diskStorage({
   destination: "uploads/",
   filename: function (req, file, cb) {
@@ -93,20 +96,6 @@ const storage = multer.diskStorage({
 });
 
 const upload = multer({ storage });
-const {getLeafCategories} = require("../services/categoryService");
-const handleGetLeafCategories = async (req, res) => {
-  try {
-    const categories = await getLeafCategories(req.params.category_id);
-    res.status(200).json({
-      message: "OK",
-      data: categories,
-    });
-  } catch (error) {
-    res.status(400).json({
-      message: error.message,
-    });
-  }
-};
 
 const initRouters = (app) => {
   // AUTH
@@ -114,7 +103,7 @@ const initRouters = (app) => {
   router.post("/auth/refresh-token", handleRefreshToken); // DONE
 
   // RATE
-  router.post("/rate/create-rating", handleUserRating); // DONE
+  router.post("/rate/create-rating", authenticateUser, handleUserRating); // DONE
   router.get("/rate/get-rate/:item_id", handleGetRate); // DONE
 
   // USER
@@ -127,8 +116,12 @@ const initRouters = (app) => {
   router.get("/user/get-user-by-id/:id", handleGetUserById); // DONE
   router.get("/user/get-user-by-username/:username", handleGetUserByUsername); // DONE
   router.post("/user/create-user", handleCreateUser); // DONE
-  router.post("/user/update-user", handleUpdateUser); // DONE
-  router.post("/user/update-password", handleUpdateUserPassword); // DONE
+  router.post("/user/update-user", authenticateUser, handleUpdateUser); // DONE
+  router.post(
+    "/user/update-password",
+    authenticateUser,
+    handleUpdateUserPassword
+  ); // DONE
 
   // SELLER
   router.get(
@@ -142,8 +135,12 @@ const initRouters = (app) => {
     "/seller/get-seller-by-name-prefix/:prefix",
     handleGetSellerByNamePrefix
   ); // DONE
-  router.post("/seller/update-seller", handleUpdateSeller); // DONE
-  router.post("/seller/update-password", handleUpdatePasswordSeller); // DONE
+  router.post("/seller/update-seller", authenticateSeller, handleUpdateSeller); // DONE
+  router.post(
+    "/seller/update-password",
+    authenticateSeller,
+    handleUpdatePasswordSeller
+  ); // DONE
   router.post(
     "/seller/change-avatar/:id",
     upload.single("image"),
@@ -156,17 +153,21 @@ const initRouters = (app) => {
     handleGetBrandByCategory
   ); // DONE
   router.get("/brand/get-all-brand", handleGetAllBrand); //DONE
-  router.get("/brand/get-brands-by-category/:category_id", handleGetBrandsByCategory);
-  
+  router.get(
+    "/brand/get-brands-by-category/:category_id",
+    handleGetBrandsByCategory
+  );
+
   // CATEGORY
   router.get("/category/get-all-category", handleGetAllCategory); // DONE
   router.get(
     "/category/get-category-by-id/:category_id",
     handleGetCategoryById
-  ); 
-  router.get("/category/get-subcategories/:category_id", handleGetSubcategories);
-  router.get("/test-leaf/:category_id", handleGetLeafCategories);
-
+  );
+  router.get(
+    "/category/get-subcategories/:category_id",
+    handleGetSubcategories
+  );
 
   // ITEM
   router.get("/item/get-item-by-seller-id/:seller_id", handleGetItemBySellerId); // DONE
@@ -176,41 +177,57 @@ const initRouters = (app) => {
     handleGetItemByCategory
   ); // DONE
   router.get("/item/get-item-filter", handleGetItemFilter); // DONE
-  router.post("/item/create-item-v2", handleCreateItemV2); // DONE
+  router.post("/item/create-item-v2", authenticateSeller, handleCreateItemV2); // DONE
   router.post(
     "/item/item-picture/:id",
     upload.array("image", 100),
     handleItemImage
   ); // DONE
-  router.post("/item/create-item-specific", handleCreateItemSpecific); // DONE
+  router.post(
+    "/item/create-item-specific",
+    simppleMiddleware,
+    handleCreateItemSpecific
+  ); // DONE
   router.get(
     "/item/get-item-specific-by-origin-id/:origin_id",
     handleGetItemSpecificByOriginId
   ); // DONE
-  router.post("/item/update-specific-item", handleUpdateItemSpecific); // DONE
-  router.delete("/item/delete-specific-item/:id", handleDeleteItemSpecific); // DONE
+  router.post(
+    "/item/update-specific-item",
+    simppleMiddleware,
+    handleUpdateItemSpecific
+  ); // DONE
+  router.delete(
+    "/item/delete-specific-item/:id",
+    simppleMiddleware,
+    handleDeleteItemSpecific
+  ); // DONE
   router.get("/item/search-item", handleSearchItems); // DONE
   router.get("/item/get-item-by-id/:id", handleGetItemById); // DONE
-  router.post("/item/update-item", handleUpdateItem); // DONE
+  router.post("/item/update-item", simppleMiddleware, handleUpdateItem); // DONE
   router.get("/item/get-item-by-brand-id/:id", handleGetItemByBrandId); // DONE
   router.get("/item/get-item-in-range", handleGetItemInRange); // DONE
-  router.delete("/item/delete-item/:id", handleDeleteItem); // DONE
+  router.delete("/item/delete-item/:id", simppleMiddleware, handleDeleteItem); // DONE
   router.get("/item/get-item-recommendation", handleGetItemRecommendation); // DONE
-  router.get
+  router.get;
   //ORDER
-  router.post("/order/create-order", handleCreateOrder); // DONE
+  router.post("/order/create-order", authenticateUser, handleCreateOrder); // DONE
   router.get("/order/get-order-by-id/:id", handleGetOrderById); // DONE
   router.get("/order/get-order-by-user-id/:user_id", handleGetOrderByUserId); // DONE
   router.get(
     "/order/get-order-by-seller-id/:seller_id",
     handleGetOrderBySellerId
   ); // DONE
-  router.post("/order/change-status", handleChangeOrderStatus); // DONE
+  router.post(
+    "/order/change-status",
+    simppleMiddleware,
+    handleChangeOrderStatus
+  ); // DONE
 
   //CART
   router.get("/cart/get-cart/:id", handleGetCart);
-  router.post("/cart/add-cart", handleAddCart);
-  router.delete("/cart/delete-cart", handleDeleteCart);
+  router.post("/cart/add-cart", authenticateUser, handleAddCart);
+  router.delete("/cart/delete-cart", authenticateUser, handleDeleteCart);
 
   ///////////////////////////////////////////////////////////////////////
   //TEST API, NO NEED TO USE
