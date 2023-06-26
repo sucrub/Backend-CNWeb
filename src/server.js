@@ -6,12 +6,7 @@ const cookieParser = require("cookie-parser");
 const cors = require("cors");
 
 const app = express();
-app.use(
-  cors({
-    origin: "*",
-    credentials: true,
-  })
-);
+app.use(cors());
 
 const connectionDatabase = require("./connection/database");
 
