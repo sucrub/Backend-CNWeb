@@ -15,7 +15,8 @@ const handleChangeAvatarSeller = async (req, res) => {
     const id = req.params.id;
     if (!req.file) throw new Error("No file");
     else {
-      let filePath = "http://localhost:8080/" + req.file.path;
+      let filePath =
+        "https://backend-cnweb-production.up.railway.app/" + req.file.path;
       filePath = filePath.replace(/\\/g, "/");
       await changeAvatarSeller(id, filePath);
       res.status(200).json({

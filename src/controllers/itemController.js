@@ -42,7 +42,8 @@ const handleItemImage = async (req, res) => {
     const images = req.files; // Array of uploaded image files
     const imagePath = [];
     for (let image of images) {
-      let path = "http://localhost:8080/" + image.path;
+      let path =
+        "https://backend-cnweb-production.up.railway.app/" + image.path;
       imagePath.push(path);
     }
     const result = await itemImage(id, imagePath);
