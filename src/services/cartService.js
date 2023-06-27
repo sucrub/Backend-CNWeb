@@ -13,8 +13,13 @@ const getCartByUserId = (id) => {
             where: { id: item.item_id },
           });
 
+          const originItem = await db.items.findOne({
+            where: { id: itemSpecific.origin_id },
+          });
+
           // Extracting the required properties from itemSpecific
-          const { name, price, img } = itemSpecific;
+          const { price, img } = itemSpecific;
+          const { name } = originItem;
 
           // Creating a new object with the required properties
           const populatedItem = {
@@ -58,9 +63,9 @@ const addCart = (data) => {
         },
       });
 
-      const item = await db.itemspecific.findOne({
+      const originitem = await db.items.findOne({
         where: {
-          id: data.item_id,
+          id: item.origin_id,
         },
       });
 
@@ -72,7 +77,7 @@ const addCart = (data) => {
           item_id: data.item_id,
           user_id: data.user_id,
           quantity: existingCart.quantity,
-          name: item.name,
+          name: originitem.name,
           price: item.price,
           img: item.img,
         };
