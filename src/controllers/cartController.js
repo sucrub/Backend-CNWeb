@@ -2,6 +2,7 @@ const {
   getCartByUserId,
   addCart,
   deleteCart,
+  deleteAllCart,
 } = require("../services/cartService");
 
 const handleGetCart = async (req, res) => {
