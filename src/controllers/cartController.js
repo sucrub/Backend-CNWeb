@@ -49,8 +49,23 @@ const handleDeleteCart = async (req, res) => {
   }
 };
 
+const handleDeleteAllCart = async (req, res) => {
+  try {
+    const id = req.params.user_id;
+    await deleteAllCart(id);
+    res.status(200).json({
+      message: "OK",
+    });
+  } catch (error) {
+    res.status(400).json({
+      message: error.message,
+    });
+  }
+};
+
 module.exports = {
   handleGetCart,
   handleAddCart,
   handleDeleteCart,
+  handleDeleteAllCart,
 };

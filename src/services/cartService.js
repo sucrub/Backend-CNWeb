@@ -3,11 +3,45 @@ const db = require("../models/index");
 const getCartByUserId = (id) => {
   return new Promise(async (resolve, reject) => {
     try {
-      let cart = "";
-      cart = await db.carts.findAll({
+      let cart = await db.carts.findAll({
         where: { user_id: id },
       });
-      resolve(cart);
+
+      const populatedCart = await Promise.all(
+        cart.map(async (item) => {
+          const itemSpecific = await db.itemspecific.findOne({
+            where: { id: item.item_id },
+          });
+
+          // Extracting the required properties from itemSpecific
+          const { name, price, img } = itemSpecific;
+
+          // Creating a new object with the required properties
+          const populatedItem = {
+            ...item.dataValues,
+            name,
+            price,
+            img,
+          };
+
+          return populatedItem;
+        })
+      );
+
+      resolve(populatedCart);
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
+
+const deleteAllCart = (user_id) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      await db.carts.destroy({
+        where: { user_id: user_id },
+      });
+      resolve();
     } catch (error) {
       reject(error);
     }
@@ -24,11 +58,25 @@ const addCart = (data) => {
         },
       });
 
+      const item = await db.itemspecific.findOne({
+        where: {
+          id: data.item_id,
+        },
+      });
+
       if (existingCart) {
         // If the item exists in the cart, update the quantity
         existingCart.quantity += data.quantity;
         await existingCart.save();
-        resolve(existingCart);
+        const result = {
+          item_id: data.item_id,
+          user_id: data.user_id,
+          quantity: existingCart.quantity,
+          name: item.name,
+          price: item.price,
+          img: item.img,
+        };
+        resolve(result);
       } else {
         // If the item doesn't exist in the cart, create a new entry
         const cart = await db.carts.create({
@@ -36,7 +84,15 @@ const addCart = (data) => {
           user_id: data.user_id,
           quantity: data.quantity,
         });
-        resolve(cart);
+        const result = {
+          item_id: data.item_id,
+          user_id: data.user_id,
+          quantity: cart.quantity,
+          name: item.name,
+          price: item.price,
+          img: item.img,
+        };
+        resolve(result);
       }
     } catch (error) {
       reject(error);
@@ -64,4 +120,5 @@ module.exports = {
   getCartByUserId,
   addCart,
   deleteCart,
+  deleteAllCart,
 };

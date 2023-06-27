@@ -70,6 +70,7 @@ const {
   handleGetCart,
   handleAddCart,
   handleDeleteCart,
+  handleDeleteAllCart,
 } = require("../controllers/cartController");
 const { handleGetSubcategories } = require("../controllers/categoryController");
 const storage = multer.diskStorage({
@@ -199,7 +200,7 @@ const initRouters = (app) => {
   router.get("/cart/get-cart/:id", handleGetCart);
   router.post("/cart/add-cart", handleAddCart);
   router.delete("/cart/delete-cart", handleDeleteCart);
-
+  router.delete("/cart/delete-all-cart/:user_id", handleDeleteAllCart);
   ///////////////////////////////////////////////////////////////////////
   //TEST API, NO NEED TO USE
   router.post("/item/create-item", handleCreateItem); // okok
