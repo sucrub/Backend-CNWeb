@@ -18,7 +18,7 @@ const getCartByUserId = (id) => {
           });
 
           // Extracting the required properties from itemSpecific
-          const { price, img } = itemSpecific;
+          const { price, img, origin_id } = itemSpecific;
           const { name } = originItem;
 
           // Creating a new object with the required properties
@@ -27,6 +27,7 @@ const getCartByUserId = (id) => {
             name,
             price,
             img,
+            origin_id,
           };
 
           return populatedItem;
@@ -80,6 +81,7 @@ const addCart = (data) => {
           name: originitem.name,
           price: item.price,
           img: item.img,
+          origin_id: item.origin_id,
         };
         resolve(result);
       } else {
