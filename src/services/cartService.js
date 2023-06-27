@@ -66,7 +66,7 @@ const addCart = (data) => {
 
       const originitem = await db.items.findOne({
         where: {
-          id: item.origin_id,
+          id: existingCart.origin_id,
         },
       });
 
