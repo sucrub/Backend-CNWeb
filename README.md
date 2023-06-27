@@ -95,6 +95,7 @@ Endpoint       |	Method |	Description |	Request Body | Note
 http://localhost:8080/cart/get-cart/{user_id} | GET | Get user cart  | N/A
 http://localhost:8080/cart/add-cart | POST | Add in cart | user_id, item_id, quantity | Cái item_id ở đây là id của specificitem
 http://localhost:8080/cart/delete-cart | DELETE | Delete in cart | user_id, item_id
+http://localhost:8080/cart/delete-all-cart/{user_id} | DELETE | Delete all user cart | N/A
 
 ### Rate
 Endpoint       |	Method |	Description |	Request Body | Note
