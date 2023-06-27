@@ -7,9 +7,7 @@ const createOrder = (data) => {
       let order = await db.orders.create({
         user_id: data.user_id,
         ship_address: data.ship_address,
-        order_date: new Date().toLocaleString("en-US", {
-          timeZone: "Asia/Ho_Chi_Minh",
-        }),
+        order_date: new Date(),
         price: 0,
       });
       const orderId = order.id;
